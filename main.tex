@@ -1,0 +1,99 @@
+\documentclass{article}
+
+%\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+%\usepackage[T1]{fontenc}
+%\usepackage{graphicx}
+%\usepackage{apalike}
+%\usepackage{setspace}
+%\usepackage{cite}
+\usepackage[utf8]{inputenc}
+
+\usepackage{csquotes}
+
+\title{État de l'art sur la détection, le suivi de la main et animation de celle-ci dans une scène 3D.}
+
+\author{
+Alexis Robache \\
+\texttt{robache.alexis@gmail.com} \\
+\and
+Elliot Vanegue\\
+\texttt{elliot.vanegue@gmail.com} \\
+\and
+Gaëtan Deflandre\\
+\texttt{gaetan.deflandre@gmail.com} \\
+}
+
+%TODO modifier les référence pour que cela afficher des numéros -> citation beaucoup trop longue
+
+\begin{document}
+\maketitle
+\begin{abstract}
+%TODO
+\end{abstract}
+
+\include{intro.tex}
+
+\section{Etat de l'art}
+
+\subsection{Différents type de données}
+Il existe différents types de périphériques permettant de récupérer des données.
+Les types de données récoltés authorisent différents traitements.
+
+Les données en RGB sont principalement utilisées pour 
+
+\subsection{Modélisation de la main}
+Pour mieux visualiser les actions réalisées par la main de l'utilisateur, il est nécessaire d'avoir
+un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
+mesh d'une main modèle. La méthode utilisé par \cite{export:217428} permet en utilisant l'algorithme
+ICP\footnote{Iterated Closest Point} \cite{zhang:inria-00074899} de modifier le mesh de la main afin
+que les points de celui-ci aient une distance moins importante avec le nuage de point fourni pas la 
+caméra. La méthode de \cite{export:217428} permet également d'adapter le squelette du modèle de la 
+main, ce qui permet d'avoir une précision plus importante lors de l'utilisation de l'application.
+Cette méthode se repose sur le calcul de la fonction énergie.
+
+%comprehension elliot
+%Pour cette méthode il faut utiliser un model de base de la main, puis il faut récupérer un nuage de 
+%point. Ensuite avec un systeme d'énergie il faut rapprocher les points du maillage de base avec les 
+%point du nuage de point -> ICP-style
+
+\subsection{Détection de la main}
+La méthode de \cite{export:238453} permet de détecter la main de l'utilisateur à partir d'une
+région d'intérêt autour de la main. Il est possible de ne pas avoir deux base d'apprendissage comme
+il est proposé dans cette méthode, mais le SDK de la Kinect 2 afin de ne pas devoir prendre en 
+compte la rotation de la main de l'utilisateur.
+%comprehension elliot
+% \begin{itemize}
+% \item utilisation de données d'apprentissage pour déterminer des postures de main
+% \item besoin d'une détermination global de la position et de l'orientation de la main -> kinect doit la fournir dans notre cas
+% \item notion de golden energy -> a voir
+% \item la golden energy permet d'avoir une plus grande précision sur le score permettant
+% de déterminer la posture de la main
+% \item a partir de la position global de la main -> creation d'une ROI raisonnable. Pour moi cette ROI est déjà
+% calculé dans la librairie de kinect
+% \item pour supprimer ce qui ne correspond pas à la main -> projection des vertex sur la depthmap? avec
+% transformation de la distance 3D?
+% \item la golden energy est calculé à partir de la depthmap et d'une image couleur? etrange au debut il dise qu'il
+% utilise que la depthmap (dernier paragraphe de l'intro)
+% \item deux couches d'apprentissage : une pour la rotation de la main et une seconde pour tout le reste comme
+% la position des doigts
+% \item distance de fonctionnement 0.5 - 4.5
+% \end{itemize}
+
+% Les questions pour l'équipe
+% \begin{itemize}
+% \item plus de précision sur la golden energy
+% \item aura-t-on des données sur les postures de la main ou devra t on écrire un programme d'apprentissage
+% \item le model de la va t elle contenir le squelette avec le skinning
+% \end{itemize}
+
+
+
+\subsection{Evaluation des solutions envisagées}
+
+\section{Conclusion}
+\bibliographystyle{plain} % or try abbrvnat or unsrtnat or plainnat
+\bibliography{biblio}
+
+\end{document}
