@@ -135,6 +135,7 @@ Gaëtan Deflandre\\
 \section{Etat de l'art}
 
 \subsection{Différents type de données}
+%TODO on ne doit pas utiliser le leap motion pour le projet
 Pour réaliser notre projet : animer un modèle de main en se basant sur les mouvements de la main de l'utilisateur, nous avons à disposition une Kinect 2 et un LeapMotion. Pour commencer notre état de l'art, nous allons voir quelles données peuvent être récupérées par ces outils et quels autres moyens auraient pu être utilisés pour réaliser ce projet.
 
 Une liste non exhaustive des périphériques et des données utile qu'ils fournissent : 
@@ -165,10 +166,16 @@ Cette méthode se repose sur le calcul de la fonction énergie.
 %point du nuage de point -> ICP-style
 
 \subsection{Détection de la main}
-La méthode de \cite{export:238453} permet de détecter la main de l'utilisateur à partir d'une
-région d'intérêt autour de la main. Il est possible de ne pas avoir deux base d'apprendissage comme
-il est proposé dans cette méthode, mais le SDK de la Kinect 2 afin de ne pas devoir prendre en 
-compte la rotation de la main de l'utilisateur.
+\subsubsection{Détection de la ROI}
+Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI\footnote{Region Of Interest}
+autour ce celle-ci. Cette première étape a été expliqué dans \cite{export:238453}, où les auteurs utilise un classifieur
+qui se repose sur la méthode développé dans \cite{export:145347}.
+
+% La méthode de \cite{export:238453} permet de détecter la main de l'utilisateur à partir d'une
+% région d'intérêt autour de la main. Il est possible de ne pas avoir deux base d'apprendissage comme
+% il est proposé dans cette méthode, mais le SDK de la Kinect 2 afin de ne pas devoir prendre en 
+% compte la rotation de la main de l'utilisateur.
+
 %comprehension elliot
 % \begin{itemize}
 % \item utilisation de données d'apprentissage pour déterminer des postures de main
@@ -214,6 +221,6 @@ compte la rotation de la main de l'utilisateur.
 %% ==========
 
 \bibliographystyle{ieeetr} % or try abbrvnat or unsrtnat or plainnat
-\bibliography{bibtex1}
+\bibliography{biblio}
 
 \end{document}
