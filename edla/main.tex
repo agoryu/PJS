@@ -1,16 +1,28 @@
 \documentclass{article}
 
-%\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage[francais]{babel}
-%\usepackage[T1]{fontenc}
-%\usepackage{graphicx}
-%\usepackage{apalike}
-%\usepackage{setspace}
-%\usepackage{cite}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{apalike}
+\usepackage{setspace}
+\usepackage{cite}
 \usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{setspace}
 
-\usepackage{csquotes}
+
+% code color
+
+\definecolor{ligthyellow}{RGB}{250,247,220}
+\definecolor{darkblue}{RGB}{5,10,85}
+\definecolor{ligthblue}{RGB}{1,147,128}
+\definecolor{darkgreen}{RGB}{8,120,51}
+\definecolor{darkred}{RGB}{160,0,0}
+\definecolor{univ}{RGB}{177,23,119}
+\definecolor{univmodif}{RGB}{148,74,120}
+\definecolor{mygray}{RGB}{100,100,100}
+
 
 \title{État de l'art sur la détection, le suivi de la main et animation de celle-ci dans une scène 3D.}
 
@@ -25,23 +37,117 @@ Gaëtan Deflandre\\
 \texttt{gaetan.deflandre@gmail.com} \\
 }
 
+
 %TODO modifier les référence pour que cela afficher des numéros -> citation beaucoup trop longue
 
-\begin{document}
-\maketitle
-\begin{abstract}
-%TODO
-\end{abstract}
 
-\include{intro.tex}
+
+\begin{document}
+
+%% PAGE DE GARDE
+%% =============
+
+\begin{multicols}{2}  
+
+    \textbf{Auteurs:}
+    \begin{itemize}
+      \item Alexis ROBACHE
+      \item Elliot VANEGUE
+      \item Gaëtan DEFLANDRE
+    \end{itemize}
+    
+    \textbf{Encadrants:}\\
+    \begin{itemize}
+      \item Hazem WANNOUS
+      \item Jean-Philippe VANDEBORRE 
+    \end{itemize}
+
+\end{multicols}
+
+\vspace{3cm}
+
+ \begin{flushright}
+  \begin{spacing}{1.6}
+    \textbf{
+      {\Large État de l'art sur la détection, le suivi de la main et 
+        animation de celle-ci dans une scène 3D}
+    }
+  \end{spacing}
+  \hrule
+  \vspace{0.2cm}
+  \textit{
+  	{\large\textcolor{mygray}{État de l'art, projet de fin de Master IVI}}
+  }
+\end{flushright}
+
+\vspace{3cm}
+
+\begin{center}
+  \includegraphics[height=3.5cm]{images/logoLILLE1.jpg}
+  \hfill
+  % logo équipe
+  %\includegraphics[height=3.5cm]{image/}
+  \vspace{3cm}
+
+  \vspace{1cm}
+  {\large\textbf{Octobre 2015 à Février 2016}}
+\end{center}
+
+
+
+\newpage
+
+
+%% TABLE DES MATIERES
+%% ==================
+
+\tableofcontents
+
+\newpage
+
+
+
+%% RESUME
+%% ======
+
+%% vraiment à mettre pour un edla ?
+
+%\begin{abstract}
+%TODO
+%\end{abstract}
+
+%\newpage
+
+
+
+%% INTRO
+%% =====
+
+\input{intro.tex}
+
+\newpage
+
+
+
+%% DEVELOPPEMENT
+%% =============
 
 \section{Etat de l'art}
 
 \subsection{Différents type de données}
-Il existe différents types de périphériques permettant de récupérer des données.
-Les types de données récoltés authorisent différents traitements.
+Pour réaliser notre projet : animer un modèle de main en se basant sur les mouvements de la main de l'utilisateur, nous avons à disposition une Kinect 2 et un LeapMotion. Pour commencer notre état de l'art, nous allons voir quelles données peuvent être récupérées par ces outils et quels autres moyens auraient pu être utilisés pour réaliser ce projet.
 
-Les données en RGB sont principalement utilisées pour 
+Une liste non exhaustive des périphériques et des données utile qu'ils fournissent : 
+\begin{itemize}
+\item Kinect et Kinect 2 de Microsoft, fournissent en données brutes une image RGB ainsi qu'une image de profondeur. En utilisant le SDK fournis, on dispose en plus nombreux outils parmi lesquels une détection du squelette et pour Kinect 2 une abstraction de la main avec 3 points détectés : le centre du poignet, le sommet de pouce et le sommet du majeur. 
+\item LeapMotion et LeapMotion 2, fournissent en données brutes une image de profondeur plus détaillée mais sur une zone plus restreinte. Avec le SDK, on a accès à 
+%% TODO se renseigner sur le SDK et la technologie LeapMotion
+\item RealSense 
+\end{itemize}
+
+Les données en RGB peuvent être utiliser avec des accessoires pour utilisées pour simplifier la détection des points de la main. \cite{wang2009real} 
+
+Elles peuvent également être associées avec des données de profondeur pour améliorer la détection et gérer les cas de superposition \cite{van2011combining}
 
 \subsection{Modélisation de la main}
 Pour mieux visualiser les actions réalisées par la main de l'utilisateur, il est nécessaire d'avoir
@@ -89,11 +195,25 @@ compte la rotation de la main de l'utilisateur.
 % \end{itemize}
 
 
-
 \subsection{Evaluation des solutions envisagées}
 
+\newpage
+
+
+
+%% CONCLUSION
+%% ==========
+
 \section{Conclusion}
-\bibliographystyle{ieeetr}
-\bibliography{biblio}
+
+\newpage
+
+
+
+%% REFERENCES
+%% ==========
+
+\bibliographystyle{plainnat} % or try abbrvnat or unsrtnat or plainnat
+\bibliography{bibtex1}
 
 \end{document}
