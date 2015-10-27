@@ -54,40 +54,15 @@ des parties du corps et permet également de détecter les articulations.
  \end{center}
 \end{figure}
 
-On voit sur la Fig\ref{fig:bodyrecognition} que l'articulation de la main est détecté, il est alors possible de construire
+On voit sur la Fig. \ref{fig:bodyrecognition} que l'articulation de la main est détecté, il est alors possible de construire
 une ROI autour de ce point. Cette méthode est a été implémenté dans la caméra Kinect.
 
 \subsubsection{Détection des mouvements de la main}
-
-% La méthode de \cite{export:238453} permet de détecter la main de l'utilisateur à partir d'une
-% région d'intérêt autour de la main. Il est possible de ne pas avoir deux base d'apprendissage comme
-% il est proposé dans cette méthode, mais le SDK de la Kinect 2 afin de ne pas devoir prendre en 
-% compte la rotation de la main de l'utilisateur.
-
-%comprehension elliot
-% \begin{itemize}
-% \item utilisation de données d'apprentissage pour déterminer des postures de main
-% \item besoin d'une détermination global de la position et de l'orientation de la main -> kinect doit la fournir dans notre cas
-% \item notion de golden energy -> a voir
-% \item la golden energy permet d'avoir une plus grande précision sur le score permettant
-% de déterminer la posture de la main
-% \item a partir de la position global de la main -> creation d'une ROI raisonnable. Pour moi cette ROI est déjà
-% calculé dans la librairie de kinect
-% \item pour supprimer ce qui ne correspond pas à la main -> projection des vertex sur la depthmap? avec
-% transformation de la distance 3D?
-% \item la golden energy est calculé à partir de la depthmap et d'une image couleur? etrange au debut il dise qu'il
-% utilise que la depthmap (dernier paragraphe de l'intro)
-% \item deux couches d'apprentissage : une pour la rotation de la main et une seconde pour tout le reste comme
-% la position des doigts
-% \item distance de fonctionnement 0.5 - 4.5
-% \end{itemize}
-
-% Les questions pour l'équipe
-% \begin{itemize}
-% \item plus de précision sur la golden energy
-% \item aura-t-on des données sur les postures de la main ou devra t on écrire un programme d'apprentissage
-% \item le model de la va t elle contenir le squelette avec le skinning
-% \end{itemize}
+La méthode utilisé dans \cite{export:238453} ne nécessite aucune donnée provenant d'image antérieur. L'ensemble
+des calculs sont réalisé sur une image à partir d'une base de connaissance contenant différente posture de la
+main. Etant donnée qu'il est impossible de stocker toutes les postures de la main, la méthode de \cite{export:238453}
+calcule une fonction energy permettant de déterminer quel est la posture la plus représentative de celle de la main
+de l'utilisateur.
 
 
 \subsection{Evaluation des solutions envisagées}
