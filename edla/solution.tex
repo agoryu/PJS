@@ -1,6 +1,6 @@
-\part{Etat de l'art}
+\chapter{Etat de l'art}
 
-\chapter{Différents type de données}
+\section{Différents type de données}
 %TODO on ne doit pas utiliser le leap motion pour le projet
 Pour réaliser notre projet : animer un modèle de main en se basant sur les mouvements de la main de l'utilisateur, nous avons à disposition une 
 Kinect 2 et un LeapMotion. Pour commencer notre état de l'art, nous allons voir quelles données peuvent être récupérées par ces outils et 
@@ -20,7 +20,7 @@ plus restreinte. Avec le SDK, on a accès à
 Les données en RGB peuvent être utiliser avec des accessoires pour utilisées pour simplifier la détection des points de la main. \cite{wang2009real} 
 Elles peuvent également être associées avec des données de profondeur pour améliorer la détection et gérer les cas de superposition \cite{van2011combining}
 
-\chapter{Modélisation de la main}
+\section{Modélisation de la main}
 %input
 Pour mieux visualiser les actions réalisées par la main de l'utilisateur, il est nécessaire d'avoir
 un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
@@ -39,8 +39,8 @@ La méthode de \cite{export:217428} permet également d'adapter le squelette du 
 main, ce qui permet d'obtenir une précision plus importante lors de l'utilisation de l'application.
 Cette méthode se repose sur le calcul de la fonction énergie.
 
-\chapter{Détection de la main}
-\section{Construction d'une ROI}
+\section{Détection de la main}
+\subsection{Construction d'une ROI}
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI\footnote{Region Of Interest}
 autour ce celle-ci. Cette première étape a été expliqué dans \cite{export:238453}, où les auteurs utilise un classifieur
 qui se repose sur la méthode développé dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
@@ -57,7 +57,7 @@ des parties du corps et permet également de détecter les articulations.
 On voit sur la Fig. \ref{fig:bodyrecognition} que l'articulation de la main est détecté, il est alors possible de construire
 une ROI autour de ce point. Cette méthode est a été implémenté dans la caméra Kinect.
 
-\section{Détection des mouvements de la main}
+\subsection{Détection des mouvements de la main}
 La méthode utilisé dans \cite{export:238453} ne nécessite aucune donnée provenant d'image antérieur. L'ensemble
 des calculs sont réalisé sur une image à partir d'une base de connaissance contenant différente posture de la
 main. Etant donnée qu'il est impossible de stocker toutes les postures de la main, la méthode de \cite{export:238453}
@@ -65,4 +65,4 @@ calcule une fonction energy permettant de déterminer quel est la posture la plu
 de l'utilisateur.
 
 
-\chapter{Evaluation des solutions envisagées}
+\section{Evaluation des solutions envisagées}
