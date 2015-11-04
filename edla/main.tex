@@ -36,6 +36,18 @@
 \definecolor{mygray}{RGB}{100,100,100}
 
 
+\hypersetup{       % parametrage des hyperliens
+  colorlinks=true,  % colorise les liens
+  breaklinks=true,  % permet les retours à la ligne pour les liens 
+                    % trop longs
+  urlcolor= blue,   % couleur des hyperliens
+  linkcolor= black, % couleur des liens internes aux documents 
+                    % (index, figures, tableaux, equations,...)
+  citecolor= univ   % couleur des liens vers les references 
+                    % bibliographiques
+}
+
+
 %TODO revoir le titre ce n'est plus juste un état de l'art
 
 \begin{document}
@@ -43,16 +55,19 @@
 %% PAGE DE GARDE
 %% =============
 
+\ 
+\vspace{1cm}
+
 \begin{multicols}{2}  
 
-    \textbf{Auteurs:}
+    \textbf{\large Auteurs:}
     \begin{itemize}
       \item Alexis ROBACHE
       \item Elliot VANEGUE
       \item Gaëtan DEFLANDRE
     \end{itemize}
     
-    \textbf{Encadrants:}\\
+    \textbf{\large Encadrants:}\\
     \begin{itemize}
       \item Hazem WANNOUS
       \item Jean-Philippe VANDEBORRE 
@@ -60,38 +75,39 @@
 
 \end{multicols}
 
-\vspace{3cm}
+\vspace{4cm}
 
  \begin{flushright}
   \begin{spacing}{1.6}
     \textbf{
-      {\Large Présentation du projet \og Hand Kinect \fg}
+      {\LARGE Présentation et état de l'art sur la détection, 
+      le suivi de la main et animation de celle-ci dans une scène 3D}
     }
   \end{spacing}
   \hrule
   \vspace{0.2cm}
   \textit{
-  	{\large\textcolor{mygray}{Présentation et état de l'art sur la détection, le suivi de la main et 
-        animation de celle-ci dans une scène 3D}}
+    {\Large\textcolor{mygray}{Projet \og Hand Kinect \fg, Master IVI}}
   }
 \end{flushright}
 
-\vspace{3cm}
+\vspace{4cm}
 
 \begin{center}
   \includegraphics[height=3.5cm]{images/logoLILLE1.jpg}
   \hfill
   % logo équipe
   %\includegraphics[height=3.5cm]{image/}
-  \vspace{3cm}
+  \vspace{4cm}
 
-  \vspace{1cm}
+
   {\large\textbf{Octobre 2015 à Février 2016}}
 \end{center}
 
 
 
 \newpage
+
 
 
 %% TABLE DES MATIERES
