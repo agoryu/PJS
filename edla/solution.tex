@@ -56,7 +56,7 @@ Chaque masque calcule l'intensité des pixels qu'il contient, puis l'algorithme 
 
 \begin{figure}[!h]
 \center
-\includegraphics[width=5cm]{images/pseudo_haar.png}
+\includegraphics[width=7cm]{images/pseudo_haar.png}
 \caption{Exemple de caractéristiques pseudo-Haar utilisé pour l'algorithme Viola et Jones}
 \label{fig:pseudo_haar}
 \end{figure}
@@ -71,7 +71,7 @@ pique représente un doigt.
 
 \begin{figure}[!h]
 \center
-\includegraphics[width=5cm]{images/handHisto.png}
+\includegraphics[width=7cm]{images/handHisto.png}
 \caption{Histogramme des distances entre les points du contour de la main et le centroide}
 \label{fig:handHisto}
 \end{figure}
@@ -84,11 +84,13 @@ des parties du corps et permet également de détecter les articulations.
 
 \begin{figure}[!h]
  \begin{center}
-  \includegraphics[width=5cm]{images/bodyrecognition.png}
+  \includegraphics[width=7cm]{images/bodyrecognition.png}
   \caption{Résultat de la détection des parties du corps et des articulations grâce à la méthode de \cite{export:145347}}
   \label{fig:bodyrecognition}
  \end{center}
 \end{figure}
+
+\newpage
 
 On voit sur la Fig. \ref{fig:bodyrecognition} que l'articulation de la main est détecté, il est alors possible de construire
 une ROI autour de ce point. Cette méthode est a été implémenté dans la caméra Kinect.
