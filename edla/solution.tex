@@ -46,16 +46,35 @@ existante.
 
 \subsection{Détection et suivi de la main à partir d'une image couleur}
 La méthode proposé par S. Bilal et al \cite{} utilise l'algorithme de Viola et al \cite{viola2001jones} afin
-de détecter la main et fournir la position de celle-ci en créant une ROI\footnote{Region Of Interest} autour d'elle.\\
-%TODO viola jones -> voir pji
+de détecter la main et fournir la position de celle-ci en créant une ROI\footnote{Region Of Interest} autour d'elle.
+L'algorithme de Viola et al \cite{viola2001jones} nécessite une 
+base de connaissances composée des caractéristiques de l'objet recherché. Elle est utilisée dans un 
+apprentissage supervisé, c'est à dire que l'algorithme a besoin de données représentant
+l'objet à détecter pour classifier les caractéristiques de celui-ci. Cet algorithme est basé sur des caractéristiques 
+pseudo-Haar qui crée des masques rectangulaires et adjacents dans différentes zones de l'image (voir Fig. \ref{fig:pseudo_haar}. 
+Chaque masque calcule l'intensité des pixels qu'il contient, puis l'algorithme fait la différence entre les masques blancs et les masque noirs.\\
 
-Une fois, qu'une ROI est formé autour de la main de l'utilisateur S. Bilal et al \cite{} change d'espace colorimétrique
-afin de pouvoir différencier la main du reste de l'environnement. Pour cela, S. Bilal et al \cite{} choisissent 
+\begin{figure}[!h]
+\center
+\includegraphics[width=5cm]{images/pseudo_haar.png}
+\caption{Exemple de caractéristiques pseudo-Haar utilisé pour l'algorithme Viola et Jones}
+\label{fig:pseudo_haar}
+\end{figure}
+
+Une fois, qu'une ROI est formé autour de la main de l'utilisateur S. Bilal et al \cite{haarlike} change d'espace colorimétrique
+afin de pouvoir différencier la main du reste de l'environnement. Pour cela, S. Bilal et al \cite{haarlike} choisissent 
 d'utiliser l'espace YCbCr qui permet d'obtenir des informations de chromaticité dont la valeur est presque équivalente
-quelque soit la couleur de peau de l'utilisateur \cite{}. Une fois que la ROI de la main est binarisé, il est possible
+quelque soit la couleur de peau de l'utilisateur \cite{yoo1999fast}. Une fois que la ROI de la main est binarisé, il est possible
 de détecter le bout des doigts. Il faut tout d'abord calculer le centroide de la forme de la main, puis la distance entre
-ce centroide et chaque point du contour de la main. Cela permet d'obtenir un graphe correspondant à la Fig. \ref{}, où chaque
+ce centroide et chaque point du contour de la main. Cela permet d'obtenir un graphe correspondant à la Fig. \ref{fig:handHisto}, où chaque
 pique représente un doigt.
+
+\begin{figure}[!h]
+\center
+\includegraphics[width=5cm]{images/handHisto.png}
+\caption{Histogramme des distances entre les points du contour de la main et le centroide}
+\label{fig:handHisto}
+\end{figure}
 
 \subsection{Détection et suivi de la main avec une image de profondeur}
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI
