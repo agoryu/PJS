@@ -39,7 +39,15 @@ main, ce qui permet d'obtenir une précision plus importante lors de l'utilisati
 Cette méthode se repose sur le calcul de la fonction énergie.
 
 \section{Détection de la main}
-\subsection{Construction d'une ROI}
+
+La Kinect possède deux type de caméra, une caméra couleur et une caméra de profondeur. Il plusieurs solutions
+utilisant l'une ou l'autre de ces caméras. Nous allons dans cette partie détailler l'ensemble des solutions
+existante.
+
+\subsection{Détection et suivi de la main à partir d'une image couleur}
+Dans la méthode de 
+
+\subsection{Détection et suivi de la main avec une image de profondeur}
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI\footnote{Region Of Interest}
 autour ce celle-ci. Cette première étape a été expliqué dans \cite{export:238453}, où les auteurs utilise un classifieur
 qui se repose sur la méthode développé dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
@@ -56,7 +64,6 @@ des parties du corps et permet également de détecter les articulations.
 On voit sur la Fig. \ref{fig:bodyrecognition} que l'articulation de la main est détecté, il est alors possible de construire
 une ROI autour de ce point. Cette méthode est a été implémenté dans la caméra Kinect.
 
-\subsection{Détection des mouvements de la main}
 La méthode utilisé dans \cite{export:238453} ne nécessite aucune donnée provenant d'image antérieur. L'ensemble
 des calculs sont réalisés sur une image à partir d'une base de connaissance contenant différente posture de la
 main. Etant donnée qu'il est impossible de stocker toutes les postures de la main, la méthode de \cite{export:238453}
