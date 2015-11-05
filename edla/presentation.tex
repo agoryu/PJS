@@ -43,6 +43,27 @@ de la main et de modéliser celle-ci dans une application Unity.
 %TODO ajouter les différentes étape de nos recherches 
 
 \section{Présentation de la Kinect 2}
+La Kinect 2 de Microsoft possède une caméra couleur en mode YUV de 1920x1080 pixel.
+YUV est une combination particulière d'information pour restituer la couleur, comme RGB ou HSP.
+Cette combinaison aussi appelée YCbCr, avec Y la luminance, U/Cb la composante bleu sans luminance et V/Cr la composante rouge sans luminance
+En plus de sa caméra, elle possède 3 diffuseur de rayonnement infrarouges qui servent à dessiner une carte de profondeur.
+Les autres fonctionnalités ne nous intéresseront pas résoudre notre problèmatique.
+
+On récupère donc de Kinect les données brutes suivantes : 
+\begin{itemize}
+ \item un flux vidéo couleur en YUV
+ \item un flux vidéo d'images de profondeur
+\end{itemize}
+
+Ces deux flux peuvent servir à détecter la main (méthodes expliquées dans la partie état de l'art)
+
+Le SDK de la Kinect fournit des informations déjà traitées. 
+Par exemple pour notre projet, les jointures du poignet, du centre de la main, du sommet du pouce et du sommet du majeur.
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{images/kinec2_skel.png}
+\end{figure}
+
 %présentation du materiel + image materiel
 %présentation des données brut
 %présentation du sdk + image squelette
