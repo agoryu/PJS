@@ -44,35 +44,36 @@ Cette méthode se repose sur le calcul de la fonction énergie.
 
 \section{Détection de la main}
 
-La Kinect possède deux type de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode 
-\og Time of Flight \fg. Les caméras \og Time of Flight \fg envoient des rayons infrarouges. Une caméra infrarouge
-récupère ensuite les rayons réfléchit ce qui permet d'obtenir les informations de profondeur. 
+La Kinect possède deux types de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode 
+\og Time of Flight \fg. Les caméras de type \og Time of Flight \fg envoient des rayons infrarouges. Une caméra infrarouge
+récupére ensuite les rayons réfléchit, ce qui permet d'obtenir les informations de profondeur. 
 Il existe plusieurs solutions utilisant l'une ou l'autre de ces caméras. Nous allons
 dans cette partie détailler plusieurs méthodes réalisées jusqu'à maintenant.
 
 \subsection{Détection et suivi de la main à partir d'une image couleur}
-La méthode proposé par S. Bilal et al \cite{haarlike} utilise l'algorithme de Viola et al \cite{viola2001jones} afin
+La méthode proposée par S. Bilal et al \cite{haarlike} utilise l'algorithme de Viola et al \cite{viola2001jones} afin
 de détecter la main et fournir la position de celle-ci en créant une ROI\footnote{Region Of Interest} autour d'elle.
 L'algorithme de Viola et al \cite{viola2001jones} nécessite une 
 base de connaissances composée des caractéristiques de l'objet recherché. Elle est utilisée dans un 
-apprentissage supervisé, c'est à dire que l'algorithme a besoin de données représentant
+apprentissage supervisé, c'est-à-dire que l'algorithme a besoin de données représentant
 l'objet à détecter pour classifier les caractéristiques de celui-ci. Cet algorithme est basé sur des caractéristiques 
 pseudo-Haar qui crée des masques rectangulaires et adjacents dans différentes zones de l'image (voir Fig. \ref{fig:pseudo_haar}). 
-Chaque masque calcule l'intensité des pixels qu'il contient, puis l'algorithme fait la différence entre les masques blancs et les masque noirs.\\
+Chaque masque calcule l'intensité des pixels qu'il contient, puis l'algorithme fait la différence entre les masques blancs et 
+les masques noirs.\\
 
 \begin{figure}[!h]
 \center
 \includegraphics[width=7cm]{images/pseudo_haar.png}
-\caption{Exemple de caractéristiques pseudo-Haar utilisé pour l'algorithme Viola et Jones}
+\caption{Exemple de caractéristiques pseudo-Haar utilisées pour l'algorithme Viola et Jones}
 \label{fig:pseudo_haar}
 \end{figure}
 
-Une fois, qu'une ROI est formé autour de la main de l'utilisateur S. Bilal et al \cite{haarlike} change d'espace colorimétrique
+Une fois, qu'une ROI est formée autour de la main de l'utilisateur S. Bilal et al \cite{haarlike} changent d'espace colorimétrique
 afin de pouvoir différencier la main du reste de l'environnement. Pour cela, S. Bilal et al \cite{haarlike} choisissent 
 d'utiliser l'espace YCbCr qui permet d'obtenir des informations de chromaticité dont la valeur est presque équivalente
-quelque soit la couleur de peau de l'utilisateur \cite{yoo1999fast}. Une fois que la ROI de la main est binarisé, il est possible
-de détecter le bout des doigts. Il faut tout d'abord calculer le centroide de la forme de la main, puis la distance entre
-ce centroide et chaque point du contour de la main. Le coutour d'une forme dans une image est défini par un changement brutale
+quelle que soit la couleur de peau de l'utilisateur \cite{yoo1999fast}. Une fois que la ROI de la main est binarisé, il est possible
+de détecter le bout des doigts. Il faut tout d'abord calculer le centroïde de la forme de la main, puis la distance entre
+ce centroïde et chaque point du contour de la main. Le coutour d'une forme dans une image est défini par un changement brutal
 de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \ref{fig:handHisto}, où chaque pique représente un doigt.
 
 \begin{figure}[!h]
@@ -82,15 +83,18 @@ de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \
 \label{fig:handHisto}
 \end{figure}
 
-%TODO ajout du suivi de la main avec kalman
+Afin de pouvoir traquer la main, S. Bilal et al \cite{haarlike} utilisent l'algorithme de Kalman \cite{kalman}.
+Cet algorithme permet de prédire la position d'un objet, ainsi dans la méthode que nous étudions la main sera traquée malgrès
+le bruit présent dans l'image. De plus, cette méthode n'a besoin de connaître que l'état précédent à celui 
+qui est calculé.
 
 \subsection{Détection et suivi de la main avec une image de profondeur}
-Une seconde solution utilise une image de profondeur plutôt que l'image binarisé grâce au changement d'espace colrimétrique.
+Une seconde solution utilise une image de profondeur plutôt que l'image binarisée grâce au changement d'espace colorimétrique.
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI
-autour ce celle-ci. Cette première étape a été expliqué par T. Sharp et al\cite{export:238453}, où les auteurs utilise un classifieur
-qui se repose sur la méthode développé dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
+autour ce celle-ci. Cette première étape a été expliqué par T. Sharp et al\cite{export:238453}, où les auteurs utilisent un classifieur
+qui se repose sur la méthode développée dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
 des parties du corps et permet également de détecter les articulations.
-
+%TODO essayer d'expliquer mieu le fonctionnement de kinect
 \begin{figure}[!h]
  \begin{center}
   \includegraphics[width=7cm]{images/bodyrecognition.png}
