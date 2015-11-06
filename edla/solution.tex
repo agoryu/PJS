@@ -20,8 +20,12 @@ plus restreinte. Avec le SDK, on a accès directement à un squelette très dét
   22 points de la main détectés et suivits
 \end{itemize}
 \ \\
-Les données en RGB peuvent être utiliser avec des accessoires colorés pour simplifier la détection des points de la main. \cite{wang2009real} 
-Elles peuvent également être associées avec des données de profondeur pour améliorer la détection et gérer les cas de superposition. \cite{van2011combining}
+Les données couleurs peuvent être utiliser avec des accessoires colorés pour simplifier la détection des points de la main. \cite{wang2009real} 
+Cette méthode permet de détecter plus facilement les jointures et les points d'intér\^{e}t. 
+Cependant, cela ajoute des contraintes, notemment le fait de devoir proter un gant standardisé.
+On associe également les données couleurs avec des données de profondeur pour améliorer la détection et gérer les cas de superposition. \cite{van2011combining}
+
+L'autre type de données est la carte de profondeur, image en niveau de gris servant à représenter la profondeur. Certaines méthodes se contentent d'une image de profondeur pour la détection de la main \cite{export:238453}
 
 \section{Modélisation de la main}
 %input
