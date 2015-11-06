@@ -12,10 +12,10 @@ En utilisant le SDK fournis, on dispose en plus de nombreux outils parmi lesquel
 une abstraction de la main avec 4 points détectés : le centre du poignet, le centre de la main, le sommet de pouce et le sommet du majeur. 
   \item LeapMotion et LeapMotion 2, fournissent en données brutes une image de profondeur plus détaillée mais sur une zone 
 plus restreinte. Avec le SDK, on a accès directement à un squelette très détaillé de la main :
-    \begin{figure}[!h]
-    \center
-    \includegraphics[width=7cm]{images/SDK_LeapMotion.png}
-    \end{figure}
+    %\begin{figure}[!h]
+    %\center
+    %\includegraphics[width=7cm]{images/SDK_LeapMotion.png}
+    %\end{figure}
   \item RealSense est un périphérique relativement récent à mis chemin entre Kinect 2 et LeapMotion. On peut, à l'aide du SDK fournis, récupérer des informations semblables à celles fournies par LeapMotion : 
   22 points de la main détectés et suivits
 \end{itemize}
@@ -45,8 +45,10 @@ Cette méthode se repose sur le calcul de la fonction énergie.
 \section{Détection de la main}
 
 La Kinect possède deux type de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode 
-\og Time of Flight \fg. Il existe plusieurs solutions utilisant l'une ou l'autre de ces caméras. Nous allons
-dans cette partie détailler plusieurs solutions réalisé jusqu'à maintenant.
+\og Time of Flight \fg. Les caméras \og Time of Flight \fg envoient des rayons infrarouges. Une caméra infrarouge
+récupère ensuite les rayons réfléchit ce qui permet d'obtenir les informations de profondeur. 
+Il existe plusieurs solutions utilisant l'une ou l'autre de ces caméras. Nous allons
+dans cette partie détailler plusieurs méthodes réalisées jusqu'à maintenant.
 
 \subsection{Détection et suivi de la main à partir d'une image couleur}
 La méthode proposé par S. Bilal et al \cite{haarlike} utilise l'algorithme de Viola et al \cite{viola2001jones} afin
@@ -55,7 +57,7 @@ L'algorithme de Viola et al \cite{viola2001jones} nécessite une
 base de connaissances composée des caractéristiques de l'objet recherché. Elle est utilisée dans un 
 apprentissage supervisé, c'est à dire que l'algorithme a besoin de données représentant
 l'objet à détecter pour classifier les caractéristiques de celui-ci. Cet algorithme est basé sur des caractéristiques 
-pseudo-Haar qui crée des masques rectangulaires et adjacents dans différentes zones de l'image (voir Fig. \ref{fig:pseudo_haar}. 
+pseudo-Haar qui crée des masques rectangulaires et adjacents dans différentes zones de l'image (voir Fig. \ref{fig:pseudo_haar}). 
 Chaque masque calcule l'intensité des pixels qu'il contient, puis l'algorithme fait la différence entre les masques blancs et les masque noirs.\\
 
 \begin{figure}[!h]
