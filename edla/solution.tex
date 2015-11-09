@@ -11,10 +11,11 @@ Une liste non exhaustive des périphériques et des données utile qu'ils fourni
 En utilisant le SDK fournis, on dispose en plus de nombreux outils parmi lesquels une détection du squelette et pour Kinect 2 
 une abstraction de la main avec 4 points détectés : le centre du poignet, le centre de la main, le sommet de pouce et le sommet du majeur. 
   \item LeapMotion et LeapMotion 2, fournissent en données brutes une image de profondeur plus détaillée mais sur une zone 
-plus restreinte. Avec le SDK, on a accès directement à un squelette très détaillé de la main :
+plus restreinte. Avec le SDK, on a accès directement à un squelette très détaillé de la main.
     \begin{figure}[!h]
     \center
     \includegraphics[width=7cm]{images/SDK_LeapMotion.png}
+    \caption{Squelette de la main de l'utilisateur détecté par la LeapMotion}
     \end{figure}
   \item RealSense est un périphérique relativement récent à mis chemin entre Kinect 2 et LeapMotion. On peut, à l'aide du SDK fournis, récupérer des informations semblables à celles fournies par LeapMotion : 
   22 points de la main détectés et suivits
@@ -86,6 +87,8 @@ de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \
 \caption{Histogramme des distances entre les points du contour de la main et le centroide}
 \label{fig:handHisto}
 \end{figure}
+
+\newpage
 
 Afin de pouvoir traquer la main, S. Bilal et al \cite{haarlike} utilisent l'algorithme de Kalman \cite{kalman}.
 Cet algorithme permet de prédire la position d'un objet, ainsi dans la méthode que nous étudions la main sera traquée malgrès
