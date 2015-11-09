@@ -1,21 +1,58 @@
-\chapter{Présentation du projet}
+\chapter{Présentation générale}
+
+
 
 %doit contenir la fonction de ce rapport : etat de l'art + previsionnel
 %dans le but de réaliser un projet
-\section{Présentation}
-Dans le cadre de ce projet, nous sommes amené à rédiger un état de la l'art.
-Cette première partie, nous permet de synthétiser et sélectionner les 
-solutions. Notre objectif étant de détecter la main et les articulations 
-de la main d'une personne, afin de modéliser en 3D la main de cette personne, 
-dans des plans de caméra global ou rapprocher. Cela doit être réalisable en 
-temps réel et à partir d'une caméra nous fournissant une image RGB et une 
-image contenant l'information de profondeur de la scène filmée.\\
+\section{Présentation du projet}
+Aujourd'hui, la détection les points des articulations du corps humain 
+est une technique courante, grâce à certain périphérique tel que la 
+Kinect. Les points des articulations du corps forment le squelette 3D. 
+Cependant, les squelettes 3D sont en générales peu riche en informations 
+concernant les points des articulations des mains.\\
+ 
+Pourtant les mains sont habiles et nous pouvons faire de nombreux 
+mouvements, plus ou moins complexes et rapides avec elles. De plus en 
+plus d'application nécessite des IHM plus précisent et plus 
+naturelles. Utiliser ces mains pour contrôler, interagir et communiquer 
+avec un ordinateur, devient de plus en plus intéressant. Ce niveau de 
+précision peut être utile dans divers domains :
+\begin{itemize}
+  \item simulation médicale.
+  \item modélisation et CAO.
+  \item manipulation d'objets 3D virtuels.
+  \item jeux vidéo.\\
+\end{itemize}
 
-De plus en plus d'application nécessite des IHM plus précisent et plus 
-naturelles. Pour cela, la détection de la main devient de plus en plus 
-intéressant pour les simulations. Ce niveau de précision peut être
-utile dans des simulations médicales où les mains sont l'outils principales 
-de l'utilisateur.\\ % Autres exemples?
+Le projet \og Hand Kinect \fg consiste à extraire depuis une Kinect 2, 
+les points correspondants aux articulations du corps grâce aux 
+fonctions du SDK de Kinect. De plus, nous devons récupérer les points 
+des articulations des mains, nous disposons d'un module fourni par 
+nos tuteurs de projet. Ainsi, l'assemblage de ces points nous permet 
+d'obtenir le squelette 3D complet de la personne devant la Kinect.\\
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=350px]{images/joint_detection.png}
+    \caption{Détection des articulations des mains}
+  \end{center}
+\end{figure}
+
+Ensuite, nous souhaitons animer un modèle 3D, qui peut être un modèle 
+d'humain, de robot ou bien de créature. Les mouvement de ce modèle 
+doivent suivre les points du squelette préalablement détecté, de 
+manière cohérente par rapport au mouvement de la personne devant la 
+Kinect. Nous utilisons le moteur de jeu Unity 3D, pour cette partie de 
+modélisation.\\
+
+Dans le cadre de ce projet, nous sommes amené à rédiger un état de la 
+l'art. Cette première partie, nous permet de synthétiser et sélectionner 
+les solutions. Notre objectif étant de détecter la main et les 
+articulations de la main d'une personne, afin de modéliser en 3D la main 
+de cette personne, dans des plans de caméra global ou rapprocher. Cela 
+doit être réalisable en temps réel et à partir d'une caméra nous 
+fournissant une image RGB et une image contenant l'information de 
+profondeur de la scène filmée.\\
 
 %doit contenir l'ensemble des informations sur l'équipe -> sur quoi porte leur recherche
 \section{Contexte}
@@ -58,7 +95,7 @@ Les autres fonctionnalités ne nous intéresseront pas résoudre notre problèma
 
 \begin{figure}[!h]
  \center
- \includegraphics[width=9cm]{images/Kinect2.jpeg}
+ \includegraphics[width=300px]{images/kinect-v2.png}
  \caption{Caméra Kinect 2}
 \end{figure}
 
@@ -74,7 +111,7 @@ Par exemple pour notre projet, les jointures du poignet, du centre de la main, d
 
 \begin{figure}[!h]
 \center
-\includegraphics[width=7cm]{images/kinec2_skel.png}
+\includegraphics[width=250px]{images/kinec2_skel.png}
 \caption{Squelette de l'utilisateur détecté par la Kinect 2}
 \end{figure}
 
