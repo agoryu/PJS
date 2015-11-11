@@ -97,7 +97,12 @@ de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \
 Afin de pouvoir traquer la main, S. Bilal et al \cite{haarlike} utilisent l'algorithme de Kalman \cite{kalman}.
 Cet algorithme permet de prédire la position d'un objet, ainsi dans la méthode que nous étudions la main sera traquée malgrès
 le bruit présent dans l'image. De plus, cette méthode n'a besoin de connaître que l'état précédent à celui 
-qui est calculé.
+qui est calculé. Etant donné que l'algorithme de Kalman est un algorithme de prédiction, il peut ne pas être très
+précis lorsque l'utilisateur effectue des changements de direction rapide avec sa main.\\
+
+Cette méthode, nous permet de déterminer la position de la main et de détecter le bout des doigts. Cependant, elle ne nous permet
+pas de réaliser notre projet entièrement. En effet, nous avons besoin de plus de précision en détectant les articulations
+de la main.
 
 \subsection{Détection et suivi de la main avec une image de profondeur}
 Une seconde solution utilise une image de profondeur plutôt que l'image binarisée grâce au changement d'espace colorimétrique.
@@ -126,8 +131,18 @@ capturé par la caméra. Elle est défini par le calcul suivant :
 \begin{equation}
  E^{au}(Z_{roi}, R_{roi}) = \sum_{ij} \bar{\rho(z_{ij}} - r_{ij})
 \end{equation}
-Dans cette équation, $z_{ij}$ représente la pixel à la position (i,j) dans le modèle et $r_{ij}$ représente le pixel à la position (i,j)
-provenant de l'image de profondeur. La fonction $\rho(e)$ quand à elle est équivalent à $min(|e|,\tau)$ ou $\tau$ est une valeur fixe permettant
-d'éliminer le bruit présent dans l'image de profondeur.
+Dans cette équation, $z_{ij}$ représente le pixel à la position (i,j) dans le modèle et $r_{ij}$ représente le pixel à la position (i,j)
+provenant de l'image de profondeur. La fonction $\rho(e)$ quand à elle est équivalent à $min(|e|,\tau)$ ou $\tau$ est une valeur fixe permettant d'éliminer le bruit présent dans l'image de profondeur.
 
 \section{Evaluation des solutions envisagées}
+Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 
+image couleur pouvait être limité. Celle-ci nécessite un algorithme de tracking permettant de suivre au mieu
+la main de l'utilisateur. L'algorithme de Kalman est limité, car peu précis lors de changement d'orientation
+brusque et il est également assez complexe à mettre en place.\\
+
+Notre choix pour la réalisation de ce projet se dirige plutôt vers l'utilisation de la caméra de profondeur.
+La Kinect ayant déjà implémenté une partie des étapes permettant la réalisation de notre projet, nous pourrons
+nous concentrer sur la partie plus spécifique de détection et de localisation des articulation de la main. 
+Pour cela, nous avons vu que la méthode utilisant l'image de profondeur pouvait être efficace grâce à la 
+détermination de la posture de la main. Cela nous permet ainsi d'ajuster un modèle de main et de fabriquer
+le squelette en fonction de ce modèle.\\
