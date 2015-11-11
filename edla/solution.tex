@@ -109,8 +109,11 @@ Une seconde solution utilise une image de profondeur plutôt que l'image binaris
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI
 autour ce celle-ci. Cette première étape a été expliqué par T. Sharp et al\cite{export:238453}, où les auteurs utilisent un classifieur
 qui se repose sur la méthode développée dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
-des parties du corps et permet également de détecter les articulations.
-%TODO essayer d'expliquer mieu le fonctionnement de kinect
+des parties du corps et permet également de détecter les articulations. Pour cela, cette méthode va descendre dans un arbre
+de décision créé à partir des données d'entrainement jusqu'à atteindre une feuille. 
+Les feuilles de cette arbre sont les différentes partie du corp à reconnaître. Cet arbre est construit en calculant
+l'entropie de chaque pixel, ce qui permet de déterminer à quel partie du corps il appartient.
+
 \begin{figure}[!h]
  \begin{center}
   \includegraphics[width=300px]{images/bodyrecognition.png}
