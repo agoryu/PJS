@@ -73,6 +73,10 @@ les masques noirs.\\
 \label{fig:pseudo_haar}
 \end{figure}
 
+Pour améliorer les perfomances de leur algorithme, Viola et Jones utilisent la méthode Adaboost. Son
+principe est de sélectionner les caractéristiques les plus performantes pour la détection de l'objet grâce à
+un calcul de probabilité utilisant l'entropie\footnote{valeur mesurant l'incertitude d'une donnée} des données.\\
+
 Une fois, qu'une ROI est formée autour de la main de l'utilisateur S. Bilal et al \cite{haarlike} changent d'espace colorimétrique
 afin de pouvoir différencier la main du reste de l'environnement. Pour cela, S. Bilal et al \cite{haarlike} choisissent 
 d'utiliser l'espace YCbCr qui permet d'obtenir des informations de chromaticité dont la valeur est presque équivalente
