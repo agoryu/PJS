@@ -99,9 +99,9 @@ points des articulations de la main.
 D'abord, la Kinect 2 peux déjà suivre six personnes à la fois. Elle 
 détecte un squelette de vingt-six points (voir Fig. 
 \ref{fig:skeleton_kinect2} et \ref{fig:kinect1vs2}). Cependant, les 
-mains ne sont représentées seulement par trois points, qui sont le 
-centre de main, le pouce et le bout du majeur. C'est une amélioration 
-par rapport à la Kinect 1, qui ne détectait que le centre de la main.\\
+mains ne sont représentées seulement par 4 points, qui sont le centre 
+poignet, le centre de main, le pouce et le bout du majeur. C'est une amélioration par rapport à la Kinect 1, qui ne détectait que le poignet 
+et le centre de la main.\\
 
 D'autre outils permettent de détecter les mains des utilisateurs. Par 
 exemple le Leap Motion détecte les articulations des mains. Néanmoins,
@@ -149,30 +149,30 @@ squelette humain.
 
 Dans un premier temps, le but de ce rapport est d'appréhender les 
 différentes méthodes exsistantes sur la détection des mains, leurs 
-articulations et reconnaissance de la pose des mains. Aussi de 
+articulations et la reconnaissance de la pose des mains. Mais aussi de 
 comprendre les principes utilisés pour la modélisation en 3D des 
 mains.\\ 
 
-Etudier les techniques de détection des mains et leurs acticulations, 
-a pour objectif de bien cerner les méthodes qui peuvent être utiliser 
+Étudier les techniques de détection des mains et leurs acticulations, 
+à pour objectif de bien cerner les méthodes qui peuvent être utiliser 
 par le module. Celui-ci fournit les positions spatiales des 
 acticulations des mains.\\
 
-Ensuite, le but l'étude des techniques de modélisation des mains en 
+Ensuite, le but de l'étude des techniques de modélisation des mains en 
 3D est de pouvoir animer les mains de façon naturelle dans Unity3D.\\
 
 Le dernière objectif, de cette permière partie, est de faire une 
 planification des tâches à effectuer. Ceci permet de s'organiser et 
-de voir si les objectifs future sont réalisable dans les temps 
+de voir si les objectifs futurs sont réalisable dans les délais 
 impartis.\\  
 
 
 \section{Présentation de la Kinect 2}
 La Kinect 2 de Microsoft possède une caméra couleur en mode YUV de 1920x1080 pixel.
-YUV est une combination particulière d'information pour restituer la couleur, comme RGB ou HSP.
-Cette combinaison aussi appelée YCbCr, avec Y la luminance, U/Cb la composante bleu sans luminance et V/Cr la composante rouge sans luminance
-En plus de sa caméra, elle possède 3 diffuseur de rayonnement infrarouges qui servent à dessiner une carte de profondeur.
-Les autres fonctionnalités ne nous intéresseront pas résoudre notre problèmatique.\\
+YUV est une combination particulière d'information permettant de restituer la couleur, comme RGB ou HSP.
+Cette combinaison aussi appelée YCbCr, avec Y la luminance, U/Cb la composante bleu sans luminance et V/Cr la composante rouge sans luminance.
+En plus de sa caméra, elle possède 3 diffuseur de rayonnement infrarouges qui servent à acquérir une carte de profondeur.
+Les autres fonctionnalités ne nous intéresseront pas pour résoudre notre problèmatique.\\
 
 \begin{figure}[H]
  \center
@@ -199,19 +199,19 @@ Par exemple pour notre projet, les jointures du poignet, du centre de la main, d
 
 \subsection{Différences entre Kinect et Kinect 2}
 
-Comme on peut la voir dans l'image ci-dessous, la Kinect 2 est une amélioration de tout les aspect de la Kinect précédente.
+Comme on peut la voir dans l'image ci-dessous, la Kinect 2 est une amélioration de tout les aspect de la Kinect précédente.\\
 
 Les amélioration qui nous intéressent pour le projet sont : 
 \begin{itemize}
  \item L'augmentation de la résolution de la caméra de profondeur, qui apporte une précision plus importante mais cause un problème de performance : plus de pixel à traiter.
  \item L'augmentation des champs de vision horizontaux et verticaux
- \item Le plus important : l'augmentation du nombre de point détectés, principalement l'ajout de 3 points au niveau de la main
+ \item Le plus important : l'augmentation du nombre de point détectés, principalement l'ajout de 2 points au niveau de la main
 \end{itemize}
 
 Un point négatif cependant : la distance minimale passe de 40 à 50cm 
 
 
-\begin{figure}
+\begin{figure}[H]
   \begin{center}
     \includegraphics[width=250px]{images/Kinect1vs2.png}
     \caption{Différence Kinect 1 et Kinect 2}

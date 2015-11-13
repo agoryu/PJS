@@ -5,12 +5,12 @@ Pour réaliser notre projet : animer un modèle de main en se basant sur les mou
 Kinect 2 et un LeapMotion. Pour commencer notre état de l'art, nous allons voir quelles données peuvent être récupérées par ces outils et 
 quels autres moyens auraient pu être utilisés pour réaliser ce projet.\\
 
-Une liste non exhaustive des périphériques et des données utile qu'ils fournissent : 
+Une liste non exhaustive des périphériques et des données qu'ils fournissent : 
 \begin{itemize}
-  \item Kinect et Kinect 2 de Microsoft, fournissent en données brutes une image couleur ainsi qu'une image de profondeur. 
+  \item Kinect et Kinect 2 de Microsoft, fournissent, en données brutes, une image couleur ainsi qu'une image de profondeur. 
 En utilisant le SDK fournis, on dispose en plus de nombreux outils parmi lesquels une détection du squelette et pour Kinect 2 
 une abstraction de la main avec 4 points détectés : le centre du poignet, le centre de la main, le sommet de pouce et le sommet du majeur. 
-  \item LeapMotion et LeapMotion 2, fournissent en données brutes une image de profondeur plus détaillée mais sur une zone 
+  \item LeapMotion fournit, en données brutes, une image de profondeur plus détaillée mais sur une zone 
 plus restreinte. Avec le SDK, on a accès directement à un squelette très détaillé de la main.
     \begin{figure}[!h]
     \center
@@ -23,17 +23,18 @@ plus restreinte. Avec le SDK, on a accès directement à un squelette très dét
 \ \\
 
 On peut utiliser des outils spécifiques (Kinect) ou des caméras classiques pour obtenir des images couleurs.
-Bien que possédant plus d'informations que les images de profondeur (3 canaux au lieu d'1), les images couleurs ne sont pas adaptées à la détection de la position dans l'espace (pas de données 3D).\\
-Ces données couleurs peuvent être utilisées avec des accessoires colorés pour simplifier la détection des points de la main. \cite{wang2009real}
+Bien que possédant plus d'informations que les images de profondeur (3 canaux au lieu d'1), les images couleurs moins adapté aux calculs 3D.\\
+
+Ces données couleurs peuvent être utilisées avec des accessoires colorés pour simplifier la détection des points de la main \cite{wang2009real}.
 Cette méthode permet de détecter plus facilement les jointures et les points d'intér\^{e}t. 
 Cependant, cela ajoute des contraintes, notemment le fait de devoir porter un gant standardisé.\\
 
-On associe également les données couleurs avec des données de profondeur pour améliorer la détection et gérer les cas de superposition. \cite{van2011combining}\\
+On associe également les données couleurs avec des données de profondeur pour améliorer la détection et gérer les cas de superposition \cite{van2011combining}.\\
 
 L'autre type de données est la carte de profondeur, image en niveau de gris servant à représenter la profondeur. 
-Cette carte de profondeur est utilisée par un grand nombre de méthodes pour les problèmes de clustering du corps humain, notemment les SDK de Kinect et Kinect 2 se base principalement dessus pour fournir le squelette.\cite{export:145347}
+Cette carte de profondeur est utilisée par un grand nombre de méthodes pour les problèmes de clustering du corps humain, notemment les SDK de Kinect et Kinect 2 se base principalement dessus pour fournir le squelette \cite{export:145347}.
 Les SDK de Kinect/Kinect2 étant prévus pour le suivit du corps entier, il sont peu performant pour le suivit précis de parties spécifique (comme la main).
-L'utilisation directe du SDK semble dont insufisante pour résoudre notre problème. Cependant, on peut aussi récupérer les données brutes fournies par la Kinect 2 et certaines méthodes se contentent d'une image de profondeur pour la détection de la main. \cite{export:238453}
+L'utilisation directe du SDK semble donc insufisante pour résoudre notre problème. Cependant, on peut aussi récupérer les données brutes fournies par la Kinect 2 et certaines méthodes se contentent d'une image de profondeur pour la détection de la main \cite{export:238453}.
 
 
 \section{Modélisation de la main}
