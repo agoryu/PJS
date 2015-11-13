@@ -17,20 +17,28 @@ plus restreinte. Avec le SDK, on a accès directement à un squelette très dét
     \includegraphics[width=350px]{images/SDK_LeapMotion.png}
     \caption{Squelette de la main de l'utilisateur détecté par la LeapMotion}
     \end{figure}
-  \item RealSense est un périphérique relativement récent à mis chemin entre Kinect 2 et LeapMotion. On peut, à l'aide du SDK fournis, récupérer des informations semblables à celles fournies par LeapMotion : 
+  \item RealSense est un périphérique relativement récent, à mis chemin entre Kinect 2 et LeapMotion. On peut, à l'aide du SDK fournis, récupérer des informations semblables à celles fournies par LeapMotion : 
   22 points de la main détectés et suivits
 \end{itemize}
 \ \\
-Les données couleurs peuvent être utiliser avec des accessoires colorés pour simplifier la détection des points de la main. \cite{wang2009real} 
-Cette méthode permet de détecter plus facilement les jointures et les points d'intér\^{e}t. 
-Cependant, cela ajoute des contraintes, notemment le fait de devoir proter un gant standardisé.
-On associe également les données couleurs avec des données de profondeur pour améliorer la détection et gérer les cas de superposition. \cite{van2011combining}
 
-L'autre type de données est la carte de profondeur, image en niveau de gris servant à représenter la profondeur. Certaines méthodes se contentent d'une image de profondeur pour la détection de la main \cite{export:238453}
+On peut utiliser des outils spécifiques (Kinect) ou des caméras classiques pour obtenir des images couleurs.
+Bien que possédant plus d'informations que les images de profondeur (3 canaux au lieu d'1), les images couleurs ne sont pas adaptées à la détection de la position dans l'espace (pas de données 3D).\\
+Ces données couleurs peuvent être utilisées avec des accessoires colorés pour simplifier la détection des points de la main. \cite{wang2009real}
+Cette méthode permet de détecter plus facilement les jointures et les points d'intér\^{e}t. 
+Cependant, cela ajoute des contraintes, notemment le fait de devoir porter un gant standardisé.\\
+
+On associe également les données couleurs avec des données de profondeur pour améliorer la détection et gérer les cas de superposition. \cite{van2011combining}\\
+
+L'autre type de données est la carte de profondeur, image en niveau de gris servant à représenter la profondeur. 
+Cette carte de profondeur est utilisée par un grand nombre de méthodes pour les problèmes de clustering du corps humain, notemment les SDK de Kinect et Kinect 2 se base principalement dessus pour fournir le squelette.\cite{export:145347}
+Les SDK de Kinect/Kinect2 étant prévus pour le suivit du corps entier, il sont peu performant pour le suivit précis de parties spécifique (comme la main).
+L'utilisation directe du SDK semble dont insufisante pour résoudre notre problème. Cependant, on peut aussi récupérer les données brutes fournies par la Kinect 2 et certaines méthodes se contentent d'une image de profondeur pour la détection de la main. \cite{export:238453}
+
 
 \section{Modélisation de la main}
 %input
-Pour mieux visualiser les actions réalisées par la main de l'utilisateur, il est nécessaire d'avoir
+Pour mieux visualiser les actions réalisées par la main de l'utilisateur et pour faire correspondre les jointures détectées au modèle, il est nécessaire d'avoir
 un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
 mesh d'une main modèle que nous allons ensuite adapté à la main de l'utilisateur.\\
 
