@@ -36,26 +36,6 @@ Cette carte de profondeur est utilisée par un grand nombre de méthodes pour le
 Les SDK de Kinect/Kinect2 étant prévus pour le suivit du corps entier, il sont peu performant pour le suivit précis de parties spécifique (comme la main).
 L'utilisation directe du SDK semble donc insufisante pour résoudre notre problème. Cependant, on peut aussi récupérer les données brutes fournies par la Kinect 2 et certaines méthodes se contentent d'une image de profondeur pour la détection de la main \cite{export:238453}.
 
-
-\section{Modélisation de la main}
-%input
-Pour mieux visualiser les actions réalisées par la main de l'utilisateur et pour faire correspondre les jointures détectées au modèle, il est nécessaire d'avoir
-un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
-mesh d'une main modèle que nous allons ensuite adapté à la main de l'utilisateur.\\
-
-%icp
-La méthode utilisé par \cite{export:217428} permet en utilisant l'algorithme
-ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le mesh de la main afin
-que les points de celui-ci aient une distance moins importante avec le nuage de point fourni pas la 
-caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent 
-à partir d'un mesh M d'obtenir un mesh P. Dans notre cas, le mesh M représente le modèle de main donné en entré
-et le mesh P représente la main de l'utilisateur.\\ 
-
-%squelette TODO trop dur
-La méthode de \cite{export:217428} permet également d'adapter le squelette du modèle de la 
-main, ce qui permet d'obtenir une précision plus importante lors de l'utilisation de l'application.
-Cette méthode se repose sur le calcul de la fonction énergie.
-
 \section{Détection de la main}
 
 La Kinect possède deux types de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode 
@@ -111,7 +91,8 @@ précis lorsque l'utilisateur effectue des changements de direction rapides avec
 
 Cette méthode, nous permet de déterminer la position de la main et de détecter le bout des doigts. Cependant, elle ne nous permet
 pas de réaliser notre projet entièrement. En effet, nous avons besoin de plus de précision en détectant les articulations
-de la main.
+de la main. De plus, cette méthode est sensible à la luminosité de la scène filmé et n'est pas très adapté
+à la modélisation 3D d'une main.
 
 \subsection{Détection et suivi de la main avec une image de profondeur}
 Une seconde solution utilise une image de profondeur plutôt que l'image binarisée avec le changement d'espace colorimétrique.
@@ -145,6 +126,47 @@ capturée par la caméra. Elle est définie par le calcul suivant :
 \end{equation}
 Dans cette équation, $z_{ij}$ représente le pixel à la position (i,j) dans le modèle et $r_{ij}$ représente le pixel à la position (i,j)
 provenant de l'image de profondeur. La fonction $\rho(e)$ quant à elle est équivalente à $min(|e|,\tau)$ ou $\tau$ est une valeur fixe permettant d'éliminer le bruit présent dans l'image de profondeur.
+
+\section{Modélisation de la main}
+%input
+Pour mieux visualiser les actions réalisées par la main de l'utilisateur et pour faire correspondre les jointures détectées au modèle, il est nécessaire d'avoir
+un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
+mesh d'une main modèle que nous allons ensuite adapté à la main de l'utilisateur.\\
+
+%icp
+La méthode utilisé par \cite{export:217428} permet en utilisant l'algorithme
+ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le mesh de la main afin
+que les points de celui-ci aient une distance moins importante avec le nuage de point fourni pas la 
+caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent 
+à partir d'un mesh M d'obtenir un mesh P. Dans notre cas, le mesh M représente le modèle de main donné en entré
+et le mesh P représente la main de l'utilisateur. ICP fonctionne en quatre étape distincte.
+\begin{itemize}
+  \item On associe les points grâce aux critères du plus proche voisin. Pour cela, il suffit de calculer la distance euclidienne d'un
+   point avec tous les autres points qui font parti du balayage que nous voulons comparer et de prendre la distance la plus petite.
+  \item On estime la transformation des points grâce à une fonction d'erreur quadratique moyenne, permettant ainsi de trouver la meilleure
+  transformation possible.
+  \item On effectue la transformation du nuage de point ayant la plus petite erreur.
+  \item On itere jusqu'à ce qu'on est atteint la condition de fin fixé par l'utilisateur.
+\end{itemize} 
+\ \\
+
+%squelette
+La méthode de \cite{export:217428} permet également d'adapter le squelette du modèle de la 
+main, ce qui permet d'obtenir une précision plus importante lors de l'utilisation de l'application.
+Pour cela, on applique à chaque os du squelette du model d'origine, 
+une transformation ( rotation et forme) qui dépend de celle calculée par la phase précédente.\\
+
+%Surface
+Ensuite, la méthode recalcule la surface à partir du nouveaux mesh et du nouveau squelette.
+Si la surface est paramétrée par un ensemble de points de controle, comme un polyèdre
+ou une surface de subdivision, on applique une fonction surface pour retrouver le point de l'espace
+correspondant.
+Si le mesh est composé de triangles, on exprime le point de l'espace en u,v par une interpolation linéaire
+entre les sommets du triangles correspondant.\\
+
+%Optimisation
+Entre chaque opération, on applique une fonction de minimisation d'énergie,
+on obtient alors une convergence des résultats plus rapide qu'en utilisant simplement ICP une fois.
 
 \section{Evaluation des solutions envisagées}
 Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 
