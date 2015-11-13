@@ -6,8 +6,8 @@
 Aujourd'hui, détecter les points des articulations du corps humain 
 est une technique courante, grâce à certain périphérique tel que la 
 Kinect. Les points des articulations du corps forment le squelette 3D. 
-Cependant, les squelettes 3D sont en générales pas assez riche en informations 
-concernant les points des articulations des mains.\\
+Cependant, les squelettes 3D sont en générales pas assez riche en 
+informations concernant les points des articulations des mains.\\
 
 Pourtant les mains sont habiles et nous pouvons faire de nombreux 
 mouvements, plus ou moins complexes et rapides avec elles. De plus en 
@@ -25,9 +25,10 @@ précision peut être utile dans divers domaines :
 Le projet \og Hand Kinect \fg consiste à extraire depuis une Kinect 2, 
 les points correspondants aux articulations du corps grâce aux 
 fonctions du SDK de ce capteur. De plus, nous devons récupérer les points 
-des articulations des mains, pour cela nous étudions plusieurs méthodes réalisées
-jusqu'à maintenant. Ainsi, l'assemblage de ces points nous permet 
-d'obtenir le squelette 3D complet de la personne devant la Kinect.\\
+des articulations des mains, pour cela nous étudions plusieurs méthodes 
+réalisées jusqu'à maintenant. Ainsi, l'assemblage de ces points nous 
+permet d'obtenir le squelette 3D complet de la personne devant la 
+Kinect.\\
 
 \begin{figure}[H]
   \begin{center}
@@ -57,9 +58,9 @@ propose également une licence gratuit assez complète.\\
 
 Dans le cadre de ce projet, nous sommes amenés à rédiger un état de la 
 l'art. Cette première partie, nous permet de synthétiser et sélectionner 
-les solutions. Notre objectif étant de détecter la main d'une personne et ses 
-articulations, afin de modéliser en 3D la main 
-de cette personne, dans des plans de caméra global ou rapprocher. Cela 
+les solutions. Notre objectif étant de détecter la main d'une personne 
+et ses articulations, afin de modéliser en 3D la main de 
+cette personne, dans des plans de caméra global ou rapprocher. Cela 
 doit être réalisable en temps réel et à partir d'une caméra nous 
 fournissant une image RGB et une image contenant l'information de 
 profondeur de la scène filmée.\\
@@ -68,7 +69,9 @@ profondeur de la scène filmée.\\
 La réalisation de ce projet se fait avec l'équipe 3D 
 SAM\footnote{Modeling and Analysis of Static and Dynamic Shapes}. 
 Cette équipe appartient au centre CRIStAL\footnote{Centre de Recherche 
-en Informatique, Signal et Automatique de Lille}. Ce centre est le nouveau pôle de recherche qui regroupe les laboratoires d'informatique, signal et automatique de Lille.\\
+en Informatique, Signal et Automatique de Lille}. Ce centre est le 
+nouveau pôle de recherche qui regroupe les laboratoires d'informatique, 
+signal et automatique de Lille.\\
 
 L'équipe 3D SAM est basée à l'école d'ingénieur Télécom Lille 1. 
 Cette équipe conçoit de nouveaux outils et méthodes d'analyse des 
@@ -96,15 +99,15 @@ points des articulations de la main.
 D'abord, la Kinect 2 peux déjà suivre six personnes à la fois. Elle 
 détecte un squelette de vingt-six points (voir Fig. 
 \ref{fig:skeleton_kinect2} et \ref{fig:kinect1vs2}). Cependant, les 
-mains ne sont représentées seulement par trois points, qui sont le centre de 
-main, le pouce et le bout du majeur. C'est une amélioration par 
-rapport à la Kinect 1, qui ne détectait que le centre de la main.\\
+mains ne sont représentées seulement par trois points, qui sont le 
+centre de main, le pouce et le bout du majeur. C'est une amélioration 
+par rapport à la Kinect 1, qui ne détectait que le centre de la main.\\
 
-D'autre outils permettent de détecter les mains des utilisateurs. Par exemple 
-le Leap Motion détecte les articulations des mains. Néanmoins,
+D'autre outils permettent de détecter les mains des utilisateurs. Par 
+exemple le Leap Motion détecte les articulations des mains. Néanmoins,
 ce capteur est limité, car il faut garder les mains proches et dans le 
-cadre du capture. Leap Motion ne permet pas de détecter le squelette complet
-d'une personne.\\
+cadre du capture. Leap Motion ne permet pas de détecter le squelette 
+complet d'une personne.\\
 
 À partir de ces constats nous pouvons formuler la problématique 
 suivante. Puisque, 
@@ -143,6 +146,10 @@ squelette humain.
 %des mains détecté et les points du squelette calculés par la Kinect 2. 
 %Afin de animer un personnage virtuel 3D dont les mouvements sont guidés 
 %par les gestes de l'utilisateur devant la Kinect 2. 
+
+L'objectif de cette première partie du projet est de clarifier nos 
+travaux. Pour cela, \ldots
+
 
 \section{Présentation de la Kinect 2}
 La Kinect 2 de Microsoft possède une caméra couleur en mode YUV de 1920x1080 pixel.
