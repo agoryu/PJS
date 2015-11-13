@@ -64,15 +64,15 @@ les masques noirs.\\
 
 Pour améliorer les perfomances de leur algorithme, Viola et Jones utilisent la méthode Adaboost. Son
 principe est de sélectionner les caractéristiques les plus performantes pour la détection de l'objet grâce à
-un calcul de probabilité utilisant l'entropie\footnote{valeur mesurant l'incertitude d'une donnée} des données.\\
+un calcul de probabilité utilisant l'entropie\footnote{valeur mesurant l'incertitude} des données.\\
 
-Une fois, qu'une ROI est formée autour de la main de l'utilisateur S. Bilal et al \cite{haarlike} changent d'espace colorimétrique
+Une fois qu'une ROI est formée autour de la main de l'utilisateur, S. Bilal et al \cite{haarlike} changent d'espace colorimétrique
 afin de pouvoir différencier la main du reste de l'environnement. Pour cela, ils choisissent 
 d'utiliser l'espace YCbCr qui permet d'obtenir des informations de chromaticité dont la valeur est presque équivalente
-quelle que soit la couleur de peau de l'utilisateur \cite{yoo1999fast}. Une fois que la ROI de la main est binarisé, il est possible
+quelle que soit la couleur de peau de l'utilisateur \cite{yoo1999fast}. Dès que la ROI de la main est binarisé, il est possible
 de détecter le bout des doigts. Il faut tout d'abord calculer le centroïde de la forme de la main, puis la distance entre
 ce centroïde et chaque point du contour de la main. Le contour d'une forme dans une image est défini par un changement brutal
-de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \ref{fig:handHisto}, où chaque pique représente un doigt.
+de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \ref{fig:handHisto}, où chaque pic représente un doigt.
 
 \begin{figure}[!h]
 \center
@@ -97,9 +97,9 @@ de la main. De plus, cette méthode est sensible à la luminosité de la scène 
 \subsection{Détection et suivi de la main avec une image de profondeur}
 Une seconde solution utilise une image de profondeur plutôt que l'image binarisée avec le changement d'espace colorimétrique.
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI
-autour de celle-ci. Cette première étape a été expliquée par T. Sharp et al\cite{export:238453}, où les auteurs utilisent un classifieur
+autour de celle-ci. Cette première étape a été expliquée par T. Sharp et al\cite{export:238453}, les auteurs utilisent un classifieur
 qui se repose sur la méthode développée dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
-des parties du corps et permet également de détecter les articulations. Pour cela, cette méthode utilise l'algorithme \cite{lepetit2005randomized} qui crée un arbre de décision partir des données d'entrainement et descend dans celui-ci
+des parties du corps et permet également de détecter les articulations. Pour cela, cette méthode utilise l'algorithme \cite{lepetit2005randomized} qui crée un arbre de décision à partir des données d'entrainement et descend dans celui-ci
 jusqu'à atteindre une feuille. 
 Les feuilles de cet arbre sont les différentes parties du corps à reconnaître. Cet arbre est construit en calculant
 l'entropie de chaque pixel, ce qui permet de déterminer à quelle partie du corps il appartient.
@@ -118,27 +118,27 @@ une ROI autour de ce point. Cette méthode a été implémentée dans la caméra
 La méthode utilisée dans \cite{export:238453} ne nécessite aucune donnée provenant d'image antérieure. L'ensemble
 des calculs sont réalisés sur une image à partir d'une base de connaissances contenant différentes postures de la
 main. Etant donnée qu'il est impossible de stocker toutes les postures de la main, la méthode de \cite{export:238453}
-calcule une fonction energy permettant de déterminer quelle est la posture la plus représentative de celle de la main
-de l'utilisateur. Cette fonction energy est calculée à partir des pixels du modèle et ceux de l'image de profondeur
+calcule une fonction énergie permettant de déterminer quelle est la posture la plus représentative de celle de la main
+de l'utilisateur. Cette fonction énergie est calculée à partir des pixels du modèle et ceux de l'image de profondeur
 capturée par la caméra. Elle est définie par le calcul suivant :
 \begin{equation}
  E^{au}(Z_{roi}, R_{roi}) = \sum_{ij} \bar{\rho(z_{ij}} - r_{ij})
 \end{equation}
 Dans cette équation, $z_{ij}$ représente le pixel à la position (i,j) dans le modèle et $r_{ij}$ représente le pixel à la position (i,j)
-provenant de l'image de profondeur. La fonction $\rho(e)$ quant à elle est équivalente à $min(|e|,\tau)$ ou $\tau$ est une valeur fixe permettant d'éliminer le bruit présent dans l'image de profondeur.
+provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est équivalente à $min(|e|,\tau)$ ou $\tau$ est une valeur fixe permettant d'éliminer le bruit présent dans l'image de profondeur.
 
 \section{Modélisation de la main}
 %input
 Pour mieux visualiser les actions réalisées par la main de l'utilisateur et pour faire correspondre les jointures détectées au modèle, il est nécessaire d'avoir
 un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
-mesh d'une main modèle que nous allons ensuite adapté à la main de l'utilisateur.\\
+mesh d'une main modèle que nous allons ensuite adapter à la main de l'utilisateur.\\
 
 %icp
 La méthode utilisé par \cite{export:217428} permet en utilisant l'algorithme
 ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le mesh de la main afin
 que les points de celui-ci aient une distance moins importante avec le nuage de point fourni pas la 
 caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent 
-à partir d'un mesh M d'obtenir un mesh P. Dans notre cas, le mesh M représente le modèle de main donné en entré
+à partir d'un mesh M d'obtenir un mesh P. Dans notre cas, le mesh M représente le modèle de main donné en entrée
 et le mesh P représente la main de l'utilisateur. ICP fonctionne en quatre étape distincte.
 \begin{itemize}
   \item On associe les points grâce aux critères du plus proche voisin. Pour cela, il suffit de calculer la distance euclidienne d'un
@@ -146,7 +146,7 @@ et le mesh P représente la main de l'utilisateur. ICP fonctionne en quatre éta
   \item On estime la transformation des points grâce à une fonction d'erreur quadratique moyenne, permettant ainsi de trouver la meilleure
   transformation possible.
   \item On effectue la transformation du nuage de point ayant la plus petite erreur.
-  \item On itere jusqu'à ce qu'on est atteint la condition de fin fixé par l'utilisateur.
+  \item On itere jusqu'à ce qu'on est atteint la condition de fin fixée par l'utilisateur.
 \end{itemize} 
 \ \\
 
@@ -154,15 +154,16 @@ et le mesh P représente la main de l'utilisateur. ICP fonctionne en quatre éta
 La méthode de \cite{export:217428} permet également d'adapter le squelette du modèle de la 
 main, ce qui permet d'obtenir une précision plus importante lors de l'utilisation de l'application.
 Pour cela, on applique à chaque os du squelette du model d'origine, 
-une transformation ( rotation et forme) qui dépend de celle calculée par la phase précédente.\\
+une transformation ( rotation et forme) qui dépend de celle calculée dans la phase précédente.\\
 
 %Surface
 Ensuite, la méthode recalcule la surface à partir du nouveaux mesh et du nouveau squelette.
-Si la surface est paramétrée par un ensemble de points de controle, comme un polyèdre
-ou une surface de subdivision, on applique une fonction surface pour retrouver le point de l'espace
-correspondant.
-Si le mesh est composé de triangles, on exprime le point de l'espace en u,v par une interpolation linéaire
-entre les sommets du triangles correspondant.\\
+\begin{itemize}
+\item Si la surface est paramétrée par un ensemble de points de controle, comme un polyèdre
+ou une surface de subdivision, on applique une fonction surface pour retrouver le point de l'espace correspondant.
+\item Si le mesh est composé de triangles, on applique la fonction au point résultant de interpolation linéaire entre les sommets des triangles.\\
+\end{itemize}
+
 
 %Optimisation
 Entre chaque opération, on applique une fonction de minimisation d'énergie,

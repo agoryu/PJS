@@ -20,13 +20,13 @@ la même méthode de reconnaissance des parties du corps que la Kinect \cite{exp
 
 \section{Planification des tâches}
 Nous avons décomposé le projet en plusieurs étapes afin d'avoir des objectifs réalisables en 
-un minimum de temps avec certains objectifs faisables en parallèle afin de pouvoir nous répartir
+un minimum de temps, avec certains objectifs faisables en parallèle afin de pouvoir nous répartir
 les tâches. Le but étant de réaliser tout l'aspect recherche sur les articulations et la modélisation de la main assez rapidement pour 
 avoir plus de temps dans la réalisation d'une application démonstrative assez complète. Cette application
 permettra de voir un maximum de fonctionnalité réalisable avec ce type d'interaction.\\
 
-Nous allons dans un premier temps faire en sorte que nous puissions utiliser la DLL dans Unity3D.
-Dans cette première étape, il faut que nous récupérions les coordonnées des points des articulations
+Nous allons dans un premier temps faire en sorte de pouvoir utiliser la DLL dans Unity3D.
+Dans cette première étape, il faut récupérer les coordonnées des points des articulations
 de la main de l'utilisateur. Pour cela nous allons appeler des fonctions, présentes dans la DLL, dans un 
 script C\# que nous placerons dans un objet vide d'une scène créée dans le moteur Unity3D pour
 afficher les coordonnées des articulations.\\
@@ -45,7 +45,7 @@ de réussir à modifier ce mesh dans le but de gérer le niveau de détail de la
 partie est nécessaire pour que lors du mouvement de la main, il n'y est pas d'effet visuel indésirable.
 Pour cela, il nous faudra utiliser la méthode décrite dans \cite{export:217428}.\\
 
-La dernière étape est de faire correspondre les articulations de la main détectées dans l'étape deux avec
+La dernière étape consiste à faire correspondre les articulations de la main détectées dans l'étape 2 avec
 le mesh de la main. Cette méthode est expliquée dans \cite{export:217428}.\\
 
 Une fois que la représentation de la main sera effectuée dans une scène Unity, nous devrons réaliser une 
@@ -59,7 +59,7 @@ beaucoup de précision.
 \begin{figure}
   \begin{center}
     \includegraphics[width=10cm]{images/exampleHand.png}
-    \caption{Exemple d'application rencontré pour la Leap Motion}
+    \caption{Exemple d'application rencontrée pour la Leap Motion}
     \label{fig:example}
   \end{center}
 \end{figure}
