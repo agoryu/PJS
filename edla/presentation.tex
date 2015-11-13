@@ -2,33 +2,31 @@
 
 
 
-%doit contenir la fonction de ce rapport : etat de l'art + previsionnel
-%dans le but de réaliser un projet
 \section{Présentation du projet}
 Aujourd'hui, détecter les points des articulations du corps humain 
 est une technique courante, grâce à certain périphérique tel que la 
 Kinect. Les points des articulations du corps forment le squelette 3D. 
-Cependant, les squelettes 3D sont en générales peu riche en informations 
+Cependant, les squelettes 3D sont en générales pas assez riche en informations 
 concernant les points des articulations des mains.\\
- 
+
 Pourtant les mains sont habiles et nous pouvons faire de nombreux 
 mouvements, plus ou moins complexes et rapides avec elles. De plus en 
-plus d'application nécessite des IHM plus précisent et plus 
+plus d'applications nécessitent des IHM plus précisent et plus 
 naturelles. Utiliser ces mains pour contrôler, interagir et communiquer 
-avec un ordinateur, devient de plus en plus intéressant. Ce niveau de 
-précision peut être utile dans divers domains :
+avec un ordinateur, devient très intéressant. Ce niveau de 
+précision peut être utile dans divers domaines :
 \begin{itemize}
   \item simulation médicale.
-  \item modélisation et CAO.
+  \item modélisation et CAO\footnote{Conception Assisté par Ordinateur}.
   \item manipulation d'objets 3D virtuels.
   \item jeux vidéo.\\
 \end{itemize}
 
 Le projet \og Hand Kinect \fg consiste à extraire depuis une Kinect 2, 
 les points correspondants aux articulations du corps grâce aux 
-fonctions du SDK de Kinect. De plus, nous devons récupérer les points 
-des articulations des mains, nous disposons d'un module fourni par 
-nos tuteurs de projet. Ainsi, l'assemblage de ces points nous permet 
+fonctions du SDK de ce capteur. De plus, nous devons récupérer les points 
+des articulations des mains, pour cela nous étudions plusieurs méthodes réalisées
+jusqu'à maintenant. Ainsi, l'assemblage de ces points nous permet 
 d'obtenir le squelette 3D complet de la personne devant la Kinect.\\
 
 \begin{figure}[H]
@@ -39,16 +37,16 @@ d'obtenir le squelette 3D complet de la personne devant la Kinect.\\
 \end{figure}
 
 Ensuite, nous souhaitons animer un modèle 3D, qui peut être un modèle 
-d'humain, de robot ou bien de créature. Les mouvement de ce modèle 
-doivent suivre les points du squelette préalablement détecté, de 
-manière cohérente par rapport au mouvement de la personne devant la 
+d'humain, de robot ou bien de créature. Les mouvements de ce modèle 
+doivent suivre les points du squelette préalablement détectés, de 
+manière cohérente par rapport aux mouvements de la personne devant la 
 Kinect. Nous utilisons Unity3D, pour cette partie de 
 modélisation.\\
 
-Unity3D est un moteur de jeu qui permet de développé rapidement des 
+Unity3D est un moteur de jeu qui permet de développer rapidement des 
 environnement et application 3D. Il est facile d'obtenir des 
-application compatible sur de nombreuse plateforme. Ce moteur 
-propose également une licence gratuit accés compléte.\\
+applications compatibles sur de nombreuses plateformes. Ce moteur 
+propose également une licence gratuit assez complète.\\
 
 \begin{figure}[H]
   \begin{center}
@@ -57,29 +55,25 @@ propose également une licence gratuit accés compléte.\\
   \end{center}
 \end{figure}
 
-Dans le cadre de ce projet, nous sommes amené à rédiger un état de la 
+Dans le cadre de ce projet, nous sommes amenés à rédiger un état de la 
 l'art. Cette première partie, nous permet de synthétiser et sélectionner 
-les solutions. Notre objectif étant de détecter la main et les 
-articulations de la main d'une personne, afin de modéliser en 3D la main 
+les solutions. Notre objectif étant de détecter la main d'une personne et ses 
+articulations, afin de modéliser en 3D la main 
 de cette personne, dans des plans de caméra global ou rapprocher. Cela 
 doit être réalisable en temps réel et à partir d'une caméra nous 
 fournissant une image RGB et une image contenant l'information de 
 profondeur de la scène filmée.\\
 
-%doit contenir l'ensemble des informations sur l'équipe -> sur quoi porte leur recherche
 \section{Contexte}
 La réalisation de ce projet se fait avec l'équipe 3D 
 SAM\footnote{Modeling and Analysis of Static and Dynamic Shapes}. 
 Cette équipe appartient au centre CRIStAL\footnote{Centre de Recherche 
-en Informatique, Signal et Automatique de Lille}. Ce centre de 
-recherche est le nouveau pôle de recherche qui regroupe les 
-laboratoires d'Informatique, Signal et Automatique de Lille.\\
-
+en Informatique, Signal et Automatique de Lille}. Ce centre est le nouveau pôle de recherche qui regroupe les laboratoires d'informatique, signal et automatique de Lille.\\
 
 L'équipe 3D SAM est basée à l'école d'ingénieur Télécom Lille 1. 
 Cette équipe conçoit de nouveaux outils et méthodes d'analyse des 
 formes des objets 3D statiques et dynamique. Ils travaillent sur 
-l'analyse de formes des objects 3D et la modélisation des variations 
+l'analyse de formes des objets 3D et la modélisation des variations 
 des formes dans des vidéos 3D.
 
 \begin{figure}[H]
@@ -89,46 +83,43 @@ des formes dans des vidéos 3D.
   \end{center}
 \end{figure}
 
+%TODO pour le module -> vu l'état de l'art on considere qu'on la pas tout de suite
 Le projet \og Hand Kinect \fg est un nouveau projet proposé par 
-l'équipe. Nous sommes les premiers à travailler sur ce projet, il 
-ne s'agit pas d'une reprise d'un projet déjà entamé auparavant.\\
-
-Pour la réalisation de ce projet, nous disposons d'une caméra Kinect2. 
-Pour les représentation et animation 3D, il nous faut un environnement 
-de modélisation 3D, nous utilisons Unity3D comme montré précédemment. 
+l'équipe.
+Pour sa réalisation, nous disposons d'une caméra Kinect 2. 
+Pour les représentations et animations 3D, il nous faut un environnement 
+de modélisation. Nous utilisons Unity3D comme montré précédemment. 
 Nous disposons également, d'un module nous permettant d'extraire les 
-points des articulation de la main.
+points des articulations de la main.
 
-%pourquoi faire ce projet (plus de precision?) + cas concret ou on pourrait l'utiliser (ex : medecine)
 \section{Problèmatique}
-D'abord, la Kinect 2 peux déjà de suivre 6 personne à la fois. Elle 
-détecte un squelette de 26 points (voir Fig. 
+D'abord, la Kinect 2 peux déjà suivre six personnes à la fois. Elle 
+détecte un squelette de vingt-six points (voir Fig. 
 \ref{fig:skeleton_kinect2} et \ref{fig:kinect1vs2}). Cependant, les 
-mains ne sont représentées que par 3 point, qui sont le centre de 
+mains ne sont représentées seulement par trois points, qui sont le centre de 
 main, le pouce et le bout du majeur. C'est une amélioration par 
-rapport à la Kinect 1, qui de détecter que le centre de la main.\\
+rapport à la Kinect 1, qui ne détectait que le centre de la main.\\
 
-%a revoir
-D'autre outils permettent de détecter les mains des utilisateurs. Par exemple le Leap Motion détecte les articulations des mains. Néanmoins,
-ce capteur est limité car il faut garder les mains proches et dans le 
-cadre du capture. Leap Motion ne permet pas de détecter le squelette 
+D'autre outils permettent de détecter les mains des utilisateurs. Par exemple 
+le Leap Motion détecte les articulations des mains. Néanmoins,
+ce capteur est limité, car il faut garder les mains proches et dans le 
+cadre du capture. Leap Motion ne permet pas de détecter le squelette complet
 d'une personne.\\
 
-%a revoir
-À partir de ces constats nous pouvons formuler la problèmatique 
+À partir de ces constats nous pouvons formuler la problématique 
 suivante. Puisque, 
-les mains sont très habile, il peut être difficile de detecter de leurs 
-articulations dans des positions contraignante. Autres choses, les 
-problèmes liés à la luminausitée sont récurrents, il est souhaitable 
-d'utiliser des techniques robustent et invariantent à la luminausitée, 
-mais qui restent efficace. De plus, il existe encore peu de méthodes 
+les mains sont très habiles, il peut être difficile de détecter leurs 
+articulations dans des positions contraignantes. En supplément, les 
+problèmes liés à la luminosité sont récurrents, il est souhaitable 
+d'utiliser des techniques robustes et invariantes à la luminosité, 
+mais qui restent efficaces. De plus, il existe encore peu de méthodes 
 permettant de détecter la pose et les articulations des mains dans 
-un point de vue de caméra qui permetterais de retrouver l'ensemble du
-squelette humain.  
+un point de vue de caméra qui permettrais de retrouver l'ensemble du
+squelette humain.
 
 %comment réaliser ce projet, avec quoi + résultat attendu
 \section{Objectif}
-Le premier objectif est donc la détection des points des articulations 
+Le premier objectif est la détection des points des articulations 
 des mains. Pour cela, nous utilisons le module fournit par nos 
 tuteurs. Ainsi, il faut extraire les points des articulation des 
 mains, afin de les rendre utilisable dans Unity3D.\\
