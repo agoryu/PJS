@@ -27,21 +27,21 @@ permettra de voir un maximum de fonctionnalité réalisable avec ce type d'inter
 
 Nous allons dans un premier temps faire en sorte que nous puissions utiliser la DLL dans Unity3D.
 Dans cette première étape, il faut que nous récupérions les coordonnées des points des articulations
-de la main de l'utilisateur. Pour cela nous allons appeler des fonctions présentes dans la DLL dans un 
+de la main de l'utilisateur. Pour cela nous allons appeler des fonctions, présentes dans la DLL, dans un 
 script C\# que nous placerons dans un objet vide d'une scène créée dans le moteur Unity3D pour
 afficher les coordonnées des articulations.\\
 
-Dans la seconde étape, nous devons modéliser les points des articulations de la main déterminer 
-dans l'étape précédente. Il faut donc créé des objets dont les coordonnées seront ceux des articulations.
-Pous cela il faudra passer par une phase de transformation des coordonées. En effet, les coordonnées
+Dans la seconde étape, nous devons modéliser les points des articulations de la main déterminés 
+dans l'étape précédente. Il faut donc créer des objets dont les coordonnées seront celles des articulations.
+Pour cela il faudra passer par une phase de transformation des coordonnées. En effet, les coordonnées
 que nous récupérons via la DLL, ne seront pas forcément adaptées à la scène créée dans Unity3D. Les 
-objets qui représentent les articulations de la main devront être créé dans le script afin qu'il 
-soit visible seulement quand un utilisateur est détecté et qu'il puisse y avoir plusieurs main
-détecté dans la même scène.\\
+objets qui représentent les articulations de la main devront être créés dans le script afin qu'il 
+soit visible seulement quand un utilisateur est détecté. Ce procédé permet également à l'application
+d'avoir plusieurs utilisateurs dans la même scène.\\
 
-La troisième étape peut être réalisé indépendemment des deux première qui sont lié. Dans cette étape,
+La troisième étape peut être réalisée indépendamment des deux premières qui sont liées. Dans cette étape,
 nous avons besoin de modéliser une main. Pour cela, nous avons besoin d'importer le mesh d'une main et
-de réussir à modifier ce mesh dans le but de pour gérer le niveau de détail de la main. Cette dernière
+de réussir à modifier ce mesh dans le but de gérer le niveau de détail de la main. Cette dernière
 partie est nécessaire pour que lors du mouvement de la main, il n'y est pas d'effet visuel indésirable.
 Pour cela, il nous faudra utiliser la méthode décrite dans \cite{export:217428}.\\
 
