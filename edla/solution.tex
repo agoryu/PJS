@@ -97,12 +97,24 @@ de la main. De plus, cette méthode est sensible à la luminosité de la scène 
 \subsection{Détection et suivi de la main avec une image de profondeur}
 Une seconde solution utilise une image de profondeur plutôt que l'image binarisée avec le changement d'espace colorimétrique.
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI
-autour de celle-ci. Cette première étape a été expliquée par T. Sharp et al\cite{export:238453}, les auteurs utilisent un classifieur
+autour de celle-ci.\\ 
+
+Cette première étape a été expliquée par T. Sharp et al\cite{export:238453}, les auteurs utilisent un classifieur
 qui se repose sur la méthode développée dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
-des parties du corps et permet également de détecter les articulations. Pour cela, cette méthode utilise l'algorithme \cite{lepetit2005randomized} qui crée un arbre de décision à partir des données d'entrainement et descend dans celui-ci
-jusqu'à atteindre une feuille. 
+des parties du corps et permet également de détecter les articulations. Pour cela, cette méthode utilise l'algorithme 
+\cite{lepetit2005randomized} qui crée un arbre de décision à partir des données d'entrainement et descend dans celui-ci
+jusqu'à atteindre une feuille (voir Fig. \ref{fig:arbre}).
+
+\begin{figure}[!h]
+   \begin{center}
+     \includegraphics[width=8cm]{images/Arbre_de_decision.jpg}
+     \caption{Exemple d'arbre de décision}
+     \label{fig:arbre}
+   \end{center}
+ \end{figure} 
+ 
 Les feuilles de cet arbre sont les différentes parties du corps à reconnaître. Cet arbre est construit en calculant
-l'entropie de chaque pixel, ce qui permet de déterminer à quelle partie du corps il appartient.
+l'entropie de chaque pixel, ce qui permet de déterminer à quelle partie du corps il appartient.\\
 
 \begin{figure}[!h]
  \begin{center}
@@ -164,7 +176,6 @@ ou une surface de subdivision, on applique une fonction surface pour retrouver l
 \item Si le mesh est composé de triangles, on applique la fonction au point résultant de interpolation linéaire entre les sommets des triangles.\\
 \end{itemize}
 
-
 %Optimisation
 Entre chaque opération, on applique une fonction de minimisation d'énergie,
 on obtient alors une convergence des résultats plus rapide qu'en utilisant simplement ICP une fois.
@@ -173,7 +184,12 @@ on obtient alors une convergence des résultats plus rapide qu'en utilisant simp
 Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 
 image couleur pouvait être limitée. Celle-ci nécessite un algorithme de tracking permettant de suivre au mieux
 la main de l'utilisateur. L'algorithme de Kalman est efficace, mais peu précis lors de changements d'orientation
-brusques et il est également assez complexe à mettre en place.\\
+brusques et il est également assez complexe à mettre en place. Il existe d'autre méthode de tracking qui sont
+peut-être plus approprié à la conception d'une nouvelle IHM, mais le tracking n'est pas le seul défaut de cette
+méthode pour la réalisation de notre projet. Une 
+modélisation 3D de la main n'est pas possible avec ce genre de méthode. En effet, sans l'information de 
+profondeur de la main, il est difficile de déterminer de nombreuses posture de la main. Cette solution était une première approche de la 
+détection de la main ainsi que des doigts qui reste efficace avec une luminosité correcte.\\
 
 Notre choix pour la réalisation de ce projet se dirige plutôt vers l'utilisation de la caméra de profondeur.
 La Kinect ayant déjà une implémentation d'une partie des étapes permettant la réalisation de notre projet, nous pourrons
