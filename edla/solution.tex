@@ -7,10 +7,10 @@ quels autres moyens auraient pu être utilisés pour réaliser ce projet.\\
 
 Une liste non exhaustive des périphériques et des données qu'ils fournissent : 
 \begin{itemize}
-  \item Kinect et Kinect 2 de Microsoft, fournissent, en données brutes, une image couleur ainsi qu'une image de profondeur. 
+  \item Kinect1 et Kinect 2 de Microsoft, fournissent, en données brutes, une image couleur ainsi qu'une image de profondeur. 
 En utilisant le SDK fournis, on dispose en plus de nombreux outils parmi lesquels une détection du squelette et pour Kinect 2 
 une abstraction de la main avec 4 points détectés : le centre du poignet, le centre de la main, le sommet de pouce et le sommet du majeur. 
-  \item LeapMotion fournit, en données brutes, une image de profondeur plus détaillée mais sur une zone 
+  \item LeapMotion fournit, en données brutes, un squelette 3D plus détaillé mais sur une zone 
 plus restreinte. Avec le SDK, on a accès directement à un squelette très détaillé de la main.
     \begin{figure}[!h]
     \center
@@ -23,31 +23,31 @@ plus restreinte. Avec le SDK, on a accès directement à un squelette très dét
 \ \\
 
 On peut utiliser des outils spécifiques (Kinect) ou des caméras classiques pour obtenir des images couleurs.
-Bien que possédant plus d'informations que les images de profondeur (3 canaux au lieu d'1), les images couleurs moins adapté aux calculs 3D.\\
+Bien que possédant plus d'informations que les images de profondeur (3 canaux au lieu d'un), les images couleurs moins adapté aux calculs 3D.\\
 
 Ces données couleurs peuvent être utilisées avec des accessoires colorés pour simplifier la détection des points de la main \cite{wang2009real}.
 Cette méthode permet de détecter plus facilement les jointures et les points d'intér\^{e}t. 
-Cependant, cela ajoute des contraintes, notemment le fait de devoir porter un gant standardisé.\\
+Cependant, ça ajoute des contraintes, notemment le fait de devoir porter un gant standardisés.\\
 
 On associe également les données couleurs avec des données de profondeur pour améliorer la détection et gérer les cas de superposition \cite{van2011combining}.\\
 
 L'autre type de données est la carte de profondeur, image en niveau de gris servant à représenter la profondeur. 
-Cette carte de profondeur est utilisée par un grand nombre de méthodes pour les problèmes de clustering du corps humain, notemment les SDK de Kinect et Kinect 2 se base principalement dessus pour fournir le squelette \cite{export:145347}.
-Les SDK de Kinect/Kinect2 étant prévus pour le suivit du corps entier, il sont peu performant pour le suivit précis de parties spécifique (comme la main).
+Cette carte de profondeur est utilisée par un grand nombre de méthodes pour les problèmes de clustering du corps humain, notemment les SDK de Kinect 1 et Kinect 2 se base principalement dessus pour fournir le squelette \cite{export:145347}.
+Les SDK de Kinect1/Kinect2 étant prévus pour le suivi du corps entier, il sont peu performant pour le suivit précis de parties spécifique (comme la main).
 L'utilisation directe du SDK semble donc insufisante pour résoudre notre problème. Cependant, on peut aussi récupérer les données brutes fournies par la Kinect 2 et certaines méthodes se contentent d'une image de profondeur pour la détection de la main \cite{export:238453}.
 
 \section{Détection de la main}
 
-La Kinect possède deux types de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode 
-\og Time of Flight \fg. Les caméras de type \og Time of Flight \fg envoient des rayons infrarouges. Une caméra infrarouge
-récupére ensuite les rayons réfléchit, ce qui permet d'obtenir les informations de profondeur. 
+La Kinect 2 possède deux types de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode 
+\og Time of Flight \fg. Les caméras de type \og Time of Flight \fg
+récupére les rayons envoyés par projecteur et ensuite réfléchit par les objets de la scène, ce qui permet d'obtenir les informations de profondeur. 
 Il existe plusieurs solutions utilisant l'une ou l'autre de ces caméras. Nous allons
 dans cette partie détailler plusieurs méthodes réalisées jusqu'à maintenant.
 
 \subsection{Détection et suivi de la main à partir d'une image couleur}
-La méthode proposée par S. Bilal et al \cite{haarlike} utilise l'algorithme de Viola et al \cite{viola2001jones} afin
-de détecter la main et fournir la position de celle-ci en créant une ROI\footnote{Region Of Interest} autour d'elle.
-L'algorithme de Viola et al \cite{viola2001jones} nécessite une 
+La méthode proposée par S. Bilal et al \cite{haarlike} utilise l'algorithme de Viola et Jones \cite{viola2001jones} afin
+de détecter la main et fournir la position de celle-ci en créant une ROI (région d'intérêt) autour d'elle.
+L'algorithme de Viola et Jones \cite{viola2001jones} nécessite une 
 base de connaissances composée des caractéristiques de l'objet recherché. Elle est utilisée dans un 
 apprentissage supervisé, c'est-à-dire que l'algorithme a besoin de données représentant
 l'objet à détecter pour classifier les caractéristiques de celui-ci. Cet algorithme est basé sur des caractéristiques 
@@ -81,8 +81,8 @@ de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \
 \label{fig:handHisto}
 \end{figure}
 
-Afin de pouvoir traquer la main, S. Bilal et al \cite{haarlike} utilisent l'algorithme de Kalman \cite{kalman}.
-Cet algorithme permet de prédire la position d'un objet, ce qui va permettre de traquer la main malgré
+Afin de pouvoir suivre la main, S. Bilal et al \cite{haarlike} utilisent l'algorithme de Kalman \cite{kalman}.
+Cet algorithme permet de prédire la position d'un objet, ce qui va permettre de suivre la main malgré
 le bruit présent dans l'image. De plus, cette méthode n'a besoin de connaître que l'état précédent à celui 
 qui est calculé. Etant donné que l'algorithme de Kalman est un algorithme de prédiction, il peut ne pas être très
 précis lorsque l'utilisateur effectue des changements de direction rapides avec sa main.\\
@@ -92,14 +92,14 @@ pas de réaliser notre projet entièrement. En effet, nous avons besoin de plus 
 de la main. De plus, cette méthode est sensible à la luminosité de la scène filmé et n'est pas très adapté
 à la modélisation 3D d'une main.
 
-\subsection{Détection et suivi de la main avec une image de profondeur}
+\subsection{Détection et suivi de la main à partir d'une image de profondeur}
 Une seconde solution utilise une image de profondeur plutôt que l'image binarisée avec le changement d'espace colorimétrique.
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI
 autour de celle-ci.\\ 
 
-Cette première étape a été expliquée par T. Sharp et al\cite{export:238453}, les auteurs utilisent un classifieur
-qui se repose sur la méthode développée dans \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
-des parties du corps et permet également de détecter les articulations. Pour cela, cette méthode utilise l'algorithme 
+Cette première étape a été expliquée par Sharp et al\cite{export:238453}, qui utilisent un classifieur
+basé sur la méthode développée par J. Shotton et al\cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
+des parties du corps et permet également de détecter les articulations. Dans ce but, cette méthode utilise l'algorithme 
 \cite{lepetit2005randomized} qui crée un arbre de décision à partir des données d'entrainement et descend dans celui-ci
 jusqu'à atteindre une feuille (voir Fig. \ref{fig:arbre}).
 
@@ -122,11 +122,11 @@ l'entropie de chaque pixel, ce qui permet de déterminer à quelle partie du cor
  \end{center}
 \end{figure}
 
-On voit sur la Fig. \ref{fig:bodyrecognition} que l'articulation de la main est détectée, il est alors possible de construire
+On voit dans la Fig. \ref{fig:bodyrecognition} que l'articulation de la main est détectée, il est alors possible de construire
 une ROI autour de ce point. Cette méthode a été implémentée dans la caméra Kinect.\\
 
 La méthode utilisée dans \cite{export:238453} ne nécessite aucune donnée provenant d'image antérieure. L'ensemble
-des calculs sont réalisés sur une image à partir d'une base de connaissances contenant différentes postures de la
+des calculs sont réalisés sur une image à partir d'une base d'apprentissage contenant différentes postures de la
 main. Etant donnée qu'il est impossible de stocker toutes les postures de la main, la méthode de \cite{export:238453}
 calcule une fonction énergie permettant de déterminer quelle est la posture la plus représentative de celle de la main
 de l'utilisateur. Cette fonction énergie est calculée à partir des pixels du modèle et ceux de l'image de profondeur
@@ -137,26 +137,26 @@ capturée par la caméra. Elle est définie par le calcul suivant :
 Dans cette équation, $z_{ij}$ représente le pixel à la position (i,j) dans le modèle et $r_{ij}$ représente le pixel à la position (i,j)
 provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est équivalente à $min(|e|,\tau)$ ou $\tau$ est une valeur fixe permettant d'éliminer le bruit présent dans l'image de profondeur.
 
-\section{Modélisation de la main}
+\section{Modélisation 3D de la main}
 %input
 Pour mieux visualiser les actions réalisées par la main de l'utilisateur et pour faire correspondre les jointures détectées au modèle, il est nécessaire d'avoir
 un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
-mesh d'une main modèle que nous allons ensuite adapter à la main de l'utilisateur.\\
+maillage d'une main modèle que nous allons ensuite adapter à la main de l'utilisateur.\\
 
 %icp
 La méthode utilisé par \cite{export:217428} permet en utilisant l'algorithme
-ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le mesh de la main afin
+ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le maillage de la main afin
 que les points de celui-ci aient une distance moins importante avec le nuage de point fourni pas la 
 caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent 
-à partir d'un mesh M d'obtenir un mesh P. Dans notre cas, le mesh M représente le modèle de main donné en entrée
-et le mesh P représente la main de l'utilisateur. ICP fonctionne en quatre étape distincte.
+à partir d'un maillage M d'obtenir un maillage P. Dans notre cas, le maillage M représente le modèle de main donné en entrée
+et le maillage P représente la main de l'utilisateur. ICP fonctionne en quatre étape distincte.
 \begin{itemize}
-  \item On associe les points grâce aux critères du plus proche voisin. Pour cela, il suffit de calculer la distance euclidienne d'un
+  \item Associer les points grâce aux critères du plus proche voisin. Pour cela, il suffit de calculer la distance euclidienne d'un
    point avec tous les autres points qui font parti du balayage que nous voulons comparer et de prendre la distance la plus petite.
-  \item On estime la transformation des points grâce à une fonction d'erreur quadratique moyenne, permettant ainsi de trouver la meilleure
+  \item Estimer la transformation des points grâce à une fonction d'erreur quadratique moyenne, permettant ainsi de trouver la meilleure
   transformation possible.
-  \item On effectue la transformation du nuage de point ayant la plus petite erreur.
-  \item On itere jusqu'à ce qu'on est atteint la condition de fin fixée par l'utilisateur.
+  \item Effectuer la transformation du nuage de point ayant la plus petite erreur.
+  \item Iterer jusqu'à ce qu'on est atteint la condition de fin fixée par l'utilisateur.
 \end{itemize} 
 \ \\
 
@@ -167,11 +167,11 @@ Pour cela, on applique à chaque os du squelette du model d'origine,
 une transformation ( rotation et forme) qui dépend de celle calculée dans la phase précédente.\\
 
 %Surface
-Ensuite, la méthode recalcule la surface à partir du nouveaux mesh et du nouveau squelette.
+Ensuite, la méthode recalcule la surface à partir du nouveaux maillage et du nouveau squelette.
 \begin{itemize}
 \item Si la surface est paramétrée par un ensemble de points de controle, comme un polyèdre
 ou une surface de subdivision, on applique une fonction surface pour retrouver le point de l'espace correspondant.
-\item Si le mesh est composé de triangles, on applique la fonction au point résultant de interpolation linéaire entre les sommets des triangles.\\
+\item Si le maillage est composé de triangles, on applique la fonction au point résultant de interpolation linéaire entre les sommets des triangles.\\
 \end{itemize}
 
 %Optimisation
@@ -180,7 +180,7 @@ on obtient alors une convergence des résultats plus rapide qu'en utilisant simp
 
 \section{Evaluation des solutions envisagées}
 Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 
-image couleur pouvait être limitée. Celle-ci nécessite un algorithme de tracking permettant de suivre au mieux
+image couleur pouvait être limitée. Celle-ci nécessite un algorithme permettant de suivre au mieux
 la main de l'utilisateur. L'algorithme de Kalman est efficace, mais peu précis lors de changements d'orientation
 brusques et il est également assez complexe à mettre en place. Il existe d'autre méthode de tracking qui sont
 peut-être plus approprié à la conception d'une nouvelle IHM, mais le tracking n'est pas le seul défaut de cette
