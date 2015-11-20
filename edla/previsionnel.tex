@@ -8,7 +8,7 @@ du SDK de la caméra fourni par Microsoft. Nous allons donc devoir réussir à u
 
 Nous allons travailler sur l'environnement Unity3D qui est 
 un environnement simple d'accès utilisant le langage C\#. Grâce à cet outil, nous pouvons
-facilement importer un mesh de main, qui sera le modèle qui devra être utilisé pour modéliser
+facilement importer un maillage de main, qui sera le modèle représentant
 la main de l'utilisateur. Le fait que la plateforme utilise le langage C\# nous facilite 
 l'accès aux données fournies par la caméra étant donné que le SDK de la Kinect a été réalisé pour
 C++ et C\#.\\
@@ -40,13 +40,13 @@ soit visible seulement quand un utilisateur est détecté. Ce procédé permet �
 d'avoir plusieurs utilisateurs dans la même scène.\\
 
 La troisième étape peut être réalisée indépendamment des deux premières qui sont liées. Dans cette étape,
-nous avons besoin de modéliser une main. Pour cela, nous avons besoin d'importer le mesh d'une main et
-de réussir à modifier ce mesh dans le but de gérer le niveau de détail de la main. Cette dernière
-partie est nécessaire pour que lors du mouvement de la main, il n'y est pas d'effet visuel indésirable.
-Pour cela, il nous faudra utiliser la méthode décrite dans \cite{export:217428}.\\
+nous avons besoin de modéliser une main. Pour cela, nous importons le maillage d'une main et
+nous modifions ce maillage dans le but de gérer le niveau de détail de la main. Cette dernière
+partie permet de minimiser les effets visuels indésirables lors du mouvement de la main.
+Pour cela, il nous faudra utiliser la méthode décrite par J. Taylor et al\cite{export:217428}.\\
 
 La dernière étape consiste à faire correspondre les articulations de la main détectées dans l'étape 2 avec
-le mesh de la main. Cette méthode est expliquée dans \cite{export:217428}.\\
+le maillage de la main. Cette méthode est expliquée par J. Taylor et al\cite{export:217428}.\\
 
 Une fois que la représentation de la main sera effectuée dans une scène Unity, nous devrons réaliser une 
 application de démonstration permettant de montrer différent type d'interaction possible avec notre 
