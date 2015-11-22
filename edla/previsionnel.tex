@@ -9,8 +9,8 @@ du SDK de la caméra fourni par Microsoft. Nous allons donc devoir réussir à u
 Nous allons travailler sur l'environnement Unity3D qui est 
 un environnement simple d'accès utilisant le langage C\#. Grâce à cet outil, nous pouvons
 facilement importer un maillage de main, qui sera le modèle représentant
-la main de l'utilisateur. Le fait que la plateforme utilise le langage C\# nous facilite 
-l'accès aux données fournies par la caméra étant donné que le SDK de la Kinect a été réalisé pour
+la main de l'utilisateur. Le fait que la plate-forme utilise le langage C\# nous facilite 
+l'accès aux données fournies par la caméra, étant donné que le SDK de la Kinect a été réalisé pour
 C++ et C\#.\\
 
 Nous avons obtenu, de la part de l'équipe de recherche, une DLL comportant des fonctions permettant
@@ -23,9 +23,9 @@ Nous avons décomposé le projet en plusieurs étapes afin d'avoir des objectifs
 un minimum de temps, avec certains objectifs faisables en parallèle afin de pouvoir nous répartir
 les tâches. Le but étant de réaliser tout l'aspect recherche sur les articulations et la modélisation de la main assez rapidement pour 
 avoir plus de temps dans la réalisation d'une application démonstrative assez complète. Cette application
-permettra de voir un maximum de fonctionnalité réalisable avec ce type d'interaction.\\
+permettra de voir un maximum de fonctionnalités réalisables avec ce type d'interaction.\\
 
-Nous allons dans un premier temps faire en sorte de pouvoir utiliser la DLL dans Unity3D.
+Nous allons, dans un premier temps, faire en sorte de pouvoir utiliser la DLL dans Unity3D.
 Dans cette première étape, il faut récupérer les coordonnées des points des articulations
 de la main de l'utilisateur. Pour cela nous allons appeler des fonctions, présentes dans la DLL, dans un 
 script C\# que nous placerons dans un objet vide d'une scène créée dans le moteur Unity3D pour
@@ -35,13 +35,13 @@ Dans la seconde étape, nous devons modéliser les points des articulations de l
 dans l'étape précédente. Il faut donc créer des objets dont les coordonnées seront celles des articulations.
 Pour cela il faudra passer par une phase de transformation des coordonnées. En effet, les coordonnées
 que nous récupérons via la DLL, ne seront pas forcément adaptées à la scène créée dans Unity3D. Les 
-objets qui représentent les articulations de la main devront être créés dans le script afin qu'il 
-soit visible seulement quand un utilisateur est détecté. Ce procédé permet également à l'application
+objets qui représentent les articulations de la main devront être créés dans le script afin qu'ils 
+soient visibles seulement quand un utilisateur est détecté. Ce procédé permet également à l'application
 d'avoir plusieurs utilisateurs dans la même scène.\\
 
 La troisième étape peut être réalisée indépendamment des deux premières qui sont liées. Dans cette étape,
 nous avons besoin de modéliser une main. Pour cela, nous importons le maillage d'une main et
-nous modifions ce maillage dans le but de gérer le niveau de détail de la main. Cette dernière
+nous modifions ce maillage dans le but de gérer le niveau de détails de celle-ci. Cette dernière
 partie permet de minimiser les effets visuels indésirables lors du mouvement de la main.
 Pour cela, il nous faudra utiliser la méthode décrite par J. Taylor et al\cite{export:217428}.\\
 
@@ -49,11 +49,11 @@ La dernière étape consiste à faire correspondre les articulations de la main 
 le maillage de la main. Cette méthode est expliquée par J. Taylor et al\cite{export:217428}.\\
 
 Une fois que la représentation de la main sera effectuée dans une scène Unity, nous devrons réaliser une 
-application de démonstration permettant de montrer différent type d'interaction possible avec notre 
+application de démonstration permettant de montrer différents types d'interactions possibles avec notre 
 méthode. Pour cela, nous nous sommes inspirés de plusieurs applications développées pour l'outil
-Leap Motion(voire Fig. \ref{fig:example}). Notre idée pour cette application de démonstration est de fabriquer plusieurs cubes dans 
+Leap Motion(voir Fig. \ref{fig:example}). Notre idée pour cette application de démonstration est de fabriquer plusieurs cubes dans 
 une scène et de demander à l'utilisateur de les empiler pour fabriquer une pyramide. Nous avons pris
-ce concept, car ce type d'application n'est pas réalisable avec d'autre type d'IHM et que cela demande
+ce concept, car ce type d'application n'est pas réalisable avec d'autres types d'IHM et que cela demande
 beaucoup de précision.
 
 \begin{figure}
