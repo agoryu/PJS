@@ -1,31 +1,29 @@
-# Note présentation
+  # Note présentation
 
 ## Hand Kinect (1 min)
 
 **Présentation :**  
 Dans le cadre du Master IVI...  
 Sélectionner le projet Hand Kinect...  
-Orienté recherche, Avec Kinect 2...  
-De manière simplifier, consiste à détecter la pose des mains
-afin d'avoir une représentation précise dans une scéne 3D.
+Orienté recherche...  
+
 
 **Problèmatique :**  
-L'homme utilise continuellement ses mains de manière naturelle.
-- mains habiles & détection précise des acticulations des mains
-(pas le cas de kinect 2)
-- robuste au changement de lumiausité
-- cadrage proche ou éloigné
-- modéliser la main de le plus fidèlement possible
+A l'heur actuelle, les intervalles homme machine
+évoluent très rapidement, il serai interressant de
+détecter les mains avec précision afin d'interagir
+avec un environement virtuel...
 
 **Plan :**  
 - objectifs, contexte et périphériques  
-- solutions existantes
-- préventionnel
+- solutions
+- réalisation du projet
 
 
 ## Présentation context (2 min)
 
-**Objectif :**   
+**Objectif :**  
+Utilisation de Kinect 2
 - Détection de la main
 - Reconnaissance de la posture de la main
 - Modélisation de la main
