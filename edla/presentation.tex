@@ -105,7 +105,7 @@ et le centre de la main.\\
 D'autres outils permettent de détecter les mains des utilisateurs. Par 
 exemple le Leap Motion détecte les articulations des mains. Néanmoins,
 ce capteur est limité, car il faut garder les mains proches du capteur.
-La portée et le champs de détection de ce dispositif reste restreint. 
+La portée et le champ de détection de ce dispositif restent restreint. 
 Leap Motion ne permet pas de détecter le squelette complet d'une personne.\\
 
 À partir de ces constats, nous pouvons formuler la problématique 
@@ -115,8 +115,10 @@ articulations dans des positions contraignantes. En supplément, les
 problèmes liés à la luminosité sont récurrents, il est souhaitable 
 d'utiliser des techniques robustes et invariantes à la luminosité, 
 mais qui restent efficaces. De plus, il existe encore peu de méthodes 
-permettant de détecter la pose et les articulations par
-caméra, et qui permettraient de retrouver l'ensemble du squelette humain.
+permettant de détecter la pose et les articulations par caméra, et 
+qui permettraient de retrouver l'ensemble du squelette humain. Enfin, 
+la modélisation de la main dans la scène 3D doit être fidèle à 
+la main de l'utilisateur pour plus de précision et de réalisme.
 
 %comment réaliser ce projet, avec quoi + résultat attendu
 \section{Objectif}
@@ -214,6 +216,13 @@ Les améliorations qui nous intéressent pour le projet sont :
     \includegraphics[width=250px]{images/kinect-v2-introduction-and-tutorial-8-638.jpg}
     \caption{Différence entre Kinect V1 et Kinect V2}
     \label{fig:kinect1vs2}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=400px]{images/kyle_kinect.jpg}
+    \caption{Depth map 3D de la Kinect 2}
   \end{center}
 \end{figure}
 
