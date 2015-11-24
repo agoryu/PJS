@@ -1,4 +1,4 @@
-  # Note présentation
+# Note présentation
 
 ## Hand Kinect (1 min)
 
