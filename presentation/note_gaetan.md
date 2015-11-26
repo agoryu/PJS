@@ -8,30 +8,33 @@ Sélectionner le projet Hand Kinect...
 Orienté recherche...  
 
 **Problèmatique :**  
-A l'heure actuelle, les technologies de capteurs et sytèmes d'acquisition
-évoluent très rapidement.
-Cela permet d'envisager de nouveaux types d'interaction et nouvelles
-perspective pour les IHM.
-L'enjeux de notre projet est de détecter et suivre les mains avec précision
-afin de manier un environnement virtuel par ordinateur.
-On pourrais retrouver cette application dans :
+A l'heure actuelle, les dernière technologies
+permet d'envisager de nouveaux types d'interaction et d'IHM.
+
+Les enjeux de notre projet sont
+- détection
+- suivrit
+des mains avec précision pour interagir
+avec environnement virtuel par ordinateur.
+
+Par exemple:
 - simulation médicale
-- modélisation
-- jeux vidéo
+- sculture par ordinateur
 
 
 ## Présentation context (1 min 30)
 
 **Objectif :**  
 Dans ce projet nous utilisont la kinect 2.
-Les objectif de ce projet sont:
-- Détection de la main
-- Reconnaissance de la posture de la main
-- Modélisation de la main
-- Animation de la main
+Les objectifs de ce projet sont:
+- d'abord, la détection du centre de la main
+- ensuite, cette détection permet de reconnaitre la posture de la main
+- puis, vient l'étape de modélisation de la main,
+pour se rapporcher précisement à la main de l'utilisateur
+- enfin, animation de la main pour suivre celle de l'utilisateur.
 
 **Context :**  
-- Projet a l'iniciative de l'équipe 3D SAM du laboratoire CRISTAL.
+- Projet dans l'équipe 3D SAM du laboratoire CRISTAL.
 - 3D SAM
   - Conception d'outils et méthodes d'analyse des formes des object 3D.
   - Objet 3D statique ou dynamiques
@@ -41,26 +44,34 @@ Les objectif de ce projet sont:
 
 ## Prévisionnel du projet (2 min)
 
-Pour mener ce projet, nous l'avons découpé en différentes tâches afin de
-pouvoir planifier l'enssemble de ces tâches.
+Pour la suite de notre projet, nous avons planifier les
+différentes tâches dans ce prévisionel.
 
-D'abord, il nous faut extraire, dans Unity3D, les coordonnées des articulaires
-détecté par la DLL fourni.
-En même temps, une autre personnes pour se charger d'un script qui import des
-models dans Unity3D, models de mains dans notre cas.
+D'abord, nous pouvons effectué deux première taches:
+- récupérer les point des articulations détecté par la DLL, dans Unity.
+- importer un model de main grace à un script Unity.
 
-Après cela, il faut adapter le model aux acticulations précédement extraite.
+Après, il faut adapter le model aux acticulations précédement extraite.
 Puis s'assurer de la bonne annimation du model.
 
-Ensuite, il nous faut prendre en compte les deux mains de l'utiliisation. Puis
-ensuite, prendre en compte plusieurs utilisateur.
+Ensuite, il nous faut prendre en compte les deux mains de l'utilisateur
+et, prendre en compte plusieurs utilisateur.
 
 Enfin nous pourrons développer une application de démonstration de notre travail.
 
 
 ## Conclusion (1 min 30)
 
-Ainsi, nous souhaitons avoir un résultat proche, si ce n'est mieu que cette
-démonstration du Leap Motion.
-Comme dit dans le prévisionnel, nous souhaitons faire une application permettant
-de tester l'acuité de l'utilisateur avec notre système.
+A la fin, le squelette pourra ressembler à celui de Leap Motion.
+Le model se raprochera de celui de Leap Motion.
+
+**Avantages :**
+
+
+**Limit :**
+Utilisation des mains
+
+Application permettera d'avoir une bonne idée de la précision
+et robustesse de la méthodes.
+
+Nous vous remercions. Si vous
