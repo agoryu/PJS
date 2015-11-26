@@ -65,13 +65,15 @@ Enfin nous pourrons développer une application de démonstration de notre trava
 A la fin, le squelette pourra ressembler à celui de Leap Motion.
 Le model se raprochera de celui de Leap Motion.
 
-**Avantages :**
-
+**Atout :**
+Point de vue de la camera plus large.
+Meilleur champ de détection que Leap Motion
 
 **Limit :**
-Utilisation des mains
+On reste cependant dans un cadre d'interaction bien précis.
+Interagir avec les mains ne permet pas n'import quel action.
 
 Application permettera d'avoir une bonne idée de la précision
 et robustesse de la méthodes.
 
-Nous vous remercions. Si vous
+Nous vous remercions. Si vous avez des questions.
