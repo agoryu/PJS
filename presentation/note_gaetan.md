@@ -2,24 +2,25 @@
 
 ## Hand Kinect (30 sec)
 
-**Présentation :**  
-Dans le cadre du Master IVI...  
-Sélectionner le projet Hand Kinect...  
-Orienté recherche...  
-
 **Problèmatique :**  
 A l'heure actuelle, les dernière technologies
 permet d'envisager de nouveaux types d'interaction et d'IHM.
 
 Les enjeux de notre projet sont
 - détection
-- suivrit
+- suivi
 des mains avec précision pour interagir
 avec environnement virtuel par ordinateur.
 
 Par exemple:
 - simulation médicale
 - sculture par ordinateur
+
+
+**Présentation :**  
+Dans le cadre du Master IVI...  
+Sélectionner le projet Hand Kinect...  
+Orienté recherche...  
 
 
 ## Présentation context (1 min 30)
@@ -66,7 +67,7 @@ A la fin, le squelette pourra ressembler à celui de Leap Motion.
 Le model se raprochera de celui de Leap Motion.
 
 **Atout :**
-Point de vue de la camera plus large.
+Point de vue de la camera plus libre.
 Meilleur champ de détection que Leap Motion
 
 **Limit :**
