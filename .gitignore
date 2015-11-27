@@ -9,3 +9,6 @@
 *.nav
 *.snm
 *.toc
+*.backup
+*.bbl
+*.blg
