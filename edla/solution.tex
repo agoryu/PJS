@@ -137,51 +137,62 @@ capturée par la caméra. Elle est définie par le calcul suivant :
 Dans cette équation, $z_{ij}$ représente le pixel à la position (i,j) dans le modèle et $r_{ij}$ représente le pixel à la position (i,j)
 provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est équivalente à $min(|e|,\tau)$ où $\tau$ est une valeur fixe permettant d'éliminer le bruit présent dans l'image de profondeur.
 
-\section{Modélisation 3D de la main}
+
+%\section{Modélisation 3D de la main}
 %input
-Pour mieux visualiser les actions réalisées par la main de l'utilisateur et pour faire correspondre les jointures détectées au modèle, il est nécessaire d'avoir
-un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
-maillage d'une main modèle que nous allons ensuite adapter à la main de l'utilisateur.\\
+%Pour mieux visualiser les actions réalisées par la main de l'utilisateur et pour faire correspondre les jointures détectées %au modèle, il est nécessaire d'avoir
+%un modèle de la main qui soit réaliste et précis par rapport à la réalité. Pour cela, nous avons besoin d'un
+%maillage d'une main modèle que nous allons ensuite adapter à la main de l'utilisateur.\\
 
 %icp
-La méthode utilisée par J. Taylor et al \cite{export:217428} permet en utilisant l'algorithme
-ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le maillage de la main afin
-que les points de celui-ci aient une distance moins importante avec le nuage de points fourni par la 
-caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent 
-à partir d'un maillage M d'obtenir un maillage P. Dans notre cas, le maillage M représente le modèle de main donné en entrée
-et le maillage P représente la main de l'utilisateur. ICP fonctionne en quatre étapes distinctes.
-\begin{itemize}
-  \item Associer les points grâce aux critères du plus proche voisin. Pour cela, il suffit de calculer la distance euclidienne d'un
-   point avec tous les autres points qui font partis du balayage que nous voulons comparer et de prendre la distance la plus petite.
-  \item Estimer la transformation des points grâce à une fonction d'erreur quadratique moyenne, permettant ainsi de trouver la meilleure
-  transformation possible.
-  \item Effectuer la transformation du nuage de points ayant la plus petite erreur.
-  \item Itérer jusqu'à ce qu'on ait atteint la condition de fin fixée par l'utilisateur.
-\end{itemize} 
-\ \\
+%La méthode utilisée par J. Taylor et al \cite{export:217428} permet en utilisant l'algorithme
+%%ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le maillage de la main afin
+%que les points de celui-ci aient une distance moins importante avec le nuage de points fourni par la 
+%caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent 
+%à partir d'un maillage M d'obtenir un maillage P. Dans notre cas, le maillage M représente le modèle de main donné en entrée
+%et le maillage P représente la main de l'utilisateur. ICP fonctionne en quatre étapes distinctes.
+%\begin{itemize}
+ % \item Associer les points grâce aux critères du plus proche voisin. Pour cela, il suffit de calculer la distance euclidienne d'un
+%   point avec tous les autres points qui font partis du balayage que nous voulons comparer et de prendre la distance la plus petite.
+%  \item Estimer la transformation des points grâce à une fonction d'erreur quadratique moyenne, permettant ainsi de trouver la meilleure
+%  transformation possible.
+%  \item Effectuer la transformation du nuage de points ayant la plus petite erreur.
+%  \item Itérer jusqu'à ce qu'on ait atteint la condition de fin fixée par l'utilisateur.
+%\end{itemize} 
 
 %squelette
-La méthode de J. Taylor et al \cite{export:217428} permet également d'adapter le squelette du modèle de la 
-main, ce qui permet d'obtenir une précision plus importante lors de l'utilisation de l'application.
-Pour cela, on applique à chaque os du squelette du modèle d'origine, 
-une transformation ( rotation et forme) qui dépend de celle calculée dans la phase précédente.\\
+%La méthode de J. Taylor et al \cite{export:217428} permet également d'adapter le squelette du modèle de la 
+%main, ce qui permet d'obtenir une précision plus importante lors de l'utilisation de l'application.
+%Pour cela, on applique à chaque os du squelette du modèle d'origine, 
+%une transformation ( rotation et forme) qui dépend de celle calculée dans la phase précédente.\\
 
 %Surface
-Ensuite, la méthode recalcule la surface à partir du nouveaux maillage et du nouveau squelette.
-\begin{itemize}
-\item Si la surface est paramétrée par un ensemble de points de contrôle, comme un polyèdre
-ou une surface de subdivision, on applique une fonction surface pour retrouver le point de l'espace correspondant.
-\item Si le maillage est composé de triangles, on applique la fonction au point résultant de interpolation linéaire entre les sommets des triangles.\\
-\end{itemize}
+%Ensuite, la méthode recalcule la surface à partir du nouveaux maillage et du nouveau squelette.
+%\begin{itemize}
+%\item Si la surface est paramétrée par un ensemble de points de contrôle, comme un polyèdre
+%ou une surface de subdivision, on applique une fonction surface pour retrouver le point de l'espace correspondant.
+%\item Si le maillage est composé de triangles, on applique la fonction au point résultant de interpolation linéaire entre les %sommets des triangles.\\
+%\end{itemize}
 
 %Optimisation
-Entre chaque opération, on applique une fonction de minimisation d'énergie,
-on obtient alors une convergence des résultats plus rapide qu'en utilisant simplement ICP une fois.
+%Entre chaque opération, on applique une fonction de minimisation d'énergie,
+%on obtient alors une convergence des résultats plus rapide qu'en utilisant simplement ICP une fois.
 
+%\begin{figure}
+% \center
+ %\includegraphics[width=14cm]{images/MethodeModelisation.png}
+ %\caption{Résumé des étapes pour la modélisation de la main}
+%\end{figure}
+
+\section{Animation de la main}
+	
+%Blender
+Pour pouvoir animer une main de façon cohérente et réaliste il existe plusieurs solutions. Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des solutions comme l'animation par clef sont à abandonner.
+
+Nous avons choisi de nous concentrer sur une animation à base d'armature.
 \begin{figure}
- \center
- \includegraphics[width=14cm]{images/MethodeModelisation.png}
- \caption{Résumé des étapes pour la modélisation de la main}
+\center
+\includegraphics[width=0.9\textwidth]{images/SkellHand.jpeg}	contenu...
 \end{figure}
 
 \section{Evaluation des solutions envisagées}
