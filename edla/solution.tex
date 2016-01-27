@@ -190,10 +190,24 @@ provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est é
 Pour pouvoir animer une main de façon cohérente et réaliste il existe plusieurs solutions. Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des solutions comme l'animation par clef sont à abandonner.
 
 Nous avons choisi de nous concentrer sur une animation à base d'armature.
+
 \begin{figure}
-\center
-\includegraphics[width=0.9\textwidth]{images/SkellHand.jpeg}	contenu...
+ \center
+ \includegraphics[width=14cm]{images/SkellHand.jpg}
+ \caption{Armature de la main droite réalisée sur blender}	contenu...
 \end{figure}
+
+Les armatures permettent de modifier le modèle associé à partir de rotations et translations des jointures de cet armature.
+Il existe de nombreuses méthodes pour réaliser cette modification.
+Celle utilisée majoritairement est d'associer les sommet du modèle aux jointures. Cette association peut être dure : un sommet est associé à une seule jointure, ou floue : un sommet peut être associé à plusieurs jointures par des poids différents.
+
+Un algorithme permettant cette association est "bone heat weighting". \cite{baran2007automatic}
+Il permet de trouver les poids adaptés à l'association entre les os de l'armature et les sommets. IL prend en compte différentes contraintes pour les poids associés : \\
+\begin{itemize}
+	\item Ils ne doivent pas dépendre de la résolution du mesh
+	\item Ils doivent varier de façon homogène avec la surface
+	\item Il doit y avoir un rapport de proportionnalité entre la largeur 
+\end{itemize}
 
 \section{Evaluation des solutions envisagées}
 Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 
