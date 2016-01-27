@@ -187,15 +187,16 @@ provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est é
 \section{Animation de la main}
 	
 %Blender
-Pour pouvoir animer une main de façon cohérente et réaliste il existe plusieurs solutions. Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des solutions comme l'animation par clef sont à abandonner.
+Pour pouvoir animer une main de façon cohérente et réaliste il existe plusieurs solutions. 
+Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des solutions comme l'animation par clef sont à abandonner.
 
 Nous avons choisi de nous concentrer sur une animation à base d'armature.
-
-\begin{figure}
+% \begin{figure}
+% \center
  \center
  \includegraphics[width=14cm]{images/SkellHand.jpg}
  \caption{Armature de la main droite réalisée sur blender}	contenu...
-\end{figure}
+
 
 Les armatures permettent de modifier le modèle associé à partir de rotations et translations des jointures de cet armature.
 Il existe de nombreuses méthodes pour réaliser cette modification.
@@ -205,9 +206,20 @@ Un algorithme permettant cette association est "bone heat weighting". \cite{bara
 Il permet de trouver les poids adaptés à l'association entre les os de l'armature et les sommets. IL prend en compte différentes contraintes pour les poids associés : \\
 \begin{itemize}
 	\item Ils ne doivent pas dépendre de la résolution du mesh
+
 	\item Ils doivent varier de façon homogène avec la surface
 	\item Il doit y avoir un rapport de proportionnalité entre la largeur 
 \end{itemize}
+
+Un modèle qui a fait l'objet de cet algorithme peut être \og animé \fg  de façon réaliste.
+Pour cela, on peut créer des contraintes sur les mouvements possibles de l'armature pour correspondre à des actions possibles. 
+Par exemple, pour la main, les doigts ne peuvent pas bouger librement, on peut donc contraindre les degrés de liberté de chaque jointure et même empécher les translations : toutes les positions de la main pouvant être exprimées par une série de rotation contraintes des jointures du squelette.
+% ATTENTION : à changer si modification de la méthode d'animation
+Une autre solution, celle employée dans notre projet, consiste à n'utiliser que des informations de position obtenue par détection des jointures des doigts de la main \textit{via} un périphérique de capture.
+Dans cette méthode, on associe les points détectés aux jointures de l'armature. Les positions des jointures du modèle sont donc naturellement contraintes par les postions des jointures de la véritable main.
+
+Enfin, il existe une méthode appelée la cinématique inverse qui utilise un point fixe et un point mobile de l'armature. Elle permet de retrouver les rotations effectuées par les jointures pour que le point mobile soit à sa position connue.
+
 
 \section{Evaluation des solutions envisagées}
 Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 
