@@ -190,7 +190,8 @@ provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est é
 Pour pouvoir animer une main de façon cohérente et réaliste il existe plusieurs solutions. 
 Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des solutions comme l'animation par clef sont à abandonner.
 
-Nous avons choisi de nous concentrer sur une animation à base d'armature.
+Nous avons choisi de nous concentrer sur une animation à base d'armature.\newline
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=14cm]{images/SkellHand.jpg}
@@ -199,7 +200,7 @@ Nous avons choisi de nous concentrer sur une animation à base d'armature.
 
 Les armatures permettent de modifier le modèle associé à partir de rotations et translations des jointures de cet armature.
 Il existe de nombreuses méthodes pour réaliser cette modification.
-Celle utilisée majoritairement est d'associer les sommet du modèle aux jointures. Cette association peut être dure : un sommet est associé à une seule jointure, ou floue : un sommet peut être associé à plusieurs jointures par des poids différents.
+Celle utilisée majoritairement est d'associer les sommet du modèle aux jointures. Cette association peut être dure : un sommet est associé à une seule jointure, ou floue : un sommet peut être associé à plusieurs jointures par des poids différents.\newline
 
 Un algorithme permettant cette association est "bone heat weighting". \cite{baran2007automatic}
 Il permet de trouver les poids adaptés à l'association entre les os de l'armature et les sommets. Pour rendre un résultat proche du réel, on souhaite que les poids possède certaines propriétés : \\
@@ -213,10 +214,12 @@ Il permet de trouver les poids adaptés à l'association entre les os de l'armat
 
 Un modèle qui a fait l'objet de cet algorithme peut être \og animé \fg  de façon réaliste.
 Pour cela, on peut créer des contraintes sur les mouvements possibles de l'armature pour correspondre à des actions possibles. 
-Par exemple, pour la main, les doigts ne peuvent pas bouger librement, on peut donc contraindre les degrés de liberté de chaque jointure et même empécher les translations : toutes les positions de la main pouvant être exprimées par une série de rotation contraintes des jointures du squelette.
+Par exemple, pour la main, les doigts ne peuvent pas bouger librement, on peut donc contraindre les degrés de liberté de chaque jointure et même empêcher les translations : toutes les positions de la main pouvant être exprimées par une série de rotation contraintes des jointures du squelette.\newline
+
+
 % ATTENTION : à changer si modification de la méthode d'animation
 Une autre solution, celle employée dans notre projet, consiste à n'utiliser que des informations de position obtenue par détection des articulations des doigts de la main \textit{via} un périphérique de capture.
-Dans cette méthode, on associe les points détectés aux jointures de l'armature. Les positions des jointures du modèle sont donc naturellement contraintes par les postions des articulations de la véritable main.
+Dans cette méthode, on associe les points détectés aux jointures de l'armature. Les positions des jointures du modèle sont donc naturellement contraintes par les postions des articulations de la véritable main.\newline
 
 Enfin, il existe une méthode appelée la cinématique inverse qui utilise un point fixe et un point mobile de l'armature. Elle permet de retrouver les rotations effectuées par les jointures pour que le point mobile soit à sa position connue. Pour cela, l'algorithme de cinématique inverse minimise la fonction de distance entre le point mobile de l'armature et la position que ce point doit atteindre.
 La cinématique inverse à besoin de 3 principes pour fonctionner : 
@@ -227,8 +230,8 @@ La cinématique inverse à besoin de 3 principes pour fonctionner :
 	\item Les mouvements sont supposés suffisamment réguliers pour paraitre naturels. Comme les points mobiles sont obtenus à partir de mouvements d'une main réelle, ils vont nécessairement paraitre naturels.
 \end{itemize}
 
-Cette méthode étant complexe, les calculs nécessaire pour la mettre en place prennent trop de temps pour un système temps réel comme le notre.
-
+Les techniques classiques de résolution de la cinématique inverse consistent à inverser les équations de cinématique avant qui retrouvent la position à partir des rotations des articulations. 
+Le problème principale vient de la difficulté de cette inversion et de la possibilité d'un ensemble vide de solutions, les techniques classiques utilisent donc des méthodes d'optimisation itératives comme Iterative Closest Points ou l'Algorithme Levenberg-Marquardt pour palier ces problèmes.
 
 \section{Evaluation des solutions envisagées}
 Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 

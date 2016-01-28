@@ -17,8 +17,8 @@ application doit modèliser la main dans un environnement 3D.
 
 \paragraph{}
 Pour avoir une animation de la main la plus précise possible, nous récupérons également les points fournis par
-le SDK de la Kinect pour avoir plus d'information, mais également de vérifier les résultats calculer par 
-la DLL. Cette vérification se fait sur le bout du pousse et sur le bout du majeur, car ces points sont communs
+le SDK de la Kinect pour avoir plus d'information, mais également de vérifier les résultats calculés par 
+la DLL. Cette vérification ce fait sur le bout du pousse et sur le bout du majeur, car ces points sont communs
 à la DLL et au SDK.
 
 \begin{figure}[H]
@@ -33,7 +33,7 @@ L'intérêt de cette séparation est que notre méthode de localisation des join
 DLL et que les calculs effectués sur les données sont spécifiques a celle-ci. En cas de changement de 
 technologie, il suffit de modifier le client sans avoir à changer l'application Unity3D. La seul contrainte
 étant la structure des socket envoyé. Nous avons donc une application modulable permettant de modifier 
-facilement la méthode récupérer les jointures, mais aussi pour modifier le matériel utilisé.
+facilement la méthode de récupération les jointures, mais aussi de modifier le matériel utilisé.
 
 \section{Récupération de la position des jointure de la main}
 \paragraph{}
@@ -51,9 +51,15 @@ la valeur dans le repère monde de la troisième coordonné de la jointure coura
 
 \paragraph{}
 La seconde problèmatique de notre méthode est la normalisation des coordonnées que nous avons récupérer. Les coordonnées
-de la kinect sont dans le repère monde, nous avons donc besoin d'utiliser les caractèristiques de la caméra pour normaliser
+de la kinect sont dans le repère monde, nous avons donc besoin d'utiliser les caractéristiques de la caméra pour normaliser
 les coordonnées. Nous prenons une distance de 4m pour la profondeur maximum de la caméra.
 
-\section{Modèlisation de la main}
+\section{Modélisation et animation de la main}
+\paragraph{}
+Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place nous avons récupérez un modèle existant de main.
+Nous y avons appliqué une armature pour pouvoir l'animer de façon réaliste. Pour relier l'armature au modèle, on utilise une méthode de skinning.
+
+\paragraph{}
+Les différents techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.
 
 \section{L'application de démonstration}
