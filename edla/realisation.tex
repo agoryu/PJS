@@ -56,8 +56,21 @@ les coordonnées. Nous prenons une distance de 4m pour la profondeur maximum de 
 
 \section{Modélisation et animation de la main}
 \paragraph{}
-Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place nous avons récupérez un modèle existant de main.
-Nous y avons appliqué une armature pour pouvoir l'animer de façon réaliste. Pour relier l'armature au modèle, on utilise une méthode de skinning.
+Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place, nous avons récupérez un modèle de main existant sur Internet.
+Sous Blender, nous y avons appliqué une armature pour pouvoir l'animer de façon réaliste. Cette armature est constituée d'os et de jointures. On peut considérer que l'armature est un arbre avec les noeuds qui sont des os et les arcs qui sont les jointures. Les transformations de chaque fils dépend des transformations de leurs père. Ainsi, un mouvement du poignet entraine le mouvement de chaque os de la main. 
+Cette armature pourra être utilisée pour mimer la main de l'utilisateur. 
+
+\paragraph{}
+Pour relier l'armature au modèle, on utilise une méthode de skinning. Le skinning est expliquée dans l'état de l'art. Dans Blender, on peut utiliser différent types de skinning, soit \og à la main \fg en créant des groupes de sommets à associer à chaque jointures, soit en utilisant des algorithmes de création des groupes et d'attribution automatique des sommets à ces groupes. Nous avons choisi d'utiliser la méthode \og bone heat \fg. \cite{baran2007automatic}
+
+\paragraph{}
+Le modèle et armature ainsi créés sont importés dans Unity3D tout en conservant les associations effectuées par le skinning. Ensuite, on teste ce modèle en l'animant à l'aide de rotations des jointures, on peut ainsi faire prendre des poses à la main. 
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{images/HandPose1.png}
+	\includegraphics[width=0.45\textwidth]{images/HandPose2.png}
+\end{figure}
 
 \paragraph{}
 Les différentes techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.
