@@ -1,0 +1,59 @@
+\chapter{Travaux réalisés}
+
+
+\section{Séparation des tâches}
+\paragraph{}
+Nous constatons assez rapidement dans le projet qu'il est très difficile d'utiliser
+le SDK de la Kinect et la DLL directement dans Unity. Plusieurs projets, trouvé durant nos recherche, utilisent un système 
+de socket afin de pouvoir envoyer des informations à une application Unity3D à partir d'une application C\#.
+Nous utilisons donc la même méthode afin de pouvoir séparer les différentes tâches de notre projet.
+
+\paragraph{}
+Nous créons donc un client utilisant la DLL et qui effectue l'ensemble des opérations sur les données afin
+de les envoyer à une application Unity3D qui n'a plus qu'à effectuer les transformations sur le modèle avec
+les données reçu. En effet, les données fournis pas la DLL ne peuvent être appliqué tel quel sur le modèle.
+Le repère des coordonnées fournis par la DLL est le repère image, donc un repère en 2D en pixel. Or, notre 
+application doit modèliser la main dans un environnement 3D.
+
+\paragraph{}
+Pour avoir une animation de la main la plus précise possible, nous récupérons également les points fournis par
+le SDK de la Kinect pour avoir plus d'information, mais également de vérifier les résultats calculer par 
+la DLL. Cette vérification se fait sur le bout du pousse et sur le bout du majeur, car ces points sont communs
+à la DLL et au SDK.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=350px]{images/schemaAppli.png}
+    \caption{Schéma de la structure de l'application}
+  \end{center}
+\end{figure}
+
+\paragraph{}
+L'intérêt de cette séparation est que notre méthode de localisation des jointures se repose sur une 
+DLL et que les calculs effectués sur les données sont spécifiques a celle-ci. En cas de changement de 
+technologie, il suffit de modifier le client sans avoir à changer l'application Unity3D. La seul contrainte
+étant la structure des socket envoyé. Nous avons donc une application modulable permettant de modifier 
+facilement la méthode récupérer les jointures, mais aussi pour modifier le matériel utilisé.
+
+\section{Récupération de la position des jointure de la main}
+\paragraph{}
+Le premier problème à résoudre est donc le calcul de la troisième coordonnée de chaque jointure. Grâce à la Kinect,
+il est possible de récupérer les coordonnées, dans le repère monde, de la jointure du poignet. Elle nous permet
+également de récupérer une valeur dans l'image de profondeur, valeur représentant la troisième coordonné d'un point.
+Nous avons alors la valeur du pixel de l'image de profondeur de la jointure recherché $p_{recherche}$, la valeur
+du pixel de l'image de profondeur de la jointure du poignet $p_{ref}$ et la valeur de la troisième coordonné dans 
+le repère monde de la jointure du poignet $z_{ref}$. Nous appliquons alors une règle de trois pour obtenir 
+la valeur dans le repère monde de la troisième coordonné de la jointure courante.
+
+\begin{equation}
+ z_{recherche} = \frac{z_{ref} * p_{recherche}}{p_{ref}}
+\end{equation}
+
+\paragraph{}
+La seconde problèmatique de notre méthode est la normalisation des coordonnées que nous avons récupérer. Les coordonnées
+de la kinect sont dans le repère monde, nous avons donc besoin d'utiliser les caractèristiques de la caméra pour normaliser
+les coordonnées. Nous prenons une distance de 4m pour la profondeur maximum de la caméra.
+
+\section{Modèlisation de la main}
+
+\section{L'application de démonstration}
