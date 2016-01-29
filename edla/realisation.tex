@@ -22,9 +22,10 @@ la DLL. Cette vérification ce fait sur le bout du pousse et sur le bout du maje
 à la DLL et au SDK.
 
 \begin{figure}[H]
+  \label{carte_main}
   \begin{center}
-    \includegraphics[width=350px]{images/schemaAppli.png}
-    \caption{Schéma de la structure de l'application}
+    \includegraphics[width=200px]{images/main2.png}
+    \caption{Carte des points de la main détectés par la DLL et la Kinect}
   \end{center}
 \end{figure}
 
@@ -34,6 +35,14 @@ DLL et que les calculs effectués sur les données sont spécifiques a celle-ci.
 technologie, il suffit de modifier le client sans avoir à changer l'application Unity3D. La seul contrainte
 étant la structure des socket envoyé. Nous avons donc une application modulable permettant de modifier 
 facilement la méthode de récupération les jointures, mais aussi de modifier le matériel utilisé.
+
+\begin{figure}[H]
+  \label{schema_application}
+  \begin{center}
+    \includegraphics[width=350px]{images/schemaAppli.png}
+    \caption{Schéma de la structure de l'application}
+  \end{center}
+\end{figure}
 
 \section{Récupération de la position des jointure de la main}
 \paragraph{}
@@ -52,7 +61,17 @@ la valeur dans le repère monde de la troisième coordonné de la jointure coura
 \paragraph{}
 La seconde problèmatique de notre méthode est la normalisation des coordonnées que nous avons récupérer. Les coordonnées
 de la kinect sont dans le repère monde, nous avons donc besoin d'utiliser les caractéristiques de la caméra pour normaliser
-les coordonnées. Nous prenons une distance de 4m pour la profondeur maximum de la caméra.
+les coordonnées. Nous prenons une distance de 4m pour la profondeur maximum de la caméra, car cela correspond à la profondeur 
+de champ de la Kinect.
+
+\paragraph{}
+Enfin la dernière problèmatique est la rotation de la main. Jusqu'à maintenant, nous ne fesons qu'appliquer les coordonnées
+fournies dans les sockets, mais il n'y a aucune rotation appliqué sur la main. Lorsque la main est bien parallèle à la caméra,
+le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. Pour palier à cette problèmatique nous avons calulé
+l'angle entre la droite représentant l'horizontal et la droite passant le poignet et le bout du majeur.
+%TODO prendre un screenshot de l ecran pour le problème de rotation de la main
+
+%TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
 
 \section{Modélisation et animation de la main}
 \paragraph{}
