@@ -89,9 +89,35 @@ Le modèle et armature ainsi créés sont importés dans Unity3D tout en conserv
 	\centering
 	\includegraphics[width=0.45\textwidth]{images/HandPose1.png}
 	\includegraphics[width=0.46\textwidth]{images/HandPose2.png}
+	\caption{Poses réalisées à partir de rotations des jointures de l'armature dans Unity}
 \end{figure}
 
 \paragraph{}
-Les différentes techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.
+Les différentes techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. 
+Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. 
+Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.\newline
+On utilise les points suivants détectés par la Kinect : le poignet et le millieu de la main pour positionner et orienter le modèle en concordance avec les points détectés par la DLL.
+Pour cela, on applique translate le modèle vers la position du poignet détecté. Puis on calcule l'angle entre les vecteurs suivant : 
+$$
+V_{Kinect} = (millieu.x - poignet.x, millieu.y - poignet.y, milleu.z - poignet.z)
+$$
+$$
+V_{Base}   = (milleu.x - poignet.x, 0, milleu.z - poignet.z)
+$$
+$$
+Angle = angleEntre(V_{Base}, V_{Kinect})
+$$
+
+On applique une rotation de l'angle calculé à l'armature du modèle.\newline
+
+Une fois le modèle correctement positioné et orienté, il a fallu s'occuper des doigts. Une partie complexe a été de décider d'une méthode de calcul des angles des jointures et de l'implémenter.
+Nous avons choisi de calculer les angles de la même façon que pour le poignet (à l'aide de vecteurs).\\
+Les vecteurs sont formés par les points suivants : la jointure qui sert de pivot et le point suivant dans l'armature forment un vecteur, ainsi que la jointure (pivot) et le point détecté par la DLL correspondant au point de l'armature. (cf. Figure 3.4)
+
+\begin{figure}[!h]
+ \centering
+ 
+ \caption{Schéma d'explication du calcul de l'angle}
+\end{figure}
 
 \section{L'application de démonstration}
