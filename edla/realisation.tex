@@ -96,30 +96,31 @@ Le modèle et armature ainsi créés sont importés dans Unity3D tout en conserv
 Les différentes techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. 
 Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. 
 Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.\newline
-On utilise les points suivants détectés par la Kinect : le poignet et le millieu de la main pour positionner et orienter le modèle en concordance avec les points détectés par la DLL.
-Pour cela, on applique une translation du modèle, vers la position du poignet détecté. Puis on calcule l'angle entre les vecteurs suivant : 
-$$
-V_{Kinect} = (millieu.x - poignet.x, millieu.y - poignet.y, milleu.z - poignet.z)
-$$
-$$
-V_{Base}   = (milleu.x - poignet.x, 0, milleu.z - poignet.z)
-$$
-$$
-Angle = angleEntre(V_{Base}, V_{Kinect})
-$$
+On utilise les points suivants détectés par la Kinect : le poignet, le millieu de la main et le sommet du pouce pour positionner et orienter le modèle en concordance avec les points détectés par la DLL.
+Pour cela, on applique une translation du modèle, vers la position du poignet détecté. Puis on calcule l'angle entre les vecteurs $V_{AB}$ et $V_{CB}$  : 
 
-On applique une rotation de l'angle calculé à l'armature du modèle.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{images/SchemaRotationMain.jpg}
+\caption{Schéma d'explication du calcul des vecteurs utilisés pour calculer la rotation du poignet}
+\end{figure}
+
+On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retouver l'orientation de la main sur l'axe X et Y.
+Une opération similaire est effectuée avec la base du pouce à la pace du millieu de la main pour touver l'orientation en Z: 
+
 
 \paragraph{}
 
-Une fois le modèle correctement positionné et orienté, il a fallu s'occuper des doigts. Une partie complexe a été de décider d'une méthode de calcul des angles des jointures et de l'implémenter.
-Nous avons choisi de calculer les angles de la même façon que pour le poignet (à l'aide de vecteurs).\\
+Une fois le modèle correctement positionné et orienté, il faut s'occuper des doigts. Une partie complexe a été de décider d'une méthode de calcul des angles des jointures et de l'implémenter.
+Nous avons choisi de calculer les angles de la même façon que pour le poignet (à l'aide de vecteurs) et sur le même principe.\\
 Les vecteurs sont formés par les points suivants : la jointure qui sert de pivot et le point suivant dans l'armature forment un vecteur, ainsi que la jointure (pivot) et le point détecté par la DLL correspondant au point de l'armature. (cf. Figure 3.4)
 
-\begin{figure}[!h]
+\newpage
+
+\begin{figure}[H]
  \centering
- \includegraphics[width=0.7\textwidth]{images/SchémaRotationDoigt.jpeg}
- \caption{Schéma d'explication du calcul de l'angle}
+ \includegraphics[width=0.7\textwidth]{images/SchemaRotationDoigt.png}
+ \caption{Schéma d'explication du calcul de l'angle aux joinutres de l'armature}
 \end{figure}
 
 \section{L'application de démonstration}
