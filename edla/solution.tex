@@ -90,7 +90,7 @@ précis lorsque l'utilisateur effectue des changements de direction rapides avec
 Cette méthode nous permet de déterminer la position de la main et de détecter le bout des doigts. Cependant, elle ne nous permet
 pas de réaliser notre projet entièrement. En effet, nous avons besoin de plus de précisions en détectant les articulations
 de la main. De plus, cette méthode est sensible à la luminosité de la scène filmée et n'est pas très adaptée
-à la modélisation 3D d'une main.
+à l'animation 3D d'une main.
 
 \subsection{Détection et suivi de la main à partir d'une image de profondeur}
 Une seconde solution utilise une image de profondeur plutôt que l'image binarisée avec le changement d'espace colorimétrique.
@@ -126,8 +126,8 @@ On voit dans la Fig. \ref{fig:bodyrecognition} que l'articulation de la main est
 une ROI autour de ce point. Cette méthode a été implémentée dans la caméra Kinect.\\
 
 La méthode utilisée dans \cite{export:238453} ne nécessite aucune donnée provenant d'images antérieures. L'ensemble
-des calculs sont réalisés sur une image à partir d'une base d'apprentissage contenant différentes postures de la
-main. Etant donné qu'il est impossible de stocker toutes les postures de la main, la méthode de T. Sharp et al \cite{export:238453}
+des calculs est réalisé sur une image à partir d'une base d'apprentissage contenant différentes postures de la
+main. \'{E}tant donné qu'il est impossible de stocker toutes les postures de la main, la méthode de T. Sharp et al \cite{export:238453}
 calcule une fonction énergie permettant de déterminer quelle est la posture la plus représentative de celle de la main
 de l'utilisateur. Cette fonction énergie est calculée à partir des pixels du modèle et ceux de l'image de profondeur
 capturée par la caméra. Elle est définie par le calcul suivant :
@@ -245,7 +245,7 @@ la main de l'utilisateur. L'algorithme de Kalman est efficace, mais peu précis 
 brusques et il est également assez complexe à mettre en place. Il existe d'autres méthodes de suivi qui sont
 peut-être plus appropriées à la conception d'une nouvelle IHM, mais le suivi n'est pas le seul défaut de cette
 méthode pour la réalisation de notre projet. Une 
-modélisation 3D de la main n'est pas possible avec ce genre de méthode. En effet, sans l'information de 
+animation 3D de la main n'est pas possible avec ce genre de méthode. En effet, sans l'information de 
 profondeur de la main, il est difficile de déterminer de nombreuses postures de celle-ci. Cette solution était une première approche de la 
 détection de la main ainsi que des doigts qui reste efficace avec une luminosité correcte.\\
 
