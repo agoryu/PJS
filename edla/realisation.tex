@@ -79,9 +79,9 @@ l'angle entre la droite représentant l'horizontal et la droite passant le poign
 \section{Modélisation et animation de la main}
 \paragraph{}
 %TODO pas besoin de savoir d'ou vient le modele
-Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place, nous avons récupérez un modèle de main existant sur Internet.
+Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place, nous avons récupérez un modèle de main existant.
 %TODO revoir la tournur de phrase
-Sous Blender, nous y avons appliqué une armature pour pouvoir l'animer de façon réaliste. Cette armature est constituée d'os et de jointures. On peut considérer que l'armature est 
+Sous Blender, nous avons appliqué à ce modèle une armature pour pouvoir l'animer de façon réaliste. Cette armature est constituée d'os et de jointures. On peut considérer que l'armature est 
 un arbre avec les noeuds qui sont des os et les arcs qui sont les jointures. Les transformations de chaque fils dépend des transformations de leurs père. Ainsi, un mouvement du poignet 
 entraine le mouvement de chaque os de la main. Cette armature pourra être utilisée pour mimer la main de l'utilisateur. 
 
@@ -131,7 +131,7 @@ Les vecteurs sont formés par les points suivants : la jointure qui sert de pivo
 %TODO manque l'image
 \begin{figure}[H]
  \centering
- %\includegraphics[width=0.7\textwidth]{images/SchemaRotationDoigt.png}
+ \includegraphics[width=0.7\textwidth]{images/SchemaRotationDoigt.png}
  \caption{Schéma d'explication du calcul de l'angle aux jointures de l'armature}
 \end{figure}
 
