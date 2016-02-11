@@ -59,15 +59,15 @@ la valeur dans le repère monde de la troisième coordonné de la jointure coura
 \end{equation}
 
 \paragraph{}
-La seconde problèmatique de notre méthode est la normalisation des coordonnées que nous avons récupérer. Les coordonnées
+La seconde problématique de notre méthode est la normalisation des coordonnées que nous avons récupérer. Les coordonnées
 de la kinect sont dans le repère monde, nous avons donc besoin d'utiliser les caractéristiques de la caméra pour normaliser
 les coordonnées. Nous prenons une distance de 4m pour la profondeur maximum de la caméra, car cela correspond à la profondeur 
 de champ de la Kinect.
 
 \paragraph{}
-Enfin la dernière problèmatique est la rotation de la main. Jusqu'à maintenant, nous ne fesons qu'appliquer les coordonnées
+Enfin la dernière problématique est la rotation de la main. Jusqu'à maintenant, nous ne fessons qu'appliquer les coordonnées
 fournies dans les sockets, mais il n'y a aucune rotation appliqué sur la main. Lorsque la main est bien parallèle à la caméra,
-le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. Pour palier à cette problèmatique nous avons calulé
+le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. Pour palier à cette problématique nous avons calculé
 l'angle entre la droite représentant l'horizontal et la droite passant le poignet et le bout du majeur.
 %TODO prendre un screenshot de l ecran pour le problème de rotation de la main
 
@@ -88,10 +88,39 @@ Le modèle et armature ainsi créés sont importés dans Unity3D tout en conserv
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.45\textwidth]{images/HandPose1.png}
-	\includegraphics[width=0.45\textwidth]{images/HandPose2.png}
+	\includegraphics[width=0.46\textwidth]{images/HandPose2.png}
+	\caption{Poses réalisées à partir de rotations des jointures de l'armature dans Unity}
 \end{figure}
 
 \paragraph{}
-Les différentes techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.
+Les différentes techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. 
+Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. 
+Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.\newline
+On utilise les points suivants détectés par la Kinect : le poignet, le milieu de la main et le sommet du pouce pour positionner et orienter le modèle en concordance avec les points détectés par la DLL.
+Pour cela, on applique une translation du modèle, vers la position du poignet détecté. Puis on calcule l'angle entre les vecteurs $V_{AB}$ et $V_{CB}$  : 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{images/SchemaRotationMain.jpg}
+\caption{Schéma d'explication du calcul des vecteurs utilisés pour calculer la rotation du poignet}
+\end{figure}
+
+On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retrouver l'orientation de la main sur l'axe X et Y.
+Une opération similaire est effectuée avec la base du pouce à la place du milieu de la main pour trouver l'orientation en Z: 
+
+
+\paragraph{}
+
+Une fois le modèle correctement positionné et orienté, il faut s'occuper des doigts. Une partie complexe a été de décider d'une méthode de calcul des angles des jointures et de l'implémenter.
+Nous avons choisi de calculer les angles de la même façon que pour le poignet (à l'aide de vecteurs) et sur le même principe.\\
+Les vecteurs sont formés par les points suivants : la jointure qui sert de pivot et le point suivant dans l'armature forment un vecteur, ainsi que la jointure (pivot) et le point détecté par la DLL correspondant au point de l'armature. (cf. Figure 3.5)
+
+\newpage
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=0.7\textwidth]{images/SchemaRotationDoigt.png}
+ \caption{Schéma d'explication du calcul de l'angle aux jointures de l'armature}
+\end{figure}
 
 \section{L'application de démonstration}

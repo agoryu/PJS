@@ -10,7 +10,7 @@ Cependant, les squelettes 3D ne sont en général pas assez riche en
 informations concernant les points des articulations des mains.\\
 
 Pourtant les mains sont habiles et nous pouvons faire de nombreux 
-mouvements, plus ou moins complexes et rapides avec elles. De plus en 
+mouvements, plus ou moins complexes et rapides, avec elles. De plus en 
 plus d'applications nécessitent des IHM plus précises et plus 
 naturelles. Utiliser ses mains pour contrôler, interagir et communiquer 
 avec un ordinateur, devient très intéressant. Ce niveau de 
@@ -54,12 +54,12 @@ propose également une licence gratuite assez complète.\\
   \end{center}
 \end{figure}
 
+%TODO Modifier la partie sur la modélisation 3D
 Dans le cadre de ce projet, nous sommes amenés à rédiger un état de
 l'art. Cette première partie nous permet de synthétiser et sélectionner 
 les solutions. Notre objectif étant de détecter la main d'une personne 
-et ses articulations, afin de modéliser en 3D la main de 
-cette personne, dans un champs de caméra global ou rapproché. Cela 
-doit être réalisable en temps réel et à partir d'une caméra nous 
+et ses articulations, afin d'animer en 3D les mouvements de la main de 
+cette personne. Cela doit être réalisable en temps réel et à partir d'une caméra nous 
 fournissant une image RGB et une image contenant l'information de 
 profondeur de la scène filmée.\\
 
@@ -106,7 +106,9 @@ D'autres outils permettent de détecter les mains des utilisateurs. Par
 exemple le Leap Motion détecte les articulations des mains. Néanmoins,
 ce capteur est limité, car il faut garder les mains proches du capteur.
 La portée et le champ de détection de ce dispositif restent restreint. 
-Leap Motion ne permet pas de détecter le squelette complet d'une personne.\\
+Leap Motion ne permet pas de détecter le squelette complet d'une personne.
+Il permet cependant une plus grande précision et une plus grande stabilité
+que la Kinect dans la détection des articulations de la main.\\
 
 À partir de ces constats, nous pouvons formuler la problématique 
 suivante. Puisque, 
@@ -150,7 +152,7 @@ la main de l'utilisateur pour plus de précision et de réalisme.
 Dans un premier temps, le but de ce rapport est d'appréhender les 
 différentes méthodes existantes sur la détection des mains, leurs 
 articulations et la reconnaissance de la pose des mains. Nous souhaitons
-également comprendre les principes utilisés lors de la modélisation 3D de
+également comprendre les principes utilisés lors de l'animation 3D de
 celles-ci.\\ 
 %Mais aussi de 
 %comprendre les principes utilisés pour la modélisation en 3D des 
@@ -161,8 +163,8 @@ a pour objectif de bien cerner les méthodes qui peuvent être utilisées
 par le module. Celui-ci fournit les positions spatiales des 
 articulations des mains.\\
 
-Ensuite, le but de l'étude des techniques de modélisation des mains en 
-3D est de pouvoir animer les mains de façon naturelle dans Unity3D.\\
+Ensuite, le but de l'étude des techniques d'animation des mains en 
+3D est de pouvoir comprendre et utiliser efficacement les techniques pour animer les mains de façon naturelle dans Unity3D.\\
 
 Le dernier objectif de cette première partie, est de faire une 
 planification des tâches à effectuer. Ceci permet de s'organiser et 
