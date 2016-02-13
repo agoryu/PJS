@@ -1,6 +1,5 @@
 \chapter{Travaux réalisés}
 
-
 \section{Séparation des tâches}
 \paragraph{}
 Nous constatons assez rapidement dans le projet qu'il est très difficile d'utiliser
@@ -68,8 +67,14 @@ de champ de la Kinect.
 %TODO elliot : revoir paragraphe
 Enfin la dernière problématique est la rotation de la main. Jusqu'à maintenant, nous ne fessons qu'appliquer les coordonnées
 fournies dans les sockets, mais il n'y a aucune rotation appliqué sur la main. Lorsque la main est bien parallèle à la caméra,
-le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. Pour palier à cette problématique nous avons calculé
-l'angle entre la droite représentant l'horizontal et la droite passant le poignet et le bout du majeur.
+le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles.
+
+\paragraph{}
+Pour résoudre ce problème, nous calculons la rotation du poignet, car c'est le fait que la profondeur des points des jointures
+ne correspondent pas à la profondeur du modèle de la main. Il faut prendre en compte la rotation du modèle pour que les points
+correspondent aux articulations du modèle. Pour cela, nous gardons la rotation du modèle avant l'interaction avec l'utilisateur,
+puis nous calculons la rotation à partir de cette angle. Cette méthode permet de ne pas avoir de modification des axes de rotation
+suite à une succession de rotation.
 %TODO prendre un screenshot de l ecran pour le problème de rotation de la main
 
 %TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
