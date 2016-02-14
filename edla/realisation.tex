@@ -43,6 +43,8 @@ facilement la méthode de récupération les jointures, mais aussi de modifier l
   \end{center}
 \end{figure}
 
+%TODO La traduction de "joint" est "articulation" en français, dans notre cas.
+% Comme jointure est un peu partout dans le rapport je pense qu'on va le laisser. 
 \section{Récupération de la position des jointure de la main}
 \paragraph{}
 Le premier problème à résoudre est donc le calcul de la troisième coordonnée de chaque jointure. Grâce à la Kinect,
@@ -65,6 +67,7 @@ de champ de la Kinect.
 
 \paragraph{}
 %TODO elliot : revoir paragraphe
+%TODO les angles se font coté unity maintenant
 Enfin la dernière problématique est la rotation de la main. Jusqu'à maintenant, nous ne fessons qu'appliquer les coordonnées
 fournies dans les sockets, mais il n'y a aucune rotation appliqué sur la main. Lorsque la main est bien parallèle à la caméra,
 le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles.
@@ -80,6 +83,69 @@ suite à une succession de rotation.
 %TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
 
 %TODO gaetan : ajout de la gestion des sockets avec les deux types de socket 
+\section{Structure du message envoyé par sockets}
+\paragraph{}
+Ensuite, nous formatons un message contenant les informations de la 
+Kinect et les coordonnées des jointures récupérées précedemment. Ce 
+message est créé par le client pour être au envoyé au serveur via le 
+procole UDP. Enfin le message est traité par le serveur, afin d'obtenir 
+les données sous forme de variables exploitable.
+
+\paragraph{}
+Au cours du projet, les informations transmies au serveur ont évolué. 
+En premier lieu, nous envoyions un message lors que la DLL fonctionnait. 
+La permier version du message contenait uniquement les coordonnées des 
+jointures détectées par la DLL avec leurs coordonnées Z normalisées. 
+Ces coordonnées ne sont pas suffisantes pour l'animation complète de la 
+main. Par exemple, la position du poignet est requise pour l'animer 
+sur Unity.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=180px]{images/socket_v1.png}
+    \caption{Première version du message.}
+  \end{center}
+\end{figure}
+
+En second lieu, nous avons ajouté les informations provenant de la 
+Kinect en plus de celles de la DLL. Dans ce message nous retrouvons 
+les positions relatives au mains calculé par la Kinect. En plus des 
+coordonnées des jointure de la DLL nous avons les positions :
+\begin{itemize}
+  \item du poignet
+  \item du centre de la main
+  \item du bout de la main
+  \item du pouce
+\end{itemize}
+
+Également, nous transmettons le status de la main que la Kinect a 
+assigné. Le message est envoyé lorsque les satus sont lasso, closed ou 
+open. Or, la Kinect est plus stable que la DLL. Pour certaines images 
+acquisent par la Kinect, les fonctions de la DLL de retrouve aucun 
+résultats. Par exemple, lorsque l'on ferme la main, la DLL ne détecte 
+plus les doigts et aucun message n'est envoyé, alors que la Kinect a 
+détecté les points de la main.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=180px]{images/socket_v2.png}
+    \caption{Deuxième version du message.}
+  \end{center}
+\end{figure}
+
+En dernier lieu, nous optons pour deux messages diffèrents. Un message 
+est envoyé quand la DLL n'a pas détecté de points. Et un message 
+différent est envoyé quand la DLL a retrouvé les jointures de la main. 
+Le champ \texttt{AiolosDLLStatus} est ajouté pour différencier les 
+messages.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=180px]{images/socket_v3-2.png}
+    \includegraphics[width=180px]{images/socket_v3-1.png}
+    \caption{Versions actuelles des messages. À gauche, DLL non fonctionnelle. À droite, DLL fonctionnelle.}
+  \end{center}
+\end{figure}
 
 \section{Modélisation et animation de la main}
 \paragraph{}
