@@ -9,9 +9,10 @@ intéressante quand les caméras de profondeur n'étaient pas très répandues. 
 \cite{haarlike}, cette méthode est efficace, mais elle n'est pas adaptée à l'animation d'une main 3D. Elle permet seulement
 de suivre la main et de reconnaître quelques postures. De plus, les outils que l'on nous fournit nous permettent
 de gagner du temps sur certaines parties de notre développement et la méthode utilisant une image couleur
-est assez compliquée à implémenter. C'est pourquoi nous avons choisi la seconde méthode qui est plus
-simple à développer et plus précise grâce aux outils fournis par la Kinect 2. La difficulté de cette méthode
-est l'adaptation du modèle à la main de l'utilisateur.\\
+est assez compliquée à implémenter. La DLL que nous avons utilisé se sert de la seconde méthode utilisant les images de profondeur.
+%C'est pourquoi nous avons choisi la seconde méthode qui est plus
+%simple à développer et plus précise grâce aux outils fournis par la Kinect 2. La difficulté de cette méthode
+%est l'adaptation du modèle à la main de l'utilisateur.\\
 
 %previsionnel
 % Nous avons donc prévu une première phase dans le projet où nous allons intégrer les outils et le modèle
@@ -24,15 +25,22 @@ est l'adaptation du modèle à la main de l'utilisateur.\\
 % avec ce genre de système.\\
 
 \paragraph{}
-Finalement, nous utilisons les points des jointures détectées par la DLL Aiolos, couplé des points 
-trouvés par la Kinect. Ainsi, nous pouvons retrouver les rotation des poignet et des doigts. 
+%Finalement, nous utilisons les points des jointures détectées par la DLL Aiolos, couplé des points 
+%trouvés par la Kinect. Ainsi, nous pouvons retrouver les rotation des poignet et des doigts. 
+Les résultats que nous avons obtenons dans notre application ne sont pas parfait et manque de précision. L'algorithme
+utilisé dans la DLL devient très peu précis lorsque des points sont confondus lorsqu'ils sont trop proche les uns des autres.
+Néanmoins, nos travaux nous ont permis de manipuler un modèle grâce à une armature. Cette méthode nous permet d'obtenir un 
+modèle cohérent lorsque les jointures des doigts sont détectées. La combinaison des informations de la DLL et de la Kinect
+permet malgrès tout d'effectuer différentes actions et peut déjà servir pour diverses applications.
 
 %ce que nous avons appris
 %TODO modifier un peu pour que se soit d'actualité et ajout de l'apprentissage des outils mathematique et de développement + ajout 
 %des notions vu en cours qui nous on aidé durant le projet
 \paragraph{}
-Cette première partie du projet a été très instructive, que ce soit sur l'apprentissage des techniques de détection et de manipulation
+Ce projet a été très instructive, que ce soit sur l'apprentissage des techniques de détection et de manipulation
 de modèle 3D, que sur le plan de la collaboration en équipe. Nous avons énormément appris sur la rédaction d'un
 état de l'art, ainsi que sur la compréhension d'articles de recherche. Nous avons pu pleinement mettre à profit
 nos cours sur \og l'initiation à la recherche et à l'innovation \fg. Suite à la réalisation de ce rapport, nous avons pu
-clairement définir les tâches et les méthodes à utiliser pour que ce projet soit un succès. 
+clairement définir les tâches et les méthodes à utiliser pour que ce projet soit un succès. Nous avons appliqué plusieurs
+notions qui ont été abordé lors de nos enseignements du master IVI, notamment les changements de repère pour le déplacement
+les articulations des doigts.
