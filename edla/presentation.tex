@@ -20,13 +20,14 @@ précision peut être utile dans divers domaines :
   \item jeux vidéo.\\
 \end{itemize}
 
-Le projet \og Hand Kinect \fg consiste à extraire depuis une caméra Kinect 2, 
+Le projet \og Hand Kinect \fg \ consiste à extraire depuis une caméra Kinect 2, 
 les points des articulations des mains, pour cela nous étudions plusieurs 
 méthodes réalisées jusqu'à maintenant. Ainsi, l'assemblage de ces points 
 nous permet d'obtenir le squelette 3D complet de la personne devant la 
 Kinect.\\
 
 \begin{figure}[H]
+  \label{jointPoint}
   \begin{center}
     \includegraphics[width=350px]{images/joint_detection.png}
     \caption{Détection des articulations des mains}
@@ -179,14 +180,14 @@ Les autres fonctionnalités ne nous intéresseront pas pour résoudre notre prob
 
 \begin{figure}[H]
  \center
- \includegraphics[width=300px]{images/kinect-v2.png}
+ \includegraphics[width=250px]{images/kinect-v2.png}
  \caption{Caméra Kinect 2}
 \end{figure}
 
 On récupère donc de Kinect les données brutes suivantes : 
 \begin{itemize}
  \item un flux vidéo couleur en YUV
- \item un flux vidéo d'images de profondeur
+ \item un flux vidéo d'images de profondeur Fig. \ref{fig:depthMap}
 \end{itemize}
 
 Ces deux flux peuvent servir à détecter la main (méthodes expliquées dans la partie état de l'art).
@@ -223,6 +224,7 @@ Les améliorations qui nous intéressent pour le projet sont :
   \begin{center}
     \includegraphics[width=350px]{images/kyle_kinect.jpg}
     \caption{Depth map 3D de la Kinect 2}
+    \label{fig:depthMap}
   \end{center}
 \end{figure}
 
