@@ -75,7 +75,7 @@ Enfin la dernière problématique est de mettre en correspondance les points cal
 
 \section{Structure du message envoyé par sockets}
 \paragraph{}
-Ensuite, nous formatons un message contenant les informations de la 
+Nous formatons un message contenant les informations de la 
 Kinect et les coordonnées des jointures récupérées précedemment. Ce 
 message est créé par le client pour être envoyé au serveur via le 
 procole UDP. Enfin le message est traité par le serveur, afin d'obtenir 
@@ -85,12 +85,13 @@ les données sous forme de variables exploitable.
 Au cours du projet, les informations transmies au serveur ont évolué. 
 Dans un premier temps, nous envoyions un message lorsque la DLL fonctionnait. 
 La permier version du message contenait uniquement les coordonnées des 
-jointures détectées par la DLL avec leurs coordonnées Z normalisées. 
+jointures détectées par la DLL avec leurs coordonnées Z normalisées (voir Fig. \ref{fig:socketv1}).
 Ces coordonnées ne sont pas suffisantes pour l'animation complète de la 
 main. Par exemple, la position du poignet est requise pour l'animer 
 sur Unity.
 
 \begin{figure}[H]
+  \label{fig:socketv1}
   \begin{center}
     \includegraphics[width=180px]{images/socket_v1.png}
     \caption{Première version du message.}
@@ -110,13 +111,14 @@ coordonnées des jointure de la DLL nous avons les positions :\\
 \paragraph{}
 Nous transmettons également le status de la main que la Kinect a 
 assigné. Le message est envoyé lorsque les status sont \og lasso \fg, \og closed \fg ou 
-\og open \fg. Pour certaines images 
+\og open \fg, (voir Fig. \ref{fig:socketv2}). Pour certaines images 
 acquisent par la Kinect, les fonctions de la DLL ne retrouve aucun 
 résultats. Par exemple, lorsque l'on ferme la main, la DLL ne détecte 
 plus les doigts et aucun message n'est envoyé, alors que la Kinect a 
 détecté les points de la main.
 
 \begin{figure}[H]
+  \label{fig:socketv2}
   \begin{center}
     \includegraphics[width=180px]{images/socket_v2.png}
     \caption{Deuxième version du message.}
@@ -125,11 +127,12 @@ détecté les points de la main.
 
 Enfin, nous optons pour deux messages diffèrents. Un message 
 est envoyé quand la DLL n'a pas détecté de points. Et un message 
-différent est envoyé quand la DLL a retrouvé les jointures de la main. 
+différent est envoyé quand la DLL a retrouvé les jointures de la main (voir Fig. \ref{fig:socketv3}).
 Le champ \texttt{AiolosDLLStatus} est ajouté pour différencier les 
 messages.
 
 \begin{figure}[H]
+  \label{fig:socketv3}
   \begin{center}
     \includegraphics[width=180px]{images/socket_v3-2.png}
     \includegraphics[width=180px]{images/socket_v3-1.png}
