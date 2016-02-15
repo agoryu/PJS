@@ -1,6 +1,5 @@
 \chapter{Travaux réalisés}
 
-
 \section{Séparation des tâches}
 \paragraph{}
 Nous constatons assez rapidement dans le projet qu'il est très difficile d'utiliser
@@ -44,6 +43,8 @@ facilement la méthode de récupération les jointures, mais aussi de modifier l
   \end{center}
 \end{figure}
 
+%TODO La traduction de "joint" est "articulation" en français, dans notre cas.
+% Comme jointure est un peu partout dans le rapport je pense qu'on va le laisser. 
 \section{Récupération de la position des jointure de la main}
 \paragraph{}
 Le premier problème à résoudre est donc le calcul de la troisième coordonnée de chaque jointure. Grâce à la Kinect,
@@ -65,25 +66,100 @@ les coordonnées. Nous prenons une distance de 4m pour la profondeur maximum de 
 de champ de la Kinect.
 
 \paragraph{}
+%TODO elliot : revoir paragraphe
+%TODO les angles se font coté unity maintenant
 Enfin la dernière problématique est la rotation de la main. Jusqu'à maintenant, nous ne fessons qu'appliquer les coordonnées
 fournies dans les sockets, mais il n'y a aucune rotation appliqué sur la main. Lorsque la main est bien parallèle à la caméra,
-le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. Pour palier à cette problématique nous avons calculé
-l'angle entre la droite représentant l'horizontal et la droite passant le poignet et le bout du majeur.
-%TODO prendre un screenshot de l ecran pour le problème de rotation de la main
+le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. 
+Pour résoudre ce problème, nous calculons la rotation du poignet, car c'est le fait que la profondeur des points des jointures
+ne correspondent pas à la profondeur du modèle de la main. Il faut prendre en compte la rotation du modèle pour que les points
+correspondent aux articulations du modèle. Pour cela, nous gardons la rotation du modèle avant l'interaction avec l'utilisateur,
+puis nous calculons la rotation à partir de cette angle. Cette méthode permet de ne pas avoir de modification des axes de rotation
+suite à une succession de rotation.
+%mettre image blender model + ajouter axe sur image
 
-%TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
+\section{Structure du message envoyé par sockets}
+\paragraph{}
+Ensuite, nous formatons un message contenant les informations de la 
+Kinect et les coordonnées des jointures récupérées précedemment. Ce 
+message est créé par le client pour être au envoyé au serveur via le 
+procole UDP. Enfin le message est traité par le serveur, afin d'obtenir 
+les données sous forme de variables exploitable.
+
+\paragraph{}
+Au cours du projet, les informations transmies au serveur ont évolué. 
+En premier lieu, nous envoyions un message lors que la DLL fonctionnait. 
+La permier version du message contenait uniquement les coordonnées des 
+jointures détectées par la DLL avec leurs coordonnées Z normalisées. 
+Ces coordonnées ne sont pas suffisantes pour l'animation complète de la 
+main. Par exemple, la position du poignet est requise pour l'animer 
+sur Unity.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=180px]{images/socket_v1.png}
+    \caption{Première version du message.}
+  \end{center}
+\end{figure}
+
+En second lieu, nous avons ajouté les informations provenant de la 
+Kinect en plus de celles de la DLL. Dans ce message nous retrouvons 
+les positions relatives au mains calculé par la Kinect. En plus des 
+coordonnées des jointure de la DLL nous avons les positions :
+\begin{itemize}
+  \item du poignet
+  \item du centre de la main
+  \item du bout de la main
+  \item du pouce
+\end{itemize}
+
+Également, nous transmettons le status de la main que la Kinect a 
+assigné. Le message est envoyé lorsque les satus sont lasso, closed ou 
+open. Or, la Kinect est plus stable que la DLL. Pour certaines images 
+acquisent par la Kinect, les fonctions de la DLL de retrouve aucun 
+résultats. Par exemple, lorsque l'on ferme la main, la DLL ne détecte 
+plus les doigts et aucun message n'est envoyé, alors que la Kinect a 
+détecté les points de la main.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=180px]{images/socket_v2.png}
+    \caption{Deuxième version du message.}
+  \end{center}
+\end{figure}
+
+En dernier lieu, nous optons pour deux messages diffèrents. Un message 
+est envoyé quand la DLL n'a pas détecté de points. Et un message 
+différent est envoyé quand la DLL a retrouvé les jointures de la main. 
+Le champ \texttt{AiolosDLLStatus} est ajouté pour différencier les 
+messages.
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=180px]{images/socket_v3-2.png}
+    \includegraphics[width=180px]{images/socket_v3-1.png}
+    \caption{Versions actuelles des messages. À gauche, DLL non fonctionnelle. À droite, DLL fonctionnelle.}
+  \end{center}
+\end{figure}
 
 \section{Modélisation et animation de la main}
 \paragraph{}
-Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place, nous avons récupérez un modèle de main existant sur Internet.
-Sous Blender, nous y avons appliqué une armature pour pouvoir l'animer de façon réaliste. Cette armature est constituée d'os et de jointures. On peut considérer que l'armature est un arbre avec les noeuds qui sont des os et les arcs qui sont les jointures. Les transformations de chaque fils dépend des transformations de leurs père. Ainsi, un mouvement du poignet entraine le mouvement de chaque os de la main. 
-Cette armature pourra être utilisée pour mimer la main de l'utilisateur. 
+%TODO pas besoin de savoir d'ou vient le modele
+Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place, nous avons récupérez un modèle de main existant.
+%TODO revoir la tournur de phrase
+Sous Blender, nous avons appliqué à ce modèle une armature pour pouvoir l'animer de façon réaliste. Cette armature est constituée d'os et de jointures. On peut considérer que l'armature est 
+un arbre avec les noeuds qui sont des os et les arcs qui sont les jointures. Les transformations de chaque fils dépend des transformations de leurs père. Ainsi, un mouvement du poignet 
+entraine le mouvement de chaque os de la main. Cette armature pourra être utilisée pour mimer la main de l'utilisateur. 
 
 \paragraph{}
-Pour relier l'armature au modèle, on utilise une méthode de skinning. Le skinning est expliquée dans l'état de l'art. Dans Blender, on peut utiliser différent types de skinning, soit \og à la main \fg en créant des groupes de sommets à associer à chaque jointures, soit en utilisant des algorithmes de création des groupes et d'attribution automatique des sommets à ces groupes. Nous avons choisi d'utiliser la méthode \og bone heat \fg. \cite{baran2007automatic}
+%TODO ne pas mettre de retourner à l'état de l'art -> peut etre mettre une reference en latex si besoin
+Pour relier l'armature au modèle, on utilise une méthode de skinning. Le skinning est expliquée dans l'état de l'art. Dans Blender, on peut utiliser différent types de skinning, 
+soit \og à la main \fg en créant des groupes de sommets à associer à chaque jointures, soit en utilisant des algorithmes de création des groupes et d'attribution automatique des 
+sommets à ces groupes. Nous avons choisi d'utiliser la méthode \og bone heat \fg. \cite{baran2007automatic}
 
 \paragraph{}
-Le modèle et armature ainsi créés sont importés dans Unity3D tout en conservant les associations effectuées par le skinning. Ensuite, on teste ce modèle en l'animant à l'aide de rotations des jointures, on peut ainsi faire prendre des poses à la main. 
+Le modèle et armature ainsi créés sont importés dans Unity3D tout en conservant les associations effectuées par le skinning. Ensuite, on teste ce modèle en l'animant à l'aide de 
+rotations des jointures, on peut ainsi faire prendre des poses à la main. 
 
 \begin{figure}[!h]
 	\centering
@@ -96,6 +172,7 @@ Le modèle et armature ainsi créés sont importés dans Unity3D tout en conserv
 Les différentes techniques d'animation basé sur une armature sont décrites dans l'état de l'art correspondant. 
 Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. 
 Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.\newline
+%TODO pour le sommet du pouce on verra : comme dirait papi je suis pas convaincu
 On utilise les points suivants détectés par la Kinect : le poignet, le milieu de la main et le sommet du pouce pour positionner et orienter le modèle en concordance avec les points détectés par la DLL.
 Pour cela, on applique une translation du modèle, vers la position du poignet détecté. Puis on calcule l'angle entre les vecteurs $V_{AB}$ et $V_{CB}$  : 
 
@@ -105,18 +182,27 @@ Pour cela, on applique une translation du modèle, vers la position du poignet d
 \caption{Schéma d'explication du calcul des vecteurs utilisés pour calculer la rotation du poignet}
 \end{figure}
 
-On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retrouver l'orientation de la main sur l'axe X et Y.
-Une opération similaire est effectuée avec la base du pouce à la place du milieu de la main pour trouver l'orientation en Z: 
+%TODO elliot -> explication du calcul de l'angle
+% On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retrouver l'orientation de la main sur l'axe X et Y.
+% Une opération similaire est effectuée avec la base du pouce à la place du milieu de la main pour trouver l'orientation en Z: 
+% 
+Nous pouvons voir sur la Fig. \ref{} que le modèle est complètement déformé et ne correspond plus à la main d'un utilisateur. Les points d'un modèle
+ne sont pas fait pour être manipulé directement dans l'espace, il est préférable de calculer des angles pour chaque jointure afin de leur appliquer 
+des rotations. Pour cela, nous reprenons la même méthode que pous le poignet en prenant la rotation de départ du modèle et en applicant une rotation
+avec le nouvel angle.
+%TODO prendre un screenshot de l ecran pour le problème de rotation de la main
 
+%TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
 
 \paragraph{}
-
+%TODO expliquer les 2 méthodes position et rotation
 Une fois le modèle correctement positionné et orienté, il faut s'occuper des doigts. Une partie complexe a été de décider d'une méthode de calcul des angles des jointures et de l'implémenter.
 Nous avons choisi de calculer les angles de la même façon que pour le poignet (à l'aide de vecteurs) et sur le même principe.\\
 Les vecteurs sont formés par les points suivants : la jointure qui sert de pivot et le point suivant dans l'armature forment un vecteur, ainsi que la jointure (pivot) et le point détecté par la DLL correspondant au point de l'armature. (cf. Figure 3.5)
 
 \newpage
 
+%TODO manque l'image
 \begin{figure}[H]
  \centering
  \includegraphics[width=0.7\textwidth]{images/SchemaRotationDoigt.png}

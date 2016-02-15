@@ -1,23 +1,23 @@
 \chapter{Etat de l'art}
 
 \section{Différents types de données}
-Pour réaliser notre projet : animer un modèle de main en se basant sur les mouvements de la main de l'utilisateur, nous avons à disposition une 
-Kinect 2 et un LeapMotion. Pour commencer notre état de l'art, nous allons voir quelles données peuvent être récupérées par ces outils et 
+Pour réaliser notre projet : animer un modèle de main en se basant sur les mouvements de la main de l'utilisateur, nous avons à disposition une
+Kinect 2 et un LeapMotion. Pour commencer notre état de l'art, nous allons voir quelles données peuvent être récupérées par ces outils et
 quels autres moyens auraient pu être utilisés pour réaliser ce projet.\\
 
-Une liste non exhaustive des périphériques et des données qu'ils fournissent : 
+Une liste non exhaustive des périphériques et des données qu'ils fournissent :
 \begin{itemize}
-  \item Kinect1 et Kinect 2 de Microsoft, fournissent, en données brutes, une image couleur ainsi qu'une image de profondeur. 
-En utilisant le SDK fourni, on dispose en plus de nombreux outils parmi lesquels une détection du squelette et pour Kinect 2 
-une abstraction de la main avec 4 points détectés : le centre du poignet, le centre de la main, le sommet du pouce et le sommet du majeur. 
-  \item LeapMotion fournit, en données brutes, un squelette 3D plus détaillé mais sur une zone 
+  \item Kinect1 et Kinect 2 de Microsoft, fournissent, en données brutes, une image couleur ainsi qu'une image de profondeur.
+En utilisant le SDK fourni, on dispose en plus de nombreux outils parmi lesquels une détection du squelette et pour Kinect 2
+une abstraction de la main avec 4 points détectés : le centre du poignet, le centre de la main, le sommet du pouce et le sommet du majeur.
+  \item LeapMotion fournit, en données brutes, un squelette 3D plus détaillé mais sur une zone
 plus restreinte. Avec le SDK, on a accès directement à un squelette très détaillé de la main.
     \begin{figure}[!h]
     \center
     \includegraphics[width=350px]{images/SDK_LeapMotion.png}
     \caption{Squelette de la main de l'utilisateur détecté par la LeapMotion}
     \end{figure}
-  \item RealSense est un périphérique relativement récent, à mi chemin entre Kinect 2 et LeapMotion. On peut, à l'aide du SDK fourni, récupérer des informations semblables à celles fournies par LeapMotion : 
+  \item RealSense est un périphérique relativement récent, à mi chemin entre Kinect 2 et LeapMotion. On peut, à l'aide du SDK fourni, récupérer des informations semblables à celles fournies par LeapMotion :
   22 points de la main détectés et suivis
 \end{itemize}
 \ \\
@@ -26,33 +26,33 @@ On peut utiliser des outils spécifiques (Kinect) ou des caméras classiques pou
 Bien que possédant plus d'informations que les images de profondeur (3 canaux au lieu d'un), les images couleurs sont moins adaptées aux calculs 3D.\\
 
 Ces données couleurs peuvent être utilisées avec des accessoires colorés pour simplifier la détection des points de la main \cite{wang2009real}.
-Cette méthode permet de détecter plus facilement les jointures et les points d'intér\^{e}t. 
+Cette méthode permet de détecter plus facilement les jointures et les points d'intér\^{e}t.
 Cependant, cela ajoute des contraintes, notamment le fait de devoir porter un gant standardisé.\\
 
 On associe également les données couleurs avec des données de profondeur pour améliorer la détection et gérer les cas de superposition \cite{van2011combining}.\\
 
-L'autre type de données est la carte de profondeur, image en niveau de gris servant à représenter la profondeur. 
+L'autre type de données est la carte de profondeur, image en niveau de gris servant à représenter la profondeur.
 Cette carte de profondeur est utilisée par un grand nombre de méthodes pour les problèmes de clustering du corps humain, notamment les SDK de Kinect 1 et Kinect 2 se basent principalement dessus pour fournir le squelette \cite{export:145347}.
 Les SDK de Kinect1/Kinect2 étant prévus pour le suivi du corps entier, ils sont peu performants pour le suivi précis de parties spécifiques (comme la main).
 L'utilisation directe du SDK semble donc insuffisante pour résoudre notre problème. Cependant, on peut aussi récupérer les données brutes fournies par la Kinect 2 et certaines méthodes se contentent d'une image de profondeur pour la détection de la main \cite{export:238453}.
 
 \section{Détection de la main}
 
-La Kinect 2 possède deux types de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode 
+La Kinect 2 possède deux types de caméra, une caméra couleur et une caméra de profondeur utilisant la méthode
 \og Time of Flight \fg. Les caméras de type \og Time of Flight \fg
-récupérent les rayons envoyés par projecteur qui ont été réfléchis par les objets de la scène, ce qui permet d'obtenir les informations de profondeur. 
+récupérent les rayons envoyés par projecteur qui ont été réfléchis par les objets de la scène, ce qui permet d'obtenir les informations de profondeur.
 Il existe plusieurs solutions utilisant l'une ou l'autre de ces caméras. Nous allons
 dans cette partie, détailler plusieurs méthodes réalisées jusqu'à maintenant.
 
 \subsection{Détection et suivi de la main à partir d'une image couleur}
 La méthode proposée par S. Bilal et al \cite{haarlike} utilise l'algorithme de Viola et Jones \cite{viola2001jones} afin
 de détecter la main et fournir la position de celle-ci en créant une ROI (région d'intérêt) autour d'elle.
-L'algorithme de Viola et Jones \cite{viola2001jones} nécessite une 
-base de connaissances composée des caractéristiques de l'objet recherché. Elle est utilisée dans un 
+L'algorithme de Viola et Jones \cite{viola2001jones} nécessite une
+base de connaissances composée des caractéristiques de l'objet recherché. Elle est utilisée dans un
 apprentissage supervisé, c'est-à-dire que l'algorithme a besoin de données représentant
-l'objet à détecter pour classifier les caractéristiques de celui-ci. Cet algorithme est basé sur des caractéristiques 
-pseudo-Haar qui crée des masques rectangulaires et adjacents dans différentes zones de l'image (voir Fig. \ref{fig:pseudo_haar}). 
-Chaque masque calcule l'intensité des pixels qu'il contient, puis l'algorithme fait la différence entre les masques blancs et 
+l'objet à détecter pour classifier les caractéristiques de celui-ci. Cet algorithme est basé sur des caractéristiques
+pseudo-Haar qui crée des masques rectangulaires et adjacents dans différentes zones de l'image (voir Fig. \ref{fig:pseudo_haar}).
+Chaque masque calcule l'intensité des pixels qu'il contient, puis l'algorithme fait la différence entre les masques blancs et
 les masques noirs.\\
 
 \begin{figure}[!h]
@@ -67,7 +67,7 @@ principe est de sélectionner les caractéristiques les plus performantes pour l
 un calcul de probabilité utilisant l'entropie\footnote{valeur mesurant l'incertitude} des données.\\
 
 Une fois qu'une ROI est formée autour de la main de l'utilisateur, S. Bilal et al \cite{haarlike} changent d'espace colorimétrique
-afin de pouvoir différencier la main du reste de l'environnement. Pour cela, ils choisissent 
+afin de pouvoir différencier la main du reste de l'environnement. Pour cela, ils choisissent
 d'utiliser l'espace YCbCr qui permet d'obtenir des informations de chromaticité dont la valeur est presque équivalente
 quelle que soit la couleur de peau de l'utilisateur \cite{yoo1999fast}. Dès que la ROI de la main est binarisée, il est possible
 de détecter le bout des doigts. Il faut tout d'abord calculer le centroïde de la forme de la main, puis la distance entre
@@ -83,7 +83,7 @@ de couleur. Cette méthode permet d'obtenir un graphe correspondant à la Fig. \
 
 Afin de pouvoir suivre la main, S. Bilal et al \cite{haarlike} utilisent l'algorithme de Kalman \cite{kalman}.
 Cet algorithme permet de prédire la position d'un objet, ce qui va permettre de suivre la main malgré
-le bruit présent dans l'image. De plus, cette méthode n'a besoin de connaître que l'état précédent à celui 
+le bruit présent dans l'image. De plus, cette méthode n'a besoin de connaître que l'état précédent à celui
 qui est calculé. Etant donné que l'algorithme de Kalman est un algorithme de prédiction, il peut ne pas être très
 précis lorsque l'utilisateur effectue des changements de direction rapides avec sa main.\\
 
@@ -95,7 +95,7 @@ de la main. De plus, cette méthode est sensible à la luminosité de la scène 
 \subsection{Détection et suivi de la main à partir d'une image de profondeur}
 Une seconde solution utilise une image de profondeur plutôt que l'image binarisée avec le changement d'espace colorimétrique.
 Pour réaliser la détection de la main, il faut dans un premier temps déterminer une ROI
-autour de celle-ci.\\ 
+autour de celle-ci.\\
 
 Cette première étape a été expliquée par Sharp et al \cite{export:238453}, qui utilisent un classifieur
 basé sur la méthode développée par J. Shotton et al \cite{export:145347}. Ce classifieur permet d'effectuer de la reconnaissance
@@ -109,8 +109,8 @@ jusqu'à atteindre une feuille (voir Fig. \ref{fig:arbre}).\\
      \caption{Exemple d'arbre de décision}
      \label{fig:arbre}
    \end{center}
- \end{figure} 
- 
+ \end{figure}
+
 Les feuilles de cet arbre sont les différentes parties du corps à reconnaître. Cet arbre est construit en calculant
 l'entropie de chaque pixel, ce qui permet de déterminer à quelle partie du corps il appartient.\\
 
@@ -147,8 +147,8 @@ provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est é
 %icp
 %La méthode utilisée par J. Taylor et al \cite{export:217428} permet en utilisant l'algorithme
 %%ICP\footnote{Iterated Closest Point} \cite{121791} de modifier le maillage de la main afin
-%que les points de celui-ci aient une distance moins importante avec le nuage de points fourni par la 
-%caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent 
+%que les points de celui-ci aient une distance moins importante avec le nuage de points fourni par la
+%caméra. Pour cela, l'algorithme ICP recherche les transformations, rotation et translation, qui permettent
 %à partir d'un maillage M d'obtenir un maillage P. Dans notre cas, le maillage M représente le modèle de main donné en entrée
 %et le maillage P représente la main de l'utilisateur. ICP fonctionne en quatre étapes distinctes.
 %\begin{itemize}
@@ -158,12 +158,12 @@ provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est é
 %  transformation possible.
 %  \item Effectuer la transformation du nuage de points ayant la plus petite erreur.
 %  \item Itérer jusqu'à ce qu'on ait atteint la condition de fin fixée par l'utilisateur.
-%\end{itemize} 
+%\end{itemize}
 
 %squelette
-%La méthode de J. Taylor et al \cite{export:217428} permet également d'adapter le squelette du modèle de la 
+%La méthode de J. Taylor et al \cite{export:217428} permet également d'adapter le squelette du modèle de la
 %main, ce qui permet d'obtenir une précision plus importante lors de l'utilisation de l'application.
-%Pour cela, on applique à chaque os du squelette du modèle d'origine, 
+%Pour cela, on applique à chaque os du squelette du modèle d'origine,
 %une transformation ( rotation et forme) qui dépend de celle calculée dans la phase précédente.\\
 
 %Surface
@@ -185,12 +185,12 @@ provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est é
 %\end{figure}
 
 \section{Animation de la main}
-	
-%Blender
-Pour pouvoir animer une main de façon cohérente et réaliste, il existe plusieurs solutions. 
-Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des animations pré-calculées et maitrisées entièrement par l'animateur sont à abandonner.
 
+%Blender
+Pour pouvoir animer une main de façon cohérente et réaliste, il existe plusieurs solutions.
+Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des animations pré-calculées et maitrisées entièrement par l'animateur sont à abandonner.
 L'animation fine et la déformation de modèles 3D nécessite, le plus souvent, une armature.\newline
+
 
 \begin{figure}[!h]
 	\centering
@@ -200,7 +200,7 @@ L'animation fine et la déformation de modèles 3D nécessite, le plus souvent, 
 
 Les armatures permettent de modifier le modèle associé à partir de rotations et translations des jointures de cet armature.
 Il existe de nombreuses méthodes pour réaliser cette modification.
-Celle utilisée majoritairement est d'associer les sommets du modèle aux jointures. 
+Celle utilisée majoritairement est d'associer les sommets du modèle aux jointures.
 Cette association peut être dure : un sommet est associé à une seule jointure, ou floue : un sommet peut être associé à plusieurs jointures par des poids différents.\newline
 
 Un algorithme permettant cette association floue est "bone heat weighting". \cite{baran2007automatic}
@@ -209,14 +209,14 @@ Il permet de trouver les poids adaptés à l'association entre les os de l'armat
 	\item Ils devraient être indépendants de la résolution du mesh, un sommet situé à un endroit du mesh devrait avoir le même poids quel
 	que soit le nombre de sommets proches.
 	\item Ils devraient varier de façon homogène avec la surface. Les valeurs de poids ne devraient pas varier fortement si la surface est lisse mais, inversement, si elle est inégale, les valeurs devraient varier plus.
-	\item Pour éviter des artefacts liés aux plis du modèle, il doit y avoir un rapport de proportionnalité entre la largeur des jointures 
-	et la distance entre la jointure et le modèle. 
+	\item Pour éviter des artefacts liés aux plis du modèle, il doit y avoir un rapport de proportionnalité entre la largeur des jointures
+	et la distance entre la jointure et le modèle.
 \end{itemize}
 
 Un modèle dont les sommets on été associés à l'armature à l'aide de cet algorithme peut être \og animé \fg  de façon réaliste.
 Pour cela, on peut créer des contraintes sur les mouvements possibles de l'armature pour correspondre à des actions possibles.\newline
-Par exemple, pour la main, les doigts ne peuvent pas bouger librement. 
-On peut donc contraindre les degrés de liberté de chaque jointure et même empêcher les translations. 
+Par exemple, pour la main, les doigts ne peuvent pas bouger librement.
+On peut donc contraindre les degrés de liberté de chaque jointure et même empêcher les translations.
 Toutes les positions de la main pouvant être exprimées par une série de rotation contraintes au niveau des jointures du squelette.\newline
 
 %Expliquation d'animation par Key Frame
@@ -227,7 +227,7 @@ Une autre solution consiste à n'utiliser que des informations de position obten
 Dans cette méthode, on associe les points détectés aux jointures de l'armature. Les positions des jointures du modèle sont donc naturellement contraintes par les postions des articulations de la véritable main.\newline
 
 Enfin, il existe une méthode appelée la cinématique inverse qui utilise un point fixe et un point mobile de l'armature. Elle permet de retrouver les rotations effectuées par les jointures pour que le point mobile soit à sa position connue. Pour cela, l'algorithme de cinématique inverse minimise la fonction de distance entre le point mobile de l'armature et la position que ce point doit atteindre.
-La cinématique inverse à besoin de 3 principes pour fonctionner : 
+La cinématique inverse à besoin de 3 principes pour fonctionner :
 
 \begin{itemize}
 	\item Les membres sont des solides indéformables de longueur donnée, reliés entre eux par des articulation. Ce principe est respecté par l'armature : les os peuvent être indéformable et leurs tailles peut être fixé, ils sont reliés entre eux par des articulation.
@@ -235,23 +235,23 @@ La cinématique inverse à besoin de 3 principes pour fonctionner :
 	\item Les mouvements sont supposés suffisamment réguliers pour paraitre naturels. Comme les points mobiles sont obtenus à partir de mouvements d'une main réelle, ils vont nécessairement paraitre naturels.
 \end{itemize}
 
-Les techniques classiques de résolution de la cinématique inverse consistent à inverser les équations de cinématique avant qui retrouvent la position à partir des rotations des articulations. 
+Les techniques classiques de résolution de la cinématique inverse consistent à inverser les équations de cinématique avant qui retrouvent la position à partir des rotations des articulations.
 Le problème principale vient de la difficulté de cette inversion et de la possibilité d'un ensemble vide de solutions, les techniques classiques utilisent donc des méthodes d'optimisation itératives comme Iterative Closest Points ou l'Algorithme Levenberg-Marquardt pour palier ces problèmes.
 
 \section{Evaluation des solutions envisagées}
-Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une 
+Parmi les solutions que nous avons envisagées dans cet état de l'art, nous avons vu que la solution avec une
 image couleur pouvait être limitée. Celle-ci nécessite un algorithme permettant de suivre au mieux
 la main de l'utilisateur. L'algorithme de Kalman est efficace, mais peu précis lors de changements d'orientation
 brusques et il est également assez complexe à mettre en place. Il existe d'autres méthodes de suivi qui sont
 peut-être plus appropriées à la conception d'une nouvelle IHM, mais le suivi n'est pas le seul défaut de cette
-méthode pour la réalisation de notre projet. Une 
-animation 3D de la main n'est pas possible avec ce genre de méthode. En effet, sans l'information de 
-profondeur de la main, il est difficile de déterminer de nombreuses postures de celle-ci. Cette solution était une première approche de la 
+méthode pour la réalisation de notre projet. Une
+animation 3D de la main n'est pas possible avec ce genre de méthode. En effet, sans l'information de
+profondeur de la main, il est difficile de déterminer de nombreuses postures de celle-ci. Cette solution était une première approche de la
 détection de la main ainsi que des doigts qui reste efficace avec une luminosité correcte.\\
 
 Notre choix pour la réalisation de ce projet se dirige plutôt vers l'utilisation de la caméra de profondeur.
 La Kinect 2 ayant déjà une implémentation d'une partie des étapes permettant la réalisation de notre projet, nous pourrons
-nous concentrer sur la partie plus spécifique de détection et de localisation des articulations de la main. 
-Pour cela, nous avons vu que la méthode utilisant l'image de profondeur pouvait être efficace grâce à la 
+nous concentrer sur la partie plus spécifique de détection et de localisation des articulations de la main.
+Pour cela, nous avons vu que la méthode utilisant l'image de profondeur pouvait être efficace grâce à la
 détermination de la posture de la main. Cela nous permet ainsi d'ajuster un modèle de main et de fabriquer
 le squelette en fonction de ce modèle.\\
