@@ -134,6 +134,8 @@ capturée par la caméra. Elle est définie par le calcul suivant :
 \begin{equation}
  E^{au}(Z_{roi}, R_{roi}) = \sum_{ij} \bar{\rho(z_{ij}} - r_{ij})
 \end{equation}
+
+\paragraph{}
 Dans cette équation, $z_{ij}$ représente le pixel à la position (i,j) dans le modèle et $r_{ij}$ représente le pixel à la position (i,j)
 provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est équivalente à $min(|e|,\tau)$ où $\tau$ est une valeur fixe permettant d'éliminer le bruit présent dans l'image de profondeur.
 
@@ -185,17 +187,18 @@ provenant de l'image de profondeur. La fonction $\rho(e)$, quant à elle, est é
 %\end{figure}
 
 \section{Animation de la main}
-
+\label{animation}
 %Blender
 Pour pouvoir animer une main de façon cohérente et réaliste, il existe plusieurs solutions.
 Cependant, dans le cadre d'une animation en temps réel et contrôlé par la main de l'utilisateur, des animations pré-calculées et maitrisées entièrement par l'animateur sont à abandonner.
-L'animation fine et la déformation de modèles 3D nécessite, le plus souvent, une armature.\newline
+L'animation fine et la déformation de modèles 3D nécessite, le plus souvent, une armature (voir Fig. \ref{fig:armature}).\newline
 
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=14cm]{images/SkellHand.jpg}
+	\includegraphics[width=9cm]{images/SkellHand.jpg}
 	\caption{Armature de la main droite réalisée sur blender}
+	\label{fig:armature}
 \end{figure}
 
 Les armatures permettent de modifier le modèle associé à partir de rotations et translations des jointures de cet armature.
@@ -203,8 +206,8 @@ Il existe de nombreuses méthodes pour réaliser cette modification.
 Celle utilisée majoritairement est d'associer les sommets du modèle aux jointures.
 Cette association peut être dure : un sommet est associé à une seule jointure, ou floue : un sommet peut être associé à plusieurs jointures par des poids différents.\newline
 
-Un algorithme permettant cette association floue est "bone heat weighting". \cite{baran2007automatic}
-Il permet de trouver les poids adaptés à l'association entre les os de l'armature et les sommets. Pour rendre un résultat proche du réel, on souhaite que les poids possède certaines propriétés : \\
+Un algorithme permettant cette association floue est \og bone heat weighting \fg \cite{baran2007automatic}. 
+Il permet de trouver les poids adaptés à l'association entre les os de l'armature et les sommets (voir Tab. \ref{tab:repartitionPoid}). Pour rendre un résultat proche du réel, on souhaite que les poids possède certaines propriétés : \\
 \begin{itemize}
 	\item Ils devraient être indépendants de la résolution du mesh, un sommet situé à un endroit du mesh devrait avoir le même poids quel
 	que soit le nombre de sommets proches.
@@ -212,29 +215,44 @@ Il permet de trouver les poids adaptés à l'association entre les os de l'armat
 	\item Pour éviter des artefacts liés aux plis du modèle, il doit y avoir un rapport de proportionnalité entre la largeur des jointures
 	et la distance entre la jointure et le modèle.
 \end{itemize}
+\paragraph{}
+\begin{table}
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+        \includegraphics[height=3cm]{images/WeightPaintWrist.png} &
+       \includegraphics[height=3cm]{images/WeightPaintPinky.png} & 
+       \includegraphics[height=3cm]{images/WeightPaintPinkyBase.png} & 
+       \includegraphics[height=3cm]{images/WeightPaintPinkyMiddle.png} &
+       \includegraphics[height=3cm]{images/WeightPaintPinkyTip.png}\\
+       \hline
+    \end{tabular}
+  \end{center}
+  \caption{Répartition des poids à différent endroit de la main}
+  \label{tab:repartitionPoid}
+\end{table}
 
 Un modèle dont les sommets on été associés à l'armature à l'aide de cet algorithme peut être \og animé \fg  de façon réaliste.
-Pour cela, on peut créer des contraintes sur les mouvements possibles de l'armature pour correspondre à des actions possibles.\newline
+Pour cela, on peut créer des contraintes sur les mouvements possibles de l'armature pour correspondre à des actions possibles.
 Par exemple, pour la main, les doigts ne peuvent pas bouger librement.
 On peut donc contraindre les degrés de liberté de chaque jointure et même empêcher les translations.
 Toutes les positions de la main pouvant être exprimées par une série de rotation contraintes au niveau des jointures du squelette.\newline
 
 %Expliquation d'animation par Key Frame
-L'animation par clef permet de créer des animations fluides à partir de, au minimum, deux \og Key Frames \fg. L'animation est réalisée en calculant la position, l'orientation et la posture de l'objet animé pour chaque images entre deux \og Key Frame \fg. La technique utilisée le plus fréquemment est l'interpolation linéaire. Cette méthode est rapide comparée à d'autres techniques d'animation, cela permet d'assurer le temps réel. Dans le cadre de notre projet, l'utilisateur étant celui qui contrôle l'animation du modèle, les \og Keyframes \fg seraient récupérées par l'outils de capture utilisé.
+L'animation par clef permet de créer des animations fluides à partir de, au minimum, deux \og Key Frames \fg. L'animation est réalisée en calculant la position, l'orientation et la posture de l'objet animé pour chaque images entre deux \og Key Frame \fg. La technique utilisée le plus fréquemment est l'interpolation linéaire. Cette méthode est rapide comparée à d'autres techniques d'animation, cela permet d'assurer le temps réel. Cependant dans le cadre de notre projet, l'utilisateur étant celui qui contrôle l'animation du modèle, les \og Keyframes \fg \ seraient difficilement récupérable par l'outils de capture utilisé.\\
 
 % ATTENTION : à changer si modification de la méthode d'animation
 Une autre solution consiste à n'utiliser que des informations de position obtenue par détection des articulations des doigts de la main \textit{via} un périphérique de capture.
 Dans cette méthode, on associe les points détectés aux jointures de l'armature. Les positions des jointures du modèle sont donc naturellement contraintes par les postions des articulations de la véritable main.\newline
 
 Enfin, il existe une méthode appelée la cinématique inverse qui utilise un point fixe et un point mobile de l'armature. Elle permet de retrouver les rotations effectuées par les jointures pour que le point mobile soit à sa position connue. Pour cela, l'algorithme de cinématique inverse minimise la fonction de distance entre le point mobile de l'armature et la position que ce point doit atteindre.
-La cinématique inverse à besoin de 3 principes pour fonctionner :
-
+La cinématique inverse à besoin de 3 principes pour fonctionner :\\
 \begin{itemize}
 	\item Les membres sont des solides indéformables de longueur donnée, reliés entre eux par des articulation. Ce principe est respecté par l'armature : les os peuvent être indéformable et leurs tailles peut être fixé, ils sont reliés entre eux par des articulation.
 	\item Les articulations supportent une certaine torsion maximale qui varie selon la direction et la vitesse. Ces deux contraintes peuvent être appliquées aux jointures d'une armature.
 	\item Les mouvements sont supposés suffisamment réguliers pour paraitre naturels. Comme les points mobiles sont obtenus à partir de mouvements d'une main réelle, ils vont nécessairement paraitre naturels.
 \end{itemize}
-
+\paragraph{}
 Les techniques classiques de résolution de la cinématique inverse consistent à inverser les équations de cinématique avant qui retrouvent la position à partir des rotations des articulations.
 Le problème principale vient de la difficulté de cette inversion et de la possibilité d'un ensemble vide de solutions, les techniques classiques utilisent donc des méthodes d'optimisation itératives comme Iterative Closest Points ou l'Algorithme Levenberg-Marquardt pour palier ces problèmes.
 
