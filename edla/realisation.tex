@@ -45,7 +45,8 @@ facilement la méthode de récupération des jointures, mais aussi de modifier l
 
 %TODO La traduction de "joint" est "articulation" en français, dans notre cas.
 % Comme jointure est un peu partout dans le rapport je pense qu'on va le laisser. 
-\section{Récupération de la position des jointure de la main}
+\section{Récupération de la position des articulations de la main}
+\label{Real_get_art}
 \paragraph{}
 Le premier problème à résoudre est donc le calcul de la troisième coordonnée de chaque jointure. Grâce à la Kinect,
 il est possible de récupérer les coordonnées, dans le repère monde, de la jointure du poignet. Elle nous permet
@@ -68,14 +69,8 @@ la Kinect (voir Fig. \ref{fig:kinect1vs2}).
 \paragraph{}
 %TODO elliot : revoir paragraphe
 %TODO les angles se font coté unity maintenant
-Enfin la dernière problématique est la rotation de la main. Jusqu'à maintenant, nous ne fessons qu'appliquer les coordonnées
-fournies dans les sockets, mais il n'y a aucune rotation appliqué sur la main. Lorsque la main est bien parallèle à la caméra,
-le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. 
-Pour résoudre ce problème, nous calculons la rotation du poignet, car c'est le fait que la profondeur des points des jointures
-ne correspondent pas à la profondeur du modèle de la main. Il faut prendre en compte la rotation du modèle pour que les points
-correspondent aux articulations du modèle. Pour cela, nous gardons la rotation du modèle avant l'interaction avec l'utilisateur,
-puis nous calculons la rotation à partir de cette angle. Cette méthode permet de ne pas avoir de modification des axes de rotation
-suite à une succession de rotation.
+Enfin la dernière problématique est de mettre en correspondance les points calculés dans la partie client avec les points du modèle de la partie serveur. Cette mise en correspondance ce fera coté serveur et sera expliqué dans la partie \og modélisation et animation de la main \fg de ce rapport (\textit{cf.} \ref{Real_Animation}).
+
 %mettre image blender model + ajouter axe sur image
 
 \section{Structure du message envoyé par sockets}
@@ -142,7 +137,9 @@ messages.
   \end{center}
 \end{figure}
 
+
 \section{Modélisation et animation de la main}
+\label{Real_Animation}
 \paragraph{}
 %TODO pas besoin de savoir d'ou vient le modele
 Nous avons choisi de ne pas modéliser la main de l'utilisateur, à la place, nous avons récupéré un modèle de main existant.
@@ -172,10 +169,12 @@ Ensuite, on teste ce modèle en l'animant à l'aide de rotations des jointures, 
 \paragraph{} 
 Il existe différentes techniques d'animation basé sur une armature (\textit{cf} \ref{animation}).
 Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.
-%TODO pour le sommet du pouce on verra : comme dirait papi je suis pas convaincu
-On utilise le poignet et le milieu de la main pour positionner et orienter le modèle en concordance avec les points détectés par la DLL.
-Pour cela, on applique une translation du modèle, vers la position du poignet détecté. Puis, on calcul les angles entre la position de départ
-de la main et sa position courante.
+Cependant, comme expliqué précédemment, il faut mettre en correspondance ces points (\textit{cf.} \ref{Real_get_art}).
+Pour cela, le plus simple a été de faire correspondre le point du poignet détecté par la Kinect à la jointure équivalente du modèle.
+Cependant, si aucune rotation n'est appliqué sur la main, la position de la base des doigts ne correspond plus et le modèle est déformé voir Fig. \ref{fig:badhand}.
+Il faut prendre en compte la rotation du poignet pour que les jointures de l'armature correspondent aux articulations de la main. 
+Pour cela, nous gardons en mémoire la rotation du modèle avant l'interaction avec l'utilisateur,
+puis nous calculons la rotation à partir de cette angle (\ref{fig:??}). Cette méthode permet de ne pas avoir de modification des axes de rotation suite à une succession de rotation.
 
 %TODO elliot -> explication du calcul de l'angle
 % On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retrouver l'orientation de la main sur l'axe X et Y.
@@ -186,7 +185,15 @@ Une fois le modèle correctement positionné et orienté, il faut s'occuper des 
 Nous pouvons voir sur la Fig. \ref{} que le modèle est complètement déformé et ne correspond plus à la main d'un utilisateur. Les points d'un modèle
 ne sont pas fait pour être manipulé directement dans l'espace, il est préférable de calculer des angles pour chaque jointure afin de leur appliquer 
 des rotations. Une partie complexe a été de décider d'une méthode de calcul des angles des jointures et de l'implémenter.
-Nous avons choisi de reprendre la même méthode que pour le poignet en prenant la rotation de départ du modèle et en applicant une rotation avec le nouvel angle.
+Nous avons choisi de reprendre la même méthode que pour le poignet en prenant la rotation de départ du modèle et en appliquant une rotation avec le nouvel angle.
+
+\begin{figure}
+\label{fig:badhand}
+\centering
+\includegraphics[width=10cm]{images/BadHand.png}
+\caption{Exemple de déformation du modèle avant mise en correspondance}	
+\end{figure}
+
 %TODO prendre un screenshot de l ecran pour le problème de rotation de la main
 
 %TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
