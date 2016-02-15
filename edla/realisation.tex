@@ -175,6 +175,14 @@ Pour notre projet, nous avons choisi la méthode qui utilise les articulations r
 Cependant, comme expliqué précédemment, il faut mettre en correspondance ces points (\textit{cf.} \ref{Real_get_art}).
 Pour cela, le plus simple a été de faire correspondre le point du poignet détecté par la Kinect à la jointure équivalente du modèle.
 Cependant, si aucune rotation n'est appliqué sur la main, la position de la base des doigts ne correspond plus et le modèle est déformé voir Fig. \ref{fig:badhand}.
+
+\begin{figure}
+	\label{fig:badhand}
+	\centering
+	\includegraphics[width=10cm]{images/BadHand.png}
+	\caption{Exemple de déformation du modèle avant mise en correspondance}	
+\end{figure}
+
 Il faut prendre en compte la rotation du poignet pour que les jointures de l'armature correspondent aux articulations de la main. 
 Pour cela, nous gardons en mémoire la rotation du modèle avant l'interaction avec l'utilisateur,
 puis nous calculons la rotation à partir de cette angle (\ref{fig:??}). Cette méthode permet de ne pas avoir de modification des axes de rotation suite à une succession de rotation.
@@ -185,18 +193,10 @@ puis nous calculons la rotation à partir de cette angle (\ref{fig:??}). Cette m
 %
 \paragraph{} 
 Une fois le modèle correctement positionné et orienté, il faut s'occuper des doigts.
-Nous pouvons voir sur la Fig. \ref{} que le modèle est complètement déformé et ne correspond plus à la main d'un utilisateur. Les points d'un modèle
-ne sont pas fait pour être manipulé directement dans l'espace, il est préférable de calculer des angles pour chaque jointure afin de leur appliquer 
+Nous pouvons voir sur la Fig. \ref{fig:badhand} que le modèle est complètement déformé et ne correspond plus à la main d'un utilisateur. Les points d'un modèle ne sont pas fait pour être manipulé directement dans l'espace, il est préférable de calculer des angles pour chaque jointure afin de leur appliquer 
 des rotations. Une partie complexe a été de décider d'une méthode de calcul des angles des jointures et de l'implémenter.
 Nous avons choisi de reprendre la même méthode que pour le poignet en prenant la rotation de départ du modèle et en appliquant une rotation avec le nouvel angle.
 
-\begin{figure}
-\label{fig:badhand}
-\centering
-\includegraphics[width=10cm]{images/BadHand.png}
-\caption{Exemple de déformation du modèle avant mise en correspondance}	
-\end{figure}
 
-%TODO prendre un screenshot de l ecran pour le problème de rotation de la main
 
 %TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
