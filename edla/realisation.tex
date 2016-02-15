@@ -70,19 +70,14 @@ de champ de la Kinect.
 %TODO les angles se font coté unity maintenant
 Enfin la dernière problématique est la rotation de la main. Jusqu'à maintenant, nous ne fessons qu'appliquer les coordonnées
 fournies dans les sockets, mais il n'y a aucune rotation appliqué sur la main. Lorsque la main est bien parallèle à la caméra,
-le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles.
-
-\paragraph{}
+le poignet reste perpendiculaire à celle-ci et les doigts sont parallèles. 
 Pour résoudre ce problème, nous calculons la rotation du poignet, car c'est le fait que la profondeur des points des jointures
 ne correspondent pas à la profondeur du modèle de la main. Il faut prendre en compte la rotation du modèle pour que les points
 correspondent aux articulations du modèle. Pour cela, nous gardons la rotation du modèle avant l'interaction avec l'utilisateur,
 puis nous calculons la rotation à partir de cette angle. Cette méthode permet de ne pas avoir de modification des axes de rotation
 suite à une succession de rotation.
-%TODO prendre un screenshot de l ecran pour le problème de rotation de la main
+%mettre image blender model + ajouter axe sur image
 
-%TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
-
-%TODO gaetan : ajout de la gestion des sockets avec les deux types de socket 
 \section{Structure du message envoyé par sockets}
 \paragraph{}
 Ensuite, nous formatons un message contenant les informations de la 
@@ -188,8 +183,16 @@ Pour cela, on applique une translation du modèle, vers la position du poignet d
 \end{figure}
 
 %TODO elliot -> explication du calcul de l'angle
-On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retrouver l'orientation de la main sur l'axe X et Y.
-Une opération similaire est effectuée avec la base du pouce à la place du milieu de la main pour trouver l'orientation en Z: 
+% On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retrouver l'orientation de la main sur l'axe X et Y.
+% Une opération similaire est effectuée avec la base du pouce à la place du milieu de la main pour trouver l'orientation en Z: 
+% 
+Nous pouvons voir sur la Fig. \ref{} que le modèle est complètement déformé et ne correspond plus à la main d'un utilisateur. Les points d'un modèle
+ne sont pas fait pour être manipulé directement dans l'espace, il est préférable de calculer des angles pour chaque jointure afin de leur appliquer 
+des rotations. Pour cela, nous reprenons la même méthode que pous le poignet en prenant la rotation de départ du modèle et en applicant une rotation
+avec le nouvel angle.
+%TODO prendre un screenshot de l ecran pour le problème de rotation de la main
+
+%TODO prendre une image de la main avec un axe horizontal et l'angle à calculer
 
 \paragraph{}
 %TODO expliquer les 2 méthodes position et rotation
