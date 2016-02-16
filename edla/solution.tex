@@ -206,7 +206,8 @@ Celle utilisée majoritairement est d'associer les sommets du modèle aux jointu
 Cette association peut être difficile : un sommet est associé à une seule jointure, ou floue : un sommet peut être associé à plusieurs jointures par des poids différents.\newline
 
 Un algorithme permettant cette association floue est \og bone heat weighting \fg \cite{baran2007automatic}. 
-Il permet de trouver les poids adaptés à l'association entre les os de l'armature et les sommets (voir Tab. \ref{tab:repartitionPoid}). Pour rendre un résultat proche du réel, on souhaite que les poids possèdent certaines propriétés : \\
+Il permet de trouver les poids adaptés à l'association entre les os de l'armature et les sommets (voir Tab. \ref{tab:repartitionPoid}). Pour rendre un résultat proche du réel, on 
+souhaite que les poids possèdent certaines propriétés : \\
 \begin{itemize}
 	\item Ils devraient être indépendants de la résolution du modèle, un sommet situé à un endroit du modèle devrait avoir le même poids quel
 	que soit le nombre de sommets proches.
@@ -238,13 +239,17 @@ On peut donc contraindre les degrés de liberté de chaque jointure et même emp
 Toutes les positions de la main pouvant être exprimées par une série de rotations contraintes au niveau des jointures du squelette.\newline
 
 %Expliquation d'animation par Key Frame
-L'animation par clef permet de créer des animations fluides à partir de, au minimum, deux \og Key Frames \fg. L'animation est réalisée en calculant la position, l'orientation et la posture de l'objet animé pour chaque image entre deux \og Key Frame \fg. La technique utilisée le plus fréquemment est l'interpolation linéaire. Cette méthode est rapide comparée à d'autres techniques d'animation, cela permet d'assurer le temps réel. Cependant dans le cadre de notre projet, l'utilisateur étant celui qui contrôle l'animation du modèle, les \og Keyframes \fg \ seraient difficilement récupérables par l'outils de capture utilisé.\\
+L'animation par clef permet de créer des animations fluides à partir de, au minimum, deux \og Key Frames \fg. L'animation est réalisée en calculant 
+la position, l'orientation et la posture de l'objet animé pour chaque image entre deux \og Key Frame \fg. La technique utilisée le plus fréquemment 
+est l'interpolation linéaire. Cette méthode est rapide comparée à d'autres techniques d'animation, cela permet d'assurer le temps réel. Cependant dans 
+le cadre de notre projet, l'utilisateur étant celui qui contrôle l'animation du modèle, les \og Keyframes \fg \ seraient difficilement récupérables par l'outils de capture utilisé.\\
 
 % ATTENTION : à changer si modification de la méthode d'animation
 Une autre solution consiste à n'utiliser que des informations de position obtenues par détection des articulations des doigts de la main \textit{via} un périphérique de capture.
 Dans cette méthode, on associe les points détectés aux jointures de l'armature. Les positions des jointures du modèle sont donc naturellement contraintes par les postions des articulations de la véritable main.\newline
 
-Enfin, il existe une méthode appelée la cinématique inverse qui utilise un point fixe et un point mobile de l'armature. Elle permet de retrouver les rotations effectuées par les jointures pour que le point mobile soit à sa position connue. Pour cela, l'algorithme de cinématique inverse minimise la fonction de distance entre le point mobile de l'armature et la position que ce point doit atteindre.
+Enfin, il existe une méthode appelée la cinématique inverse qui utilise un point fixe et un point mobile de l'armature. Elle permet de retrouver les rotations effectuées par les jointures 
+pour que le point mobile soit à sa position connue. Pour cela, l'algorithme de cinématique inverse minimise la fonction de distance entre le point mobile de l'armature et la position que ce point doit atteindre.
 La cinématique inverse a besoin de 3 principes pour fonctionner :\\
 \begin{itemize}
 	\item Les membres sont des solides indéformables de longueur donnée, reliés entre eux par des articulations. Ce principe est respecté par l'armature : les os peuvent être indéformables et leur taille peut être fixée, ils sont reliés entre eux par des articulations.

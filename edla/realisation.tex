@@ -171,7 +171,8 @@ Ensuite, on teste ce modèle en l'animant à l'aide de rotations des jointures, 
 
 \paragraph{} 
 Il existe différentes techniques d'animation basées sur une armature (\textit{cf} \ref{animation}).
-Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.
+Pour notre projet, nous avons choisi la méthode qui utilise les articulations récupérées par la DLL en conjonction avec les points récupérés \textit{via} le SDK de la Kinect. 
+Ces points servent à positionner les jointures de l'armature par translations et/ou rotations.
 Cependant, comme expliqué précédemment, il faut mettre en correspondance ces points (\textit{cf.} \ref{Real_get_art}).
 Pour cela, le plus simple a été de faire correspondre le point du poignet détecté par la Kinect à la jointure équivalente du modèle.
 Cependant, si aucune rotation n'est appliquée sur la main, la position de la base des doigts ne correspond plus et le modèle est déformé voir Fig. \ref{fig:badhand}.
@@ -185,7 +186,15 @@ Cependant, si aucune rotation n'est appliquée sur la main, la position de la ba
 
 Il faut prendre en compte la rotation du poignet pour que les jointures de l'armature correspondent aux articulations de la main. 
 Pour cela, nous gardons en mémoire la rotation du modèle avant l'interaction avec l'utilisateur,
-puis nous calculons la rotation à partir de cet angle (\ref{fig:??}). Cette méthode permet de ne pas avoir de modification des axes de rotation suite à une succession de rotations.
+puis nous calculons la rotation à partir de cet angle (voir Fig. \ref{fig:schemaAngle}). Cette méthode permet de ne pas avoir de modification des axes de rotation suite à une succession de rotations.
+
+\begin{figure}
+ \centering
+ \includegraphics[width=10cm]{images/schema_vecteur.png}
+ \caption{Schéma des rotations effectuées par la main entre deux frames}
+ \label{fig:schemaAngle}
+\end{figure}
+
 
 %TODO elliot -> explication du calcul de l'angle
 % On applique une rotation de l'angle calculé à l'armature du modèle, cela permet de retrouver l'orientation de la main sur l'axe X et Y.
